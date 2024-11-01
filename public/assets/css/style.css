@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
+.page-header {
+    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url(../img/carousel-1.jpg) center top; no-repeat;
+    background-size: cover; padding-top: 3rem!important; color: #fff;
+}
+body{ background:#ececec }
+
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-family: "Saira", sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+   
+    
+}
+.page-header h1{ font-size:60px; font-weight: 600}
+.navbg{ background:#244189!important;  padding-top:10px!important; padding-bottom:10px!important;transition: background-color 0.3s, box-shadow 0.3s;
+ color: #fff!important} 
+.footer-copyright { padding-top:10px; padding-bottom:10px }
+.footer a{ color:#ddd; text-decoration:none; }
+.btn-link{ color:#fff!important; text-decoration:none; }
+.sidebar a{ color:#000; border-bottom: solid 1px #ddd;  font-size: 18px;}
+.sidebar a:hover;{ color:#244189!important;}
+.logo{ text-align:center; }
+.my-menu{ display:flex;  width: 100%; 
+       justify-content: flex-end;}
+    .my-menu .my-menu-toggle{ display:none; }
+.stat {
+    background: #e0eafc;
+    border-radius: 50%;
+    padding: .75rem;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    display: flex; font-weight: 600;
+}
+.green{ color:green!important }
+.red{ color:red!important }
+.total{ font-size:16px; font-weight:600 ; color:#777 }
+.topbox{  }
+.topbox .col-xxl-3{ width:20% }
+@media screen and (min-width:320px) and (max-width:600px) {
+   .topbox .col-xxl-3{ width:100% }
+ .my-menu{ display: flex;
+   width: 100%; 
+    justify-content: space-between; }  
+        .my-menu .my-menu-toggle{ display:block; }
+}
