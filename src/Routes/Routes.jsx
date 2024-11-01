@@ -21,91 +21,30 @@ export const routes = [
         path: '/',
         element: <MainLayout />,
         children: [
-
-            {
-                path: '/dashboard',
-                // element: <HomePage />,
-                element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <Dashboard/>
-                    </Suspense>
-                ),
-
-            },
             {
                 path: '/',
                 // element: <HomePage />,
                 element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <HomePage />
-                    </Suspense>
+                    <Dashboard />
                 ),
 
-            },
-            {
-                path: '/home/:language',
-                // element: <HomePage />,
-                element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <HomePage />
-                    </Suspense>
-                ),
-
-            },
-            {
-                path: '/search',
-                // element: <SearchPage />,
-                element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <SearchPage />
-                    </Suspense>
-                ),
-
-            },
-            {
-                path: '/:slug',
-                // element: <InnerPage />,
-                element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <InnerPage />
-                    </Suspense>
-                ),
-
-            },
-            {
-                path: '/:slug/:language',
-                // element: <InnerPage />,
-                element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <InnerPage />
-                    </Suspense>
-                ),
-
-            },
-            {
-                path: '404',
-                // element: <NotFound />
-                element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <NotFound />
-                    </Suspense>
-                ),
-            },
-            {
-                path: '*',
-                // element: <NotFound />
-                element: (
-                    <Suspense fallback={<div>Loading Page...</div>}>
-                        <NotFound />
-                    </Suspense>
-                ),
-            },
-
+            }
         ],
+
         loader: async () => {
 
             return false;
         },
+    },
+    // {
+    //     path: '/login',
+    //     element: <Login />,
+    //     //     errorElement: <ErrorBoundary />,
+    // },
+    {
+        path: '*', // This catches all undefined routes
+        element: <NotFound />,
+        //   errorElement: <ErrorBoundary />,
     },
 
 ];

@@ -1,7 +1,7 @@
 // src/utils/apiClient.js
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-const BASE_URL_API = `${process.env.REACT_APP_BASE_URL}/nfdc-web-api/`;
+const BASE_URL_API = `${process.env.REACT_APP_BASE_URL}/film-buyer/`;
 const ApiClient = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
