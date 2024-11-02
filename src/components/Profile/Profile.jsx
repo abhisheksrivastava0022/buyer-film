@@ -282,7 +282,7 @@ const Profile = () => {
         return errors;
     };
 
-    
+
     // // Handler for checkbox change
     // const handleCheckboxChange = (event) => {
     //   const { name, checked } = event.target;
@@ -345,11 +345,35 @@ const Profile = () => {
     //   }
     // };
 
-    const handleSavePhoto = () => {
+    const handleSavePhoto = async () => {
         if (selectedFile) {
-            const uploadedPhotoUrl = URL.createObjectURL(selectedFile);
-            console.log("Saving photo: ", uploadedPhotoUrl);
-            handleClose()
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            try {
+                const response = await fetch('http://119.82.68.149:3001/film-buyer/file/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('File uploaded successfully:', result);
+                    // handleClose();
+                } else {
+                    console.error('Failed to upload file');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+
+            // const uploadedPhotoUrl = URL.createObjectURL(selectedFile);
+
+
+
+            // console.log("Saving photo: ", uploadedPhotoUrl);
+            // handleClose()
         } else {
             console.log("No file selected");
         }
@@ -1107,7 +1131,7 @@ const Profile = () => {
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <div className="form-group">
                                             <div>
-                                                <button  className="btn btn-primary btn-yellow">Submit</button>
+                                                <button className="btn btn-primary btn-yellow">Submit</button>
                                             </div>
                                         </div>
 
