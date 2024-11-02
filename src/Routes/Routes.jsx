@@ -6,6 +6,7 @@ import React, { Suspense, lazy } from 'react';
 import MainLayout from '../components/Layout/MainLayout';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Login from '../components/Login/Login';
+import Signup from '../components/SignUp/SignUp';
 // import InnerPage from '../components/page/InnerPage';
 // import HomePage from '../components/page/HomePage';
 // import SearchPage from '../components/page/Template/SearchPage';
@@ -40,6 +41,11 @@ export const routes = [
     {
         path: '/login',
         element: <Login/>,
+        //     errorElement: <ErrorBoundary />,
+    },
+    {
+        path: '/signup',
+        element: <Signup/>,
         //     errorElement: <ErrorBoundary />,
     },
     {

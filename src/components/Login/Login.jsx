@@ -1,8 +1,11 @@
 import React from 'react'
 import iffi from "../../assets/img/iffi.png"
 import filmbazaar from "../../assets/img/filmbazaar.png"
+import { Link } from 'react-router-dom'
 
 const Login = () => {
+
+    
     return (
         <>
             <div class="container">
@@ -15,14 +18,17 @@ const Login = () => {
                         <div class="card-body p-0">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 bluebg">
-                                    <div class="px-3">
-                                        <h1 class="bluetxt"> Welcome to the Film Bazaar Seller Portal!</h1>
+                                <div class="px-3">
+                                        <h1 class="bluetxt"> Welcome to the Film Bazaar Seller Portal!</h1><br/>
                                         <p>
-                                            We're thrilled to have you here. This platform is designed to connect talented filmmakers and sellers like you with the vibrant film community.
+                                            We're thrilled to have you here. This platform is designed to connect talented filmmakers and sellers like you with the vibrant film community.<br/><br/>
 
-                                            As a seller, you have the opportunity to showcase your projects, network with industry professionals, and discover exciting collaborations. Your contributions are vital to the growth and diversity of our film ecosystem.
+                                            As a seller, you have the opportunity to showcase your projects, network with industry professionals, and discover exciting collaborations. Your contributions are vital to the growth and diversity of our film ecosystem.<br/><br/>
 
-                                            Get started by logging in below. If you have any questions, our support team is here to help!
+                                            Get started by logging in below. If you have any questions, our support team is here to help!<br/><br/>
+                                            
+                                            You can share your queries at : info@filmbazarindia.com<br/><br/>
+
                                             Happy Selling!
                                         </p>
                                     </div>
@@ -49,7 +55,11 @@ const Login = () => {
                                                 <button class="btn btn-primary btn-yellow">Submit</button>
                                             </div>
                                             <div class="form-group">
-                                                <div>  <a href=""> Create new account</a></div>
+                                                <div>
+                                                      <Link to={"/signup"}>Create new account</Link> 
+                                                      
+                                                </div>
+
                                                 <div>   <a href=""> Forgot your password?</a></div>
                                             </div>
                                         </form>
