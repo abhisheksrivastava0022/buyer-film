@@ -60,7 +60,7 @@ const Login = () => {
                                                       
                                                 </div>
 
-                                                <div>   <a href=""> Forgot your password?</a></div>
+                                                <div>   <Link to={"/forgetpassword"}> Forgot your password?</Link></div>
                                             </div>
                                         </form>
                                     </div>

@@ -3,14 +3,10 @@ import iffi from "../../assets/img/iffi.png";
 import filmbazaar from "../../assets/img/filmbazaar.png";
 import { Link, useNavigate } from 'react-router-dom';
 import ApiClient from '../API/ApiClient'
-const Signup = () => {
+const ForgetPassword = () => {
     const { postRequestApi } = ApiClient();
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
         email: '',
-        password: '',
-        confirm_password: ''
     });
     const [errors, setErrors] = useState({});
 
@@ -21,24 +17,17 @@ const Signup = () => {
             ...prevData,
             [name]: value
         }));
-
-
     };
 
     // Form validation
     const validateForm = () => {
         const errors = {};
 
-        if (!formData.first_name) errors.first_name = "First Name is required";
-        if (!formData.last_name) errors.last_name = "Last Name is required";
+      
         if (!formData.email) {
             errors.email = "Email is required";
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
             errors.email = "Email is invalid";
-        }
-        if (!formData.password) errors.password = "Password is required";
-        if (formData.password !== formData.confirm_password) {
-            errors.confirm_password = "Passwords do not match";
         }
 
         setErrors(errors);
@@ -55,11 +44,9 @@ const Signup = () => {
             if (response?.status && response.data) {
                 alert("registered successfully.");
                 setFormData({
-                    first_name: '',
-                    last_name: '',
+                   
                     email: '',
-                    password: '',
-                    confirm_password: ''
+                   
                 });
                 navigate("login");
             } else {
@@ -100,33 +87,10 @@ const Signup = () => {
                                 </div>
                                 <div className="col-md-6 col-sm-6 form-pg">
                                     <div className="px-5 pt-4 pb-4">
-                                        <h2 className="mt-3 pb-4">Create Your Account</h2>
+                                        <h2 className="mt-3 pb-4">Enter your email</h2>
                                         <form onSubmit={handleSubmit}>
 
-                                            <div className="form-group">
-                                                <label>First Name</label>
-                                                <input
-                                                    type="text"
-                                                    name="first_name"
-                                                    value={formData.first_name}
-                                                    onChange={handleChange}
-                                                    className="form-control"
-                                                    placeholder="First Name"
-                                                />
-                                                {errors.first_name && <small className="text-danger">{errors.first_name}</small>}
-                                            </div>
-                                            <div className="form-group">
-                                                <label>Last Name</label>
-                                                <input
-                                                    type="text"
-                                                    name="last_name"
-                                                    value={formData.last_name}
-                                                    onChange={handleChange}
-                                                    className="form-control"
-                                                    placeholder="Last Name"
-                                                />
-                                                {errors.last_name && <small className="text-danger">{errors.last_name}</small>}
-                                            </div>
+                                           
                                             <div className="form-group">
                                                 <label>Email</label>
                                                 <input
@@ -139,38 +103,16 @@ const Signup = () => {
                                                 />
                                                 {errors.email && <small className="text-danger">{errors.email}</small>}
                                             </div>
+                                           
+                                           
                                             <div className="form-group">
-                                                <label>Password</label>
-                                                <input
-                                                    type="password"
-                                                    name="password"
-                                                    value={formData.password}
-                                                    onChange={handleChange}
-                                                    className="form-control"
-                                                    placeholder="Password"
-                                                />
-                                                {errors.password && <small className="text-danger">{errors.password}</small>}
-                                            </div>
-                                            <div className="form-group">
-                                                <label>Confirm Password</label>
-                                                <input
-                                                    type="password"
-                                                    name="confirm_password"
-                                                    value={formData.confirm_password}
-                                                    onChange={handleChange}
-                                                    className="form-control"
-                                                    placeholder="Confirm Password"
-                                                />
-                                                {errors.confirm_password && <small className="text-danger">{errors.confirm_password}</small>}
-                                            </div>
-                                            <div className="form-group">
-                                                <button className="btn btn-primary btn-yellow" type="submit">Create</button>
+                                                <button className="btn btn-primary btn-yellow" type="submit">Submit</button>
                                             </div>
                                             <div className="form-group">
                                                 <div>
                                                     <Link to={"/login"}>Login</Link>
                                                 </div>
-                                                <div><Link to={"/forgetpassword"}>Forgot your password?</Link></div>
+                                                <div><Link to={"/signup"}>Create new account</Link></div>
                                             </div>
                                         </form>
                                     </div>
@@ -193,4 +135,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default ForgetPassword;

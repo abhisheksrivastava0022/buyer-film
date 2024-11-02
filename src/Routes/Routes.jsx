@@ -7,6 +7,8 @@ import MainLayout from '../components/Layout/MainLayout';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Login from '../components/Login/Login';
 import Signup from '../components/SignUp/SignUp';
+import ForgetPassword from '../components/ForgetPassword/ForgetPassword';
+import RecoverPassword from '../components/RecoverPassword/RecoverPassword';
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
 
@@ -39,6 +41,16 @@ export const routes = [
     {
         path: '/signup',
         element: <Signup />,
+        //     errorElement: <ErrorBoundary />,
+    },
+    {
+        path: '/forgetpassword',
+        element: <ForgetPassword/>,
+        //     errorElement: <ErrorBoundary />,
+    },
+    {
+        path: '/changepassword',
+        element: <RecoverPassword/>,
         //     errorElement: <ErrorBoundary />,
     },
     {
