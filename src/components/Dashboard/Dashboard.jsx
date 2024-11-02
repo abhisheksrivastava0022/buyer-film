@@ -1,6 +1,24 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import ApiClient from '../API/ApiClient'
+import { Link } from 'react-router-dom';
 const Dashboard = () => {
+   const [data, setData] = useState([])
+   const [typeCount, setTypeCount] = useState([])
+   const { getRequestApi } = ApiClient();
+   const preloading = async () => {
+      const data = await getRequestApi('film', {});
+      if (data.status) {
+         setData(data.data);
+      }
+      const data1 = await getRequestApi('film/type-count', {});
+      if (data1.status) {
+         setTypeCount(data1.data);
+      }
+   }
+   useEffect(() => {
+      preloading();
+
+   }, []);
    return (
       <>
          <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -20,7 +38,7 @@ const Dashboard = () => {
                            </div>
                            <div className="d-inline-block ms-3">
                               <div className="stat">
-                                 50
+                                 {typeCount?.[1] ? typeCount?.[1] : 0}
                               </div>
                            </div>
                         </div>
@@ -38,7 +56,7 @@ const Dashboard = () => {
                            </div>
                            <div className="d-inline-block ms-3">
                               <div className="stat">
-                                 50
+                                 {typeCount?.[2] ? typeCount[2] : 0}
                               </div>
                            </div>
                         </div>
@@ -55,7 +73,7 @@ const Dashboard = () => {
                            </div>
                            <div className="d-inline-block ms-3">
                               <div className="stat">
-                                 100
+                                 {typeCount?.[3] ? typeCount[3] : 0}
                               </div>
                            </div>
                         </div>
@@ -73,7 +91,7 @@ const Dashboard = () => {
                            </div>
                            <div className="d-inline-block ms-3">
                               <div className="stat">
-                                 70
+                                 {typeCount?.[4] ? typeCount[4] : 0}
                               </div>
                            </div>
                         </div>
@@ -90,7 +108,7 @@ const Dashboard = () => {
                            </div>
                            <div className="d-inline-block ms-3">
                               <div className="stat">
-                                 100
+                                 {typeCount?.[5] ? typeCount[5] : 0}
                               </div>
                            </div>
                         </div>
@@ -120,7 +138,7 @@ const Dashboard = () => {
                         <thead>
                            <tr>
                               <th scope="col">#</th>
-                              <th scope="col">Category</th>
+                              <th scope="col">title</th>
                               <th scope="col">Project Status</th>
                               <th scope="col">Language</th>
                               <th scope="col">Country</th>
@@ -129,24 +147,24 @@ const Dashboard = () => {
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                              <td>1</td>
-                              <td>random</td>
-                              <td className="red"> Partial Completed</td>
-                              <td>data</td>
-                              <td>text</td>
-                              <td>placeholder</td>
-                              <td><a href=""><i className="bi bi-eye"></i></a> </td>
-                           </tr>
-                           <tr>
-                              <td>1</td>
-                              <td>random</td>
-                              <td className="green">Completed</td>
-                              <td>data</td>
-                              <td>text</td>
-                              <td>placeholder</td>
-                              <td><a href=""><i className="bi bi-eye"></i></a></td>
-                           </tr>
+                           {
+
+                              data.map((row) => (
+                                 <tr>
+                                    <td>{row.id}</td>
+                                    <td>{row.title}</td>
+                                    <td className="red">{row.is_film_complete ? "Completed" : 'Partially'}</td>
+                                    <td>{row?.Language?.name}</td>
+                                    <td>{row?.Country?.name}</td>
+                                    <td>{row.genre}</td>
+                                    <td>
+                                       <Link to={`film/${row.id}`}><i className="bi bi-eye"></i></Link>
+                                    </td>
+                                 </tr>
+                              ))
+                           }
+
+
                         </tbody>
                      </table>
                   </div>

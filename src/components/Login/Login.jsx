@@ -136,7 +136,7 @@ const Login = () => {
                                                     <Link to="/signup">Create new account</Link>
                                                 </div>
                                                 <div>
-                                                    <Link to="/forgot-password">Forgot your password?</Link>
+                                                    <Link to="/forget-password">Forgot your password?</Link>
                                                 </div>
                                             </div>
                                         </form>

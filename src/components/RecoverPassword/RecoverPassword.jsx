@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import iffi from "../../assets/img/iffi.png";
 import filmbazaar from "../../assets/img/filmbazaar.png";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import ApiClient from '../API/ApiClient'
 const RecoverPassword = () => {
+    const { token } = useParams();
     const { postRequestApi } = ApiClient();
     const [formData, setFormData] = useState({
         password: '',
@@ -21,21 +22,21 @@ const RecoverPassword = () => {
 
         setErrors((prevErrors) => {
             if (value.trim() === "") {
-              return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
+                return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
             } else {
-              const { [name]: removedError, ...restErrors } = prevErrors;
-              return restErrors;
+                const { [name]: removedError, ...restErrors } = prevErrors;
+                return restErrors;
             }
-          });
+        });
 
-          setErrors((prevErrors) => {
+        setErrors((prevErrors) => {
             if (value.trim() === "") {
-              return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
+                return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
             } else {
-              const { [name]: removedError, ...restErrors } = prevErrors;
-              return restErrors;
+                const { [name]: removedError, ...restErrors } = prevErrors;
+                return restErrors;
             }
-          });
+        });
     };
 
     // Form validation
@@ -56,8 +57,8 @@ const RecoverPassword = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            const response = await postRequestApi(`auth/register`, formData);
-            if (response?.status && response.data) {
+            const response = await postRequestApi(`auth/recover/${token}`, formData);
+            if (response?.status && response.message) {
                 alert("Password recovered successfully.");
                 setFormData({
                     password: '',
@@ -85,16 +86,16 @@ const RecoverPassword = () => {
                         <div className="card-body p-0">
                             <div className="row">
                                 <div className="col-md-6 col-sm-6 bluebg">
-                                <div class="px-3">
-                                        <h1 class="bluetxt"> Welcome to the Film Bazaar Seller Portal!</h1><br/>
+                                    <div class="px-3">
+                                        <h1 class="bluetxt"> Welcome to the Film Bazaar Seller Portal!</h1><br />
                                         <p>
-                                            We're thrilled to have you here. This platform is designed to connect talented filmmakers and sellers like you with the vibrant film community.<br/><br/>
+                                            We're thrilled to have you here. This platform is designed to connect talented filmmakers and sellers like you with the vibrant film community.<br /><br />
 
-                                            As a seller, you have the opportunity to showcase your projects, network with industry professionals, and discover exciting collaborations. Your contributions are vital to the growth and diversity of our film ecosystem.<br/><br/>
+                                            As a seller, you have the opportunity to showcase your projects, network with industry professionals, and discover exciting collaborations. Your contributions are vital to the growth and diversity of our film ecosystem.<br /><br />
 
-                                            Get started by logging in below. If you have any questions, our support team is here to help!<br/><br/>
-                                            
-                                            You can share your queries at : info@filmbazarindia.com<br/><br/>
+                                            Get started by logging in below. If you have any questions, our support team is here to help!<br /><br />
+
+                                            You can share your queries at : info@filmbazarindia.com<br /><br />
 
                                             Happy Selling!
                                         </p>
@@ -105,8 +106,8 @@ const RecoverPassword = () => {
                                         <h2 className="mt-3 pb-4">Recover your password</h2>
                                         <form onSubmit={handleSubmit}>
 
-                                           
-                                           
+
+
                                             <div className="form-group">
                                                 <label>Password</label>
                                                 <input
@@ -118,7 +119,7 @@ const RecoverPassword = () => {
                                                     placeholder="Password"
                                                 />
                                                 {errors.password && <small className="text-danger">{errors.password}</small>}
-                                              
+
                                             </div>
                                             <div className="form-group">
                                                 <label>Confirm Password</label>
