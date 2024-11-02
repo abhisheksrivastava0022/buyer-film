@@ -140,10 +140,43 @@ const ApiClient = () => {
         }
     };
 
+    
+
+    const fetchCountry = async () => {
+        try {
+            const response = await fetch(`${BASE_URL_API}/site/country`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include',
+            });
+        
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+
+            if (response.status == 401) {
+              
+                return;
+            }
+
+            // Parse JSON response if the status code is not 401
+            const data = await response.json();
+            return data;
+        } catch (error) {
+
+           
+            console.error('API request error:', error);
+            //  navigate('/login');
+            //throw error;
+        }
+    };
+
    
 
     
-    return { postRequestApi, getRequestApi, userInfo, userLoginCheck };
+    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, fetchCountry };
 };
 
 export default ApiClient;

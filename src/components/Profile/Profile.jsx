@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
@@ -44,9 +44,29 @@ const Profile = () => {
     const [filmId, setFilmId] = useState(null); // Store film ID after the POST request
     const [age, setAge] = React.useState('');
 
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const { fetchCountry } = ApiClient()
+    const [countries, setCountries] = useState([]);
+
     const handleChangeTitle = (event) => {
         setAge(event.target.value);
     };
+
+
+
+    useEffect(() => {
+        const loadCountries = async () => {
+            try {
+                const response = await fetchCountry();
+                setCountries(response.data);
+            } catch (error) {
+                console.error("Error fetching countries:", error);
+            }
+        };
+        loadCountries();
+    }, []);
+
 
 
 
@@ -66,7 +86,7 @@ const Profile = () => {
         city: "",
         zip: "",
         state: "",
-        country_id: "",
+        country_id: [],
         phone: "",
         mobile: "",
         website: "",
@@ -78,101 +98,6 @@ const Profile = () => {
     })
 
     const [errors, setErrors] = useState({});
-
-    const validateStepOne = (inputValues) => {
-        const errors = {};
-
-        if (!inputValues.title.trim()) {
-            errors.title = "Title is required";
-        }
-
-        if (!inputValues.first_name.trim()) {
-            errors.first_name = "First name is required";
-        }
-        if (!inputValues.last_name.trim()) {
-            errors.last_name = "Last name is required";
-        }
-
-        if (!inputValues.email.trim()) {
-            errors.email = "email name is required";
-        }
-        if (!inputValues.company.trim()) {
-            errors.company = "company name is required";
-        }
-        if (!inputValues.job_title.trim()) {
-            errors.job_title = "Job title  is required";
-        }
-        if (!inputValues.address.trim()) {
-            errors.address = "address is required";
-        }
-        if (!inputValues.city.trim()) {
-            errors.city = "city is required";
-        }
-        if (!inputValues.zip.trim()) {
-            errors.zip = "Zip is required";
-        }
-        if (!inputValues.state.trim()) {
-            errors.state = "state is required";
-        }
-        if (!inputValues.country_id.trim()) {
-            errors.country_id = "Country is required";
-        }
-        if (!inputValues.phone.trim()) {
-            errors.phone = "Phone is required";
-        }
-        if (!inputValues.mobile.trim()) {
-            errors.mobile = "Mobile is required";
-        }
-        if (!inputValues.website.trim()) {
-            errors.website = "website is required";
-        }
-        if (!inputValues.gstin.trim()) {
-            errors.gstin = "gstin is required";
-        }
-        if (!inputValues.published_in_market_guide.trim()) {
-            errors.published_in_market_guide = "website is required";
-        }
-        if (!inputValues.activity.trim()) {
-            errors.activity = "activity is required";
-        }
-
-        console.log("Validation Errors:", errors); // Debugging line
-
-        return errors;
-    };
-
-    const validateStepTwo = (inputValues) => {
-        const errors = {};
-
-        if (!inputValues.activity.trim()) {
-            errors.activity = "Activity is required";
-        }
-
-
-        if (!inputValues.published_in_market_guide.trim()) {
-            errors.published_in_market_guide = "Select any option";
-        }
-
-        if (!inputValues.about_us) {
-            errors.about_us = "Profile max 1500 characters is required";
-        }
-
-        if (!inputValues.photo) {
-            errors.photo = "Photo is required";
-        }
-
-
-
-
-
-
-
-        console.log("Validation Errors:", errors);
-
-        return errors;
-    };
-
-
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -200,10 +125,6 @@ const Profile = () => {
     //     const { name, value } = event.target;
     //     setFormData({ ...formData, [name]: value });
     // };
-
-
-
-
 
 
     // const handleChange = (e) => {
@@ -236,11 +157,11 @@ const Profile = () => {
     //   }
     // };
 
-    // Validation Function
+
     const validateForm = (values) => {
         const errors = {};
 
-        if (!values.title.trim()) {
+        if (!values.title) {
             errors.title = 'Title is required ';
         }
 
@@ -361,110 +282,12 @@ const Profile = () => {
         return errors;
     };
 
-
-
-
-
-
-
-
-
-    // Step 1 submit handler
-    // const handleStep1Submit = async (e) => {
-    //   e.preventDefault();
-
-    //   const formErrors = validateValues(formData);
-    //   setErrors(formErrors);
-
-    //   // Check if there are any errors
-    //   if (Object.keys(formErrors).length > 0) {
-    //     // There are validation errors, do not submit the form
-    //     return;
-    //   }
-
-    //   const step1Errors = validateStep1(values); // Validate Step 1
-    //   if (Object.keys(step1Errors).length > 0) {
-    //     setErrors(step1Errors);
-    //     return;
-    //   }
-    //   try {
-    //     const filmId = await dispatch(postFilm(values));
-    //     if (filmId) {
-    //       setFilmId(filmId);
-    //       setCurrentStep(2); // Move to Step 2 if Step 1 is valid
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to create film:", error.message);
-    //   }
-    // };
-
-    const handleStep1Submit = async (e) => {
-        e.preventDefault();
-
-        const formErrors = validateStepOne(formData);
-        setErrors(formErrors);
-
-        // Check if there are any errors
-        if (Object.keys(formErrors).length > 0) {
-            // There are validation errors, do not submit the form
-            return;
-        }
-
-        try {
-            //   const filmId = await dispatch(postFilm(formData));
-            //   if (filmId) {
-            //     setFilmId(filmId);
-            //     setCurrentStep(2); // Move to Step 2 if Step 1 is valid
-            //   }
-        } catch (error) {
-            console.error("Failed to create film:", error.message);
-        }
-    };
-
-
-    // // Step 2 submit handler
-    const handleStep2Submit = async (e) => {
-        e.preventDefault();
-
-        const formErrors = validateStepTwo(formData);
-        setErrors(formErrors);
-
-
-        if (Object.keys(formErrors).length > 0) {
-            return;
-        }
-        // const step2Errors = validateStep2(values);
-        // if (Object.keys(step2Errors).length > 0) {
-        //   setErrors(step2Errors);
-        //   return;
-        // }
-        if (filmId) {
-            //   const response = await dispatch(patchFilm(filmId, values));
-            //   if (response.type === 'PATCH_FILM_SUCCESS') {
-            //     console.log('Film updated successfully!');
-            //   } else {
-            //     console.error('Failed to update film:', response.payload);
-            //   }
-        } else {
-            console.error('No film ID available for updating.');
-        }
-    };
-
-
+    
     // // Handler for checkbox change
     // const handleCheckboxChange = (event) => {
     //   const { name, checked } = event.target;
     //   handleChange({ target: { name, value: checked } });
     // };
-
-
-
-
-
-
-
-
-
 
     const [photoUrl, setPhotoUrl] = useState(nophoto);
     const [open, setOpen] = useState(false);
@@ -484,15 +307,28 @@ const Profile = () => {
         setPhotoInputValue('');
     };
 
+    // const handleFileChange = (event) => {
+    //     const file = event.target.files[0];
+    //     if (file) {
+    //         const reader = new FileReader();
+    //         reader.onloadend = () => {
+    //             setPhotoUrl(reader.result);
+    //             setPhotoInputValue(file.name);
+    //         };
+    //         reader.readAsDataURL(file);
+    //     }
+    // };
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
+            setSelectedFile(file); // Store the selected file in state
             const reader = new FileReader();
             reader.onloadend = () => {
-                setPhotoUrl(reader.result);
-                setPhotoInputValue(file.name);
+                setPhotoUrl(reader.result); // Set the image preview
+                setPhotoInputValue(file.name); // Set the file name
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file); // Read the file as a data URL
         }
     };
 
@@ -509,15 +345,15 @@ const Profile = () => {
     //   }
     // };
 
-    // const handleSavePhoto = () => {
-    //     if (selectedFile) {
-    //         const uploadedPhotoUrl = URL.createObjectURL(selectedFile);
-    //         console.log("Saving photo: ", uploadedPhotoUrl);
-    //         handleClose()
-    //     } else {
-    //         console.log("No file selected");
-    //     }
-    // };
+    const handleSavePhoto = () => {
+        if (selectedFile) {
+            const uploadedPhotoUrl = URL.createObjectURL(selectedFile);
+            console.log("Saving photo: ", uploadedPhotoUrl);
+            handleClose()
+        } else {
+            console.log("No file selected");
+        }
+    };
 
     const genres = [
         'Buyer',
@@ -554,12 +390,28 @@ const Profile = () => {
         if (validateForm()) {
             const response = await postRequestApi(`auth/register`, formData);
             if (response?.status && response.data) {
-                alert("Password recovered successfully.");
+
                 setFormData({
-                    password: '',
-                    confirm_password: ''
+                    title: '',
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    company: "",
+                    job_title: "",
+                    address: "",
+                    city: "",
+                    zip: "",
+                    state: "",
+                    country_id: [],
+                    phone: "",
+                    mobile: "",
+                    website: "",
+                    gstin: "",
+                    published_in_market_guide: "",
+                    activity: "",
+                    photo: "",
                 });
-                navigate("/login");
+                // navigate("/login");
             } else {
                 // alert("dd");
                 //   navigate("404");
@@ -590,9 +442,6 @@ const Profile = () => {
                                     </Grid>
                                 </Grid>
 
-
-
-
                                 <Grid container spacing={1} style={{ marginTop: "5px" }}>
                                     <Grid item xs={6} sm={6} md={6} lg={6} style={{ display: "flex", alignItems: "center" }}>
                                         <FormControl fullWidth>
@@ -603,7 +452,6 @@ const Profile = () => {
                                                 multiple
                                                 value={formData.title || []}
                                                 onChange={(event) => {
-                                                    // Ensure selected values are stored as strings
                                                     handleChange({
                                                         ...event,
                                                         target: {
@@ -782,7 +630,7 @@ const Profile = () => {
 
                                 <Grid container spacing={1} style={{ marginTop: "5px" }}>
                                     <Grid item xs={12} sm={12} md={6} lg={6}>
-                                        <FormControl fullWidth>
+                                        {/* <FormControl fullWidth>
                                             <InputLabel id="countries-label">Please select country</InputLabel>
                                             <Select
                                                 labelId="countries-label"
@@ -792,16 +640,46 @@ const Profile = () => {
                                                 onChange={handleChange}
                                                 label="Country"
 
-                                            // renderValue={(selected) => selected.map((id) => {
-                                            //     const selectedCountry = countries.find(country => country.id === id);
-                                            //     return selectedCountry ? selectedCountry.name : '';
-                                            // }).join(', ')}
+                                            renderValue={(selected) => selected.map((id) => {
+                                                const selectedCountry = countries.find(country => country.id === id);
+                                                return selectedCountry ? selectedCountry.name : '';
+                                            }).join(', ')}
                                             >
-                                                {/* {countries && countries.map((country) => (
+                                                {countries && countries.map((country) => (
                                                     <MenuItem key={country.id} value={country.id}>
                                                         {country.name}
                                                     </MenuItem>
-                                                ))} */}
+                                                ))}
+                                            </Select>
+                                            {errors.country_id && (
+                                                <p className="error text-danger">
+                                                    {errors.country_id}
+                                                </p>
+                                            )}
+                                        </FormControl> */}
+                                        <FormControl fullWidth>
+                                            <InputLabel id="countries-label">Please select country</InputLabel>
+                                            <Select
+                                                labelId="countries-label"
+                                                name="country_id"
+                                                multiple
+                                                value={formData.country_id}
+                                                onChange={handleChange}
+                                                label="Country"
+                                                renderValue={(selected) =>
+                                                    selected
+                                                        .map((id) => {
+                                                            const selectedCountry = countries.find((country) => country.id === id);
+                                                            return selectedCountry ? selectedCountry.name : '';
+                                                        })
+                                                        .join(', ')
+                                                }
+                                            >
+                                                {countries.map((country) => (
+                                                    <MenuItem key={country.id} value={country.id}>
+                                                        {country.name}
+                                                    </MenuItem>
+                                                ))}
                                             </Select>
                                             {errors.country_id && (
                                                 <p className="error text-danger">
@@ -913,7 +791,7 @@ const Profile = () => {
 
                                             </Grid>
                                             <Grid item xs={4} sm={4} md={4} lg={4}>
-                                                <button onClick={handleStep1Submit}>Submit Step 1</button>
+                                                {/* <button onClick={handleStep1Submit}>Submit Step 1</button> */}
                                             </Grid>
                                             <Grid item xs={4} sm={4} md={4} lg={4}>
 
@@ -1073,8 +951,8 @@ const Profile = () => {
                                                     name="published_in_market_guide"
                                                     id="published_in_market_guide_no"
                                                     value="0"
-                                                //   checked={formData.published_in_market_guide === 0 || formData.published_in_market_guide === "0"}
-                                                //   onChange={handleChange}
+                                                    checked={formData.published_in_market_guide === 0 || formData.published_in_market_guide === "0"}
+                                                    onChange={handleChange}
                                                 />
                                                 <label className="form-check-label" htmlFor="published_in_market_guide_no">
                                                     No
@@ -1087,8 +965,8 @@ const Profile = () => {
                                                     name="published_in_market_guide"
                                                     id="published_in_market_guide_yes"
                                                     value="1"
-                                                //   checked={formData.published_in_market_guide == 1 || formData.published_in_market_guide == "1"}
-                                                //   onChange={handleChange}
+                                                    checked={formData.published_in_market_guide == 1 || formData.published_in_market_guide == "1"}
+                                                    onChange={handleChange}
                                                 />
                                                 <label className="form-check-label" htmlFor="published_in_market_guide_yes">
                                                     Yes
@@ -1133,15 +1011,12 @@ const Profile = () => {
                                             fullWidth
                                             label="Profile Details"
                                             name="about_us"
-
-
+                                            value={formData.about_us}
+                                            onChange={handleChange}
                                             multiline
                                             rows={8}
                                             className='custom-label'
                                         />
-
-
-
                                     </Grid>
 
 
@@ -1210,11 +1085,11 @@ const Profile = () => {
                                                 {genres.map((genre) => (
                                                     <FormControlLabel
                                                         key={genre}
-                                                        control={<CheckBox/>}
+                                                        control={<Checkbox />}
                                                         label={genre}
                                                         sx={{
                                                             '& .MuiSvgIcon-root': {
-                                                                display: 'none',
+                                                                // display: 'none',
                                                             },
                                                         }}
                                                     />
@@ -1230,7 +1105,12 @@ const Profile = () => {
 
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
-                                        <button onClick={handleStep2Submit}>Final Submit Step 2</button>
+                                        <div className="form-group">
+                                            <div>
+                                                <button  className="btn btn-primary btn-yellow">Submit</button>
+                                            </div>
+                                        </div>
+
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                     </Grid>
