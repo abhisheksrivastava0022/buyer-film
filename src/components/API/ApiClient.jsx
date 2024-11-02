@@ -141,11 +141,41 @@ const ApiClient = () => {
     };
 
 
+    const patchRequestApi = async (endpoint, options = {}) => {
+
+        const jsondata = JSON.stringify(options);
+
+        try {
+            const response = await fetch(`${BASE_URL_API}${endpoint}`, {
+                method: "patch",
+                headers: {
+                    "Content-Type": "application/json",
+                    //   A  uthorization: 'Bearer ' + token
+                },
+                body: jsondata,
+                credentials: 'include'
+            });
+            // console.log(BASE_URL_API, "url")
+
+            if (response.status == 401) {
+                navigate('/'); // Redirect to login page
+                return;
+            }
+
+            // Parse JSON response if the status code is not 401
+            const data = await response.json();
+
+            return data;
+        } catch (error) {
+
+            console.error('API request error:', error);
+            throw error;
+        }
+    };
 
 
 
-
-    return { postRequestApi, getRequestApi, userInfo, userLoginCheck };
+    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, patchRequestApi };
 };
 
 export default ApiClient;
