@@ -46,7 +46,7 @@ const Profile = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
 
-    const { fetchCountry } = ApiClient()
+    const { getRequestApi } = ApiClient()
     const [countries, setCountries] = useState([]);
 
     const handleChangeTitle = (event) => {
@@ -58,7 +58,7 @@ const Profile = () => {
     useEffect(() => {
         const loadCountries = async () => {
             try {
-                const response = await fetchCountry();
+                const response = await getRequestApi("site/country", {});
                 setCountries(response.data);
             } catch (error) {
                 console.error("Error fetching countries:", error);
