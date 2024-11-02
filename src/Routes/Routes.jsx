@@ -7,15 +7,8 @@ import MainLayout from '../components/Layout/MainLayout';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Login from '../components/Login/Login';
 import Signup from '../components/SignUp/SignUp';
-// import InnerPage from '../components/page/InnerPage';
-// import HomePage from '../components/page/HomePage';
-// import SearchPage from '../components/page/Template/SearchPage';
 
-// Lazy load the components
-const HomePage = lazy(() => import('../components/page/HomePage'));
-const InnerPage = lazy(() => import('../components/page/InnerPage'));
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
-const SearchPage = lazy(() => import('../components/page/Template/SearchPage'));
 
 export const routes = [
 
@@ -40,12 +33,12 @@ export const routes = [
     },
     {
         path: '/login',
-        element: <Login/>,
+        element: <Login />,
         //     errorElement: <ErrorBoundary />,
     },
     {
         path: '/signup',
-        element: <Signup/>,
+        element: <Signup />,
         //     errorElement: <ErrorBoundary />,
     },
     {
