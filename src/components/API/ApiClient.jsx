@@ -73,8 +73,73 @@ const ApiClient = () => {
             throw error;
         }
     };
+    const userInfo = async (endpoint, options = {}) => {
+        try {
+            const params = new URLSearchParams(options);
+            let apiUrl = `${BASE_URL_API}${endpoint}`;
+            if (params) {
+                console.log({ params })
+                apiUrl += `?${params}`
+            }
+            const response = await fetch(apiUrl, {
+                method: "get",
+                headers: {
+                    // "Content-Type": "application/json",
+                    //  Authorization: 'Bearer ' + token
+                },
+                credentials: 'include'
+            });
 
-    return { postRequestApi, getRequestApi };
+            if (response.status == 401) {
+                navigate('/login');
+                return;
+            }
+
+            // Parse JSON response if the status code is not 401
+            const data = await response.json();
+            return data;
+        } catch (error) {
+
+            localStorage.removeItem('token');
+            console.error('API request error:', error);
+            //  navigate('/login');
+            //throw error;
+        }
+    };
+    const userLoginCheck = async (endpoint, options = {}) => {
+        try {
+            const params = new URLSearchParams(options);
+            let apiUrl = `${BASE_URL_API}${endpoint}`;
+            if (params) {
+                console.log({ params })
+                apiUrl += `?${params}`
+            }
+            const response = await fetch(apiUrl, {
+                method: "get",
+                headers: {
+                    // "Content-Type": "application/json",
+                    //  Authorization: 'Bearer ' + token
+                },
+                credentials: 'include'
+            });
+
+            if (response.status == 200) {
+                navigate('/');
+                return;
+            }
+
+            // Parse JSON response if the status code is not 401
+            const data = await response.json();
+            return data;
+        } catch (error) {
+
+            localStorage.removeItem('token');
+            console.error('API request error:', error);
+            //  navigate('/login');
+            //throw error;
+        }
+    };
+    return { postRequestApi, getRequestApi, userInfo, userLoginCheck };
 };
 
 export default ApiClient;
