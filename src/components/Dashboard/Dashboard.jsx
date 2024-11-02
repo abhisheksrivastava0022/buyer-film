@@ -3,13 +3,18 @@ import ApiClient from '../API/ApiClient'
 import { Link } from 'react-router-dom';
 const Dashboard = () => {
    const [data, setData] = useState([])
+   const [loadData, setLoadData] = useState([]);
    const [typeCount, setTypeCount] = useState([])
    const { getRequestApi } = ApiClient();
+   const [pagination, setPagination] = useState({
+      totalPosts: 0,
+      totalPages: 0,
+      currentPage: 1,
+      limit: 10,
+  });
+
    const preloading = async () => {
-      const data = await getRequestApi('film', {});
-      if (data.status) {
-         setData(data.data);
-      }
+     
       const data1 = await getRequestApi('film/type-count', {});
       if (data1.status) {
          setTypeCount(data1.data);
@@ -17,8 +22,38 @@ const Dashboard = () => {
    }
    useEffect(() => {
       preloading();
-
+      loadPreLoadData();
    }, []);
+
+   
+    
+   const loadPreLoadData = async (page = 1) => {
+      const queryParams = new URLSearchParams({
+          limit: pagination.limit,
+          page: page,
+      });
+
+      try {
+         const data = await getRequestApi('film', queryParams);
+          if (data.status) {
+           
+            setData(data.data);
+              setPagination({
+                  ...pagination,
+                  ...data.pagination,
+              });
+          }
+      } catch (error) {
+          console.error("Error fetching data:", error);
+      }
+  };
+
+
+   const handlePageChange = (page) => {
+      loadPreLoadData(page);
+  };
+
+
    return (
       <>
          <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -168,7 +203,54 @@ const Dashboard = () => {
                         </tbody>
                      </table>
                   </div>
-                  <nav aria-label="...">
+
+                  <div class="col-md-12 mt-4">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {pagination.currentPage > 1 && (
+                                <li class="page-item">
+                                    <button
+                                        class="page-link"
+                                        onClick={() =>
+                                            handlePageChange(pagination.currentPage - 1)
+                                        }
+                                    >
+                                        Previous
+                                    </button>
+                                </li>
+                            )}
+                            {[...Array(pagination.totalPages)].map((_, index) => (
+                                <li
+                                    class={`page-item ${pagination.currentPage === index + 1 ? "active" : ""
+                                        }`}
+                                    key={index}
+                                >
+                                    <button
+                                        class="page-link"
+                                        onClick={() => handlePageChange(index + 1)}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                </li>
+                            ))}
+                            {pagination.currentPage < pagination.totalPages && (
+                                <li class="page-item">
+                                    <button
+                                        class="page-link"
+                                        onClick={() =>
+                                            handlePageChange(pagination.currentPage + 1)
+                                        }
+                                    >
+                                        Next
+                                    </button>
+                                </li>
+                            )}
+                        </ul>
+                    </nav>
+                </div>
+
+
+                  {/* <nav aria-label="...">
                      <ul className="pagination">
                         <li className="page-item disabled">
                            <a className="page-link">Previous</a>
@@ -182,7 +264,7 @@ const Dashboard = () => {
                            <a className="page-link" href="#">Next</a>
                         </li>
                      </ul>
-                  </nav>
+                  </nav> */}
                </div>
             </div>
          </main>

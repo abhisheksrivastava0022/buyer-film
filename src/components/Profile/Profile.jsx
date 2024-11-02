@@ -509,15 +509,15 @@ const Profile = () => {
     //   }
     // };
 
-    const handleSavePhoto = () => {
-        if (selectedFile) {
-            const uploadedPhotoUrl = URL.createObjectURL(selectedFile);
-            console.log("Saving photo: ", uploadedPhotoUrl);
-            handleClose()
-        } else {
-            console.log("No file selected");
-        }
-    };
+    // const handleSavePhoto = () => {
+    //     if (selectedFile) {
+    //         const uploadedPhotoUrl = URL.createObjectURL(selectedFile);
+    //         console.log("Saving photo: ", uploadedPhotoUrl);
+    //         handleClose()
+    //     } else {
+    //         console.log("No file selected");
+    //     }
+    // };
 
     const genres = [
         'Buyer',
