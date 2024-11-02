@@ -76,7 +76,7 @@ const Profile = () => {
 
     const [formData, setFormData] = useState({
 
-        title: '',
+        title: [],
         first_name: "",
         last_name: "",
         email: "",
@@ -86,7 +86,7 @@ const Profile = () => {
         city: "",
         zip: "",
         state: "",
-        country_id: [],
+        country_id:"",
         phone: "",
         mobile: "",
         website: "",
@@ -124,20 +124,22 @@ const Profile = () => {
     const validateForm = (values) => {
         const errors = {};
 
-        if (!values.title) {
-            errors.title = 'Title is required ';
+       
+
+        if (!values?.title || values.title.length === 0) {
+            errors.title = 'At least one title is required';
         }
 
 
-        if (!values.first_name.trim()) {
+        if (!values?.first_name.trim()) {
             errors.first_name = 'First name is required ';
         }
 
-        if (!values.last_name.trim()) {
+        if (!values?.last_name.trim()) {
             errors.last_name = 'Last name is required ';
         }
 
-        if (!values.email.trim) {
+        if (!values?.email.trim) {
             errors.email = 'Email is required'
         }
 
@@ -165,7 +167,7 @@ const Profile = () => {
             errors.state = 'State is required'
         }
 
-        if (!values.country_id.trim()) {
+        if (!values?.country_id.trim()) {
             errors.country_id = 'Country is required'
         }
 
@@ -197,8 +199,8 @@ const Profile = () => {
             errors.activity = 'Select any activity'
         }
 
-        if (!values.company_name.trim()) {
-            errors.company_name = 'Company name is required ';
+        if (!values.company.trim()) {
+            errors.company = 'Company name is required ';
         }
 
         if (!values.job_title.trim()) {
@@ -213,8 +215,8 @@ const Profile = () => {
             errors.city = 'City is required ';
         }
 
-        if (!values.zip_code.trim()) {
-            errors.zip_code = 'Zip code is required ';
+        if (!values.zip.trim()) {
+            errors.zip = 'Zip code is required ';
         }
 
         if (!values.state.trim()) {
@@ -222,25 +224,16 @@ const Profile = () => {
         }
 
 
-        if (!values.email_id.trim()) {
-            errors.email_id = 'Email ID is required ';
+        if (!values.email.trim()) {
+            errors.email = 'Email ID is required ';
         }
 
-        if (!values.phone_number.trim()) {
-            errors.phone_number = 'Phone number is required ';
-        }
+      
+       
 
-        if (!values.mobile_number.trim()) {
-            errors.mobile_number = 'Mobile number is required ';
-        }
+      
 
-        if (!values.company_website.trim()) {
-            errors.company_website = 'Company website is required ';
-        }
-
-        if (!values.gst_number.trim()) {
-            errors.gst_number = 'GST number is required ';
-        }
+        
 
         return errors;
     };
@@ -332,7 +325,7 @@ const Profile = () => {
                     }
 
 
-                    // handleClose();
+                    handleClose();
                 } else {
                     console.error('Failed to upload file');
                 }
@@ -384,7 +377,7 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (validateForm()) {
+        if (validateForm(formData)) {
             const response = await postRequestApi(`auth/register`, formData);
             if (response?.status && response.data) {
 
@@ -399,7 +392,7 @@ const Profile = () => {
                     city: "",
                     zip: "",
                     state: "",
-                    country_id: [],
+                    country_id: "",
                     phone: "",
                     mobile: "",
                     website: "",
@@ -447,7 +440,7 @@ const Profile = () => {
                                                 labelId="title-label"
                                                 name="title"
                                                 multiple
-                                                value={formData.title || []}
+                                                value={formData.title}
                                                 onChange={(event) => {
                                                     handleChange({
                                                         ...event,
@@ -633,7 +626,7 @@ const Profile = () => {
                                             <Select
                                                 labelId="countries-label"
                                                 name="country_id"
-                                                multiple
+                                               
                                                 value={formData.country_id}
                                                 onChange={handleChange}
                                                 label="Country"
@@ -859,30 +852,10 @@ const Profile = () => {
                                                                                 id="PHOTO_URL_State"
                                                                                 value={'{"validationState": ""}'}
                                                                             />
-                                                                            <input
-                                                                                className="dxeTextBoxSys form-control transparent dxeTextBoxDefaultWidthSys"
-                                                                                data-val-required="Photo is required"
-                                                                                data-val="true"
-                                                                                id="PHOTO_URL"
-                                                                                type="text"
-                                                                                value={photoInputValue}
-                                                                                name="PHOTO_URL"
-                                                                                onChange={(e) => setPhotoInputValue(e.target.value)}
-                                                                                style={{
-                                                                                    borderWidth: '0px',
-                                                                                    width: '100%',
-                                                                                    borderBottomColor: '#D8D8D8',
-                                                                                    borderBottomStyle: 'Solid',
-                                                                                    borderBottomWidth: '1px',
-                                                                                }}
-                                                                            />
+                                                                           
                                                                         </td>
                                                                     </tr>
-                                                                    <tr style={{ display: 'none' }}>
-                                                                        <td className="dxeErrorFrameSys dxeErrorCellSys dxeNoBorderTop" style={{ fontSize: '12px' }}>
-                                                                            Invalid value
-                                                                        </td>
-                                                                    </tr>
+                                                                   
                                                                 </tbody>
                                                             </table>
 
