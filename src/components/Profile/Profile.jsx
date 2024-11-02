@@ -439,7 +439,7 @@ const Profile = () => {
                                             <Select
                                                 labelId="title-label"
                                                 name="title"
-                                                multiple
+                                             
                                                 value={formData.title}
                                                 onChange={(event) => {
                                                     handleChange({
@@ -980,7 +980,7 @@ const Profile = () => {
                                             <Select
                                                 labelId="countries-label"
                                                 name="activity"
-                                                multiple
+                                             
                                                 value={formData.activity || []}
                                                 onChange={handleChange}
                                                 label="activity"
