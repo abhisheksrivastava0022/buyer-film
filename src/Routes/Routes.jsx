@@ -9,6 +9,7 @@ import Login from '../components/Login/Login';
 import Signup from '../components/SignUp/SignUp';
 import ForgetPassword from '../components/ForgetPassword/ForgetPassword';
 import RecoverPassword from '../components/RecoverPassword/RecoverPassword';
+import Profile from '../components/Profile/Profile';
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
 
@@ -23,6 +24,14 @@ export const routes = [
                 // element: <HomePage />,
                 element: (
                     <Dashboard />
+                ),
+
+            },
+            {
+                path: '/profile',
+                // element: <HomePage />,
+                element: (
+                    <Profile/>
                 ),
 
             }
