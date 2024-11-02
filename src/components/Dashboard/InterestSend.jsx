@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ApiClient from '../API/ApiClient'
 import { Link } from 'react-router-dom';
-const Dashboard = () => {
+const InterestSend = () => {
    const [data, setData] = useState([])
    const [loadData, setLoadData] = useState([]);
    const [typeCount, setTypeCount] = useState([])
@@ -34,7 +34,7 @@ const Dashboard = () => {
       });
 
       try {
-         const data = await getRequestApi('film', queryParams);
+         const data = await getRequestApi('film/interested-film', queryParams);
          if (data.status) {
 
             setData(data.data);
@@ -58,7 +58,7 @@ const Dashboard = () => {
       <>
          <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-               <h1 className="h2">Buyer</h1>
+               <h1 className="h2">Interest send</h1>
             </div>
 
             <div className="row mt-4 mb-4 topbox">
@@ -250,6 +250,21 @@ const Dashboard = () => {
                   </div>
 
 
+                  {/* <nav aria-label="...">
+                     <ul className="pagination">
+                        <li className="page-item disabled">
+                           <a className="page-link">Previous</a>
+                        </li>
+                        <li className="page-item"><a className="page-link" href="#">1</a></li>
+                        <li className="page-item active" aria-current="page">
+                           <a className="page-link" href="#">2</a>
+                        </li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item">
+                           <a className="page-link" href="#">Next</a>
+                        </li>
+                     </ul>
+                  </nav> */}
                </div>
             </div>
          </main>
@@ -257,4 +272,4 @@ const Dashboard = () => {
    )
 }
 
-export default Dashboard
+export default InterestSend

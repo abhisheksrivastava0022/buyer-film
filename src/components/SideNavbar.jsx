@@ -1,6 +1,6 @@
 import React from 'react'
 import filmbazaar from "../assets/img/filmbazaar.png"
-
+import { Link } from 'react-router-dom';
 const SideNavbar = () => {
     return (
         <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
@@ -12,19 +12,22 @@ const SideNavbar = () => {
                     <ul className="nav flex-column">
                         <li className="logo"><img src={filmbazaar} alt="logo" /></li>
                         <li className="nav-item">
-                            <a className="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
-                                Interest Recieved
-                            </a>
+
+                            <Link to="/" className="nav-link d-flex align-items-center gap-2 active" aria-current="page" >Film listing</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
-                                Interest Decline
-                            </a>
+
+                            <Link to="/interest-send" className="nav-link d-flex align-items-center gap-2 active" aria-current="page" >Interest Send</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
-                                Wishlist
-                                h                          </a>
+
+                            <Link to="/interest-decline" className="nav-link d-flex align-items-center gap-2 active" aria-current="page" >Interest Decline</Link>
+
+                        </li>
+                        <li className="nav-item">
+
+                            <Link to="/interest-approved" className="nav-link d-flex align-items-center gap-2 active" aria-current="page" >Interest Approved</Link>
+
                         </li>
                     </ul>
                 </div>

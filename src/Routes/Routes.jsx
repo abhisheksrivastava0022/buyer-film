@@ -10,6 +10,9 @@ import Signup from '../components/SignUp/SignUp';
 import ForgetPassword from '../components/ForgetPassword/ForgetPassword';
 import RecoverPassword from '../components/RecoverPassword/RecoverPassword';
 import Profile from '../components/Profile/Profile';
+import InterestSend from '../components/Dashboard/InterestSend';
+import InterestDecline from '../components/Dashboard/InterestDecline';
+import InterestApproved from '../components/Dashboard/InterestApproved';
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
 
@@ -28,10 +31,33 @@ export const routes = [
 
             },
             {
+                path: '/interest-send',
+                // element: <HomePage />,
+                element: (
+                    <InterestSend />
+                ),
+
+            },
+            {
+                path: '/interest-Decline',
+                // element: <HomePage />,
+                element: (
+                    <InterestDecline />
+                ),
+
+            },
+            {
+                path: '/interest-approved',
+                // element: <HomePage />,
+                element: (
+                    <InterestApproved />
+                ),
+            },
+            {
                 path: '/profile',
                 // element: <HomePage />,
                 element: (
-                    <Profile/>
+                    <Profile />
                 ),
 
             }
