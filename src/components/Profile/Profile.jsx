@@ -121,43 +121,6 @@ const Profile = () => {
 
 
 
-    //   const handleInputChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormData({ ...formData, [name]: value });
-    // };
-
-
-    // const handleChange = (e) => {
-    //   const { name, value } = e.target;
-    //   setFormData((prev) => ({ ...prev,
-    //      [name]: value
-    //      }));
-    // };
-
-    // const handleStep1Submit = async (e) => {
-    //   e.preventDefault();
-
-
-    //   const formErrors = validateValues(formData);
-    //   setErrors(formErrors);
-
-    //   const step1Errors = validateStep1(values); // Validate Step 1
-    //   if (Object.keys(step1Errors).length > 0) {
-    //     setErrors(step1Errors);
-    //     return;
-    //   }
-    //   try {
-    //     const filmId = await dispatch(postFilm(values));
-    //     if (filmId) {
-    //       setFilmId(filmId);
-    //       setCurrentStep(2); // Move to Step 2 if Step 1 is valid
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to create film:", error.message);
-    //   }
-    // };
-
-
     const validateForm = (values) => {
         const errors = {};
 
@@ -351,14 +314,24 @@ const Profile = () => {
             formData.append('file', selectedFile);
 
             try {
-                const response = await fetch('http://119.82.68.149:3001/film-buyer/file/upload', {
+                const response = await fetch('https://119.82.68.149:3001/film-buyer/file/upload', {
                     method: 'POST',
                     body: formData,
+                    credentials: 'include'
                 });
 
                 if (response.ok) {
                     const result = await response.json();
+
                     console.log('File uploaded successfully:', result);
+                    if (result.id) {
+                        setFormData((prevFormData) => ({
+                            ...prevFormData,
+                            photo: result.id,
+                        }));
+                    }
+
+
                     // handleClose();
                 } else {
                     console.error('Failed to upload file');
@@ -654,33 +627,7 @@ const Profile = () => {
 
                                 <Grid container spacing={1} style={{ marginTop: "5px" }}>
                                     <Grid item xs={12} sm={12} md={6} lg={6}>
-                                        {/* <FormControl fullWidth>
-                                            <InputLabel id="countries-label">Please select country</InputLabel>
-                                            <Select
-                                                labelId="countries-label"
-                                                name="country_id"
-                                                multiple
-                                                value={formData.country_id || []}
-                                                onChange={handleChange}
-                                                label="Country"
 
-                                            renderValue={(selected) => selected.map((id) => {
-                                                const selectedCountry = countries.find(country => country.id === id);
-                                                return selectedCountry ? selectedCountry.name : '';
-                                            }).join(', ')}
-                                            >
-                                                {countries && countries.map((country) => (
-                                                    <MenuItem key={country.id} value={country.id}>
-                                                        {country.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                            {errors.country_id && (
-                                                <p className="error text-danger">
-                                                    {errors.country_id}
-                                                </p>
-                                            )}
-                                        </FormControl> */}
                                         <FormControl fullWidth>
                                             <InputLabel id="countries-label">Please select country</InputLabel>
                                             <Select
@@ -867,6 +814,7 @@ const Profile = () => {
                                                     <div className="row">
                                                         <div className="col-md-12" style={{ paddingRight: '0px' }}>
                                                             <img
+                                                                width="200px"
                                                                 id="imgPhoto"
                                                                 src={photoUrl}
                                                                 style={{ cursor: "pointer" }}
@@ -1064,16 +1012,9 @@ const Profile = () => {
                                                 onChange={handleChange}
                                                 label="activity"
 
-                                            // renderValue={(selected) => selected.map((id) => {
-                                            //   const selectedCountry = countries.find(country => country.id === id);
-                                            //   return selectedCountry ? selectedCountry.name : '';
-                                            // }).join(', ')}
+
                                             >
-                                                {/* {countries && countries.map((country) => (
-                              <MenuItem key={country.id} value={country.id}>
-                                {country.name}
-                              </MenuItem>
-                            ))} */}
+
                                             </Select>
 
                                         </FormControl>
