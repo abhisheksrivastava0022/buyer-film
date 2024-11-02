@@ -23,7 +23,7 @@ const ForgetPassword = () => {
     const validateForm = () => {
         const errors = {};
 
-      
+
         if (!formData.email) {
             errors.email = "Email is required";
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -40,15 +40,13 @@ const ForgetPassword = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            const response = await postRequestApi(`auth/register`, formData);
+            const response = await postRequestApi(`auth/forget-password`, formData);
             if (response?.status && response.data) {
-                alert("registered successfully.");
+                alert(response.message);
                 setFormData({
-                   
                     email: '',
-                   
                 });
-                navigate("login");
+                // navigate("login");
             } else {
                 // alert("dd");
                 //   navigate("404");
@@ -70,16 +68,16 @@ const ForgetPassword = () => {
                         <div className="card-body p-0">
                             <div className="row">
                                 <div className="col-md-6 col-sm-6 bluebg">
-                                <div class="px-3">
-                                        <h1 class="bluetxt"> Welcome to the Film Bazaar Seller Portal!</h1><br/>
+                                    <div class="px-3">
+                                        <h1 class="bluetxt"> Welcome to the Film Bazaar Seller Portal!</h1><br />
                                         <p>
-                                            We're thrilled to have you here. This platform is designed to connect talented filmmakers and sellers like you with the vibrant film community.<br/><br/>
+                                            We're thrilled to have you here. This platform is designed to connect talented filmmakers and sellers like you with the vibrant film community.<br /><br />
 
-                                            As a seller, you have the opportunity to showcase your projects, network with industry professionals, and discover exciting collaborations. Your contributions are vital to the growth and diversity of our film ecosystem.<br/><br/>
+                                            As a seller, you have the opportunity to showcase your projects, network with industry professionals, and discover exciting collaborations. Your contributions are vital to the growth and diversity of our film ecosystem.<br /><br />
 
-                                            Get started by logging in below. If you have any questions, our support team is here to help!<br/><br/>
-                                            
-                                            You can share your queries at : info@filmbazarindia.com<br/><br/>
+                                            Get started by logging in below. If you have any questions, our support team is here to help!<br /><br />
+
+                                            You can share your queries at : info@filmbazarindia.com<br /><br />
 
                                             Happy Selling!
                                         </p>
@@ -90,7 +88,7 @@ const ForgetPassword = () => {
                                         <h2 className="mt-3 pb-4">Enter your email</h2>
                                         <form onSubmit={handleSubmit}>
 
-                                           
+
                                             <div className="form-group">
                                                 <label>Email</label>
                                                 <input
@@ -103,8 +101,8 @@ const ForgetPassword = () => {
                                                 />
                                                 {errors.email && <small className="text-danger">{errors.email}</small>}
                                             </div>
-                                           
-                                           
+
+
                                             <div className="form-group">
                                                 <button className="btn btn-primary btn-yellow" type="submit">Submit</button>
                                             </div>

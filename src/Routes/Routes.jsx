@@ -53,13 +53,13 @@ export const routes = [
         //     errorElement: <ErrorBoundary />,
     },
     {
-        path: '/forgetpassword',
-        element: <ForgetPassword/>,
+        path: '/forget-password',
+        element: <ForgetPassword />,
         //     errorElement: <ErrorBoundary />,
     },
     {
-        path: '/changepassword',
-        element: <RecoverPassword/>,
+        path: '/change-password/:token',
+        element: <RecoverPassword />,
         //     errorElement: <ErrorBoundary />,
     },
     {
