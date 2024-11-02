@@ -76,7 +76,7 @@ const Profile = () => {
 
     const [formData, setFormData] = useState({
 
-        title: [],
+        title: "",
         first_name: "",
         last_name: "",
         email: "",
@@ -126,7 +126,7 @@ const Profile = () => {
 
        
 
-        if (!values?.title || values.title.length === 0) {
+        if (!values?.title) {
             errors.title = 'At least one title is required';
         }
 
