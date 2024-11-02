@@ -20,23 +20,8 @@ const RecoverPassword = () => {
             [name]: value
         }));
 
-        setErrors((prevErrors) => {
-            if (value.trim() === "") {
-                return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
-            } else {
-                const { [name]: removedError, ...restErrors } = prevErrors;
-                return restErrors;
-            }
-        });
-
-        setErrors((prevErrors) => {
-            if (value.trim() === "") {
-                return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
-            } else {
-                const { [name]: removedError, ...restErrors } = prevErrors;
-                return restErrors;
-            }
-        });
+       
+       
     };
 
     // Form validation

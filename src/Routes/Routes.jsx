@@ -13,6 +13,7 @@ import Profile from '../components/Profile/Profile';
 import InterestSend from '../components/Dashboard/InterestSend';
 import InterestDecline from '../components/Dashboard/InterestDecline';
 import InterestApproved from '../components/Dashboard/InterestApproved';
+import ViewDetails from '../components/ViewDetails/ViewDetails';
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
 
@@ -58,6 +59,14 @@ export const routes = [
                 // element: <HomePage />,
                 element: (
                     <Profile />
+                ),
+
+            },
+            {
+                path: '/view-film/:id',
+                // element: <HomePage />,
+                element: (
+                    <ViewDetails/>
                 ),
 
             }

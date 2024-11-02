@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import ApiClient from '../API/ApiClient'
 import { Link } from 'react-router-dom';
+import { CardContent } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
 const Dashboard = () => {
    const [data, setData] = useState([])
    const [loadData, setLoadData] = useState([]);
    const [typeCount, setTypeCount] = useState([])
+
+
    const { getRequestApi } = ApiClient();
    const [pagination, setPagination] = useState({
       totalPosts: 0,
@@ -19,11 +24,20 @@ const Dashboard = () => {
       if (data1.status) {
          setTypeCount(data1.data);
       }
+
+
    }
+
+
    useEffect(() => {
       preloading();
       loadPreLoadData();
    }, []);
+
+
+
+
+
 
 
 
@@ -52,6 +66,84 @@ const Dashboard = () => {
    const handlePageChange = (page) => {
       loadPreLoadData(page);
    };
+
+   const [loadingData, setLoadingData] = useState({})
+
+   const InterestedApply = async (id) => {
+      try {
+         const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/interested`, {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            credentials: "include"
+         });
+
+
+         if (response.ok) {
+            const data = await response.json();
+            console.log('Response Data:', data);
+            PageOnLoad()
+         } else {
+            console.error('Failed to  interest.');
+         }
+      } catch (error) {
+         console.error('Error occurred:', error);
+      }
+   };
+
+   const NotInterestedApply = async (id) => {
+      try {
+         const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/not-interested`, {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            credentials: "include"
+         });
+
+
+         if (response.ok) {
+            const data = await response.json();
+            console.log('Response Data:', data);
+            PageOnLoad()
+         } else {
+            console.error('Failed to  interest.');
+         }
+      } catch (error) {
+         console.error('Error occurred:', error);
+      }
+   };
+
+
+
+   const PageOnLoad = async () => {
+      try {
+         const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            credentials: "include"
+         });
+
+
+         if (response.ok) {
+            const data = await response.json();
+            setLoadingData(data.data)
+            console.log('Response Data:', data);
+
+         } else {
+            console.error('Failed to load data.');
+         }
+      } catch (error) {
+         console.error('Error occurred:', error);
+      }
+   };
+
+   useEffect(() => {
+      PageOnLoad()
+   }, [])
 
 
    return (
@@ -193,7 +285,33 @@ const Dashboard = () => {
                                     <td>{row?.Country?.name}</td>
                                     <td>{row.genre}</td>
                                     <td>
-                                       <Link to={`film/${row.id}`}><i className="bi bi-eye"></i></Link>
+
+
+                                       {loadingData?.film_interest?.[row.id] ?
+                                          <FavoriteIcon
+                                             style={{
+                                                cursor: 'pointer',
+                                                color: "#D3D3D3"
+                                             }}
+                                             onClick={() => NotInterestedApply(row.id)} />
+                                          :
+                                          <FavoriteIcon
+                                             style={{
+                                                cursor: 'pointer',
+                                                color: "red"
+                                             }}
+                                             onClick={() => InterestedApply(row.id)} />
+                                       }&nbsp;
+                                       {/* <Link to={`film/${row.id}`}><i className="bi bi-eye"></i></Link> */}
+                                       <Link
+                                       
+                                       // to={`film/${row.id}`}
+                                       to={`/view-film/${row.id}`}
+                                       
+                                       ><i className="bi bi-eye"></i></Link>
+
+
+
                                     </td>
                                  </tr>
                               ))

@@ -104,6 +104,24 @@ const Profile = () => {
 
     const [errors, setErrors] = useState({});
 
+    // const handleChange = (event) => {
+    //     const { name, value } = event.target;
+
+    //     setFormData((prevFormData) => ({
+    //         ...prevFormData,
+    //         [name]: value,
+    //     }));
+
+    //     setErrors((prevErrors) => {
+    //         if (value === "") {
+    //             return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
+    //         } else {
+    //             const { [name]: removedError, ...restErrors } = prevErrors;
+    //             return restErrors;
+    //         }
+    //     });
+    // };
+
     const handleChange = (event) => {
         const { name, value } = event.target;
 
@@ -112,16 +130,10 @@ const Profile = () => {
             [name]: value,
         }));
 
-        setErrors((prevErrors) => {
-            if (value === "") {
-                return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
-            } else {
-                const { [name]: removedError, ...restErrors } = prevErrors;
-                return restErrors;
-            }
-        });
-    };
 
+        errors[name] = "";
+        setErrors(errors);
+    };
 
 
     const validateForm = (values) => {
@@ -132,6 +144,25 @@ const Profile = () => {
         // if (!values?.title) {
         //     errors.title = 'At least one title is required';
         // }
+
+        if (!formData.first_name) errors.first_name = "First Name is required";
+        if (!formData.last_name) errors.last_name = "Last Name is required";
+        if (!formData.company) errors.company = "Company Name is required";
+        if (!formData.job_title) errors.job_title = "Job title is required";
+        if (!formData.address) errors.address = "Address is required";
+        if (!formData.city) errors.city = "City is required";
+        if (!formData.zip) errors.zip = "Zip code is required";
+        if (!formData.state) errors.state = "State is required";
+        if (!formData.phone) errors.phone = "Phone number is required";
+        if (!formData.mobile) errors.mobile = "Mobile is required";
+        if (!formData.website) errors.website = "Website is required";
+        if (!formData.gstin) errors.gstin = "GST is required";
+        if (!formData.published_in_market_guide) errors.published_in_market_guide = "Selectr any option";
+
+
+
+
+
 
 
         // if (!values?.first_name) {
@@ -230,10 +261,12 @@ const Profile = () => {
         // if (!values.email) {
         //     errors.email = 'Email ID is required ';
         // }
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
 
 
 
-        return errors;
+        // return errors;
     };
 
 
@@ -474,6 +507,11 @@ const Profile = () => {
                                                 onChange={handleChange}
 
                                             />
+                                            {errors.last_name && (
+                                                <p className="error text-danger">
+                                                    {errors.last_name}
+                                                </p>
+                                            )}
 
                                         </Grid>
                                     </Grid>
@@ -618,11 +656,7 @@ const Profile = () => {
                                                         </MenuItem>
                                                     ))}
                                                 </Select>
-                                                {errors.country_id && (
-                                                    <p className="error text-danger">
-                                                        {errors.country_id}
-                                                    </p>
-                                                )}
+
                                             </FormControl>
 
 
@@ -723,22 +757,7 @@ const Profile = () => {
                                         </Grid>
                                     </Grid>
 
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={12} lg={12} style={{ textAlign: "center", width: "10px" }}>
-                                            <Grid container spacing={1}>
-                                                <Grid item xs={4} sm={4} md={4} lg={4}>
 
-                                                </Grid>
-                                                <Grid item xs={4} sm={4} md={4} lg={4}>
-                                                    {/* <button onClick={handleStep1Submit}>Submit Step 1</button> */}
-                                                </Grid>
-                                                <Grid item xs={4} sm={4} md={4} lg={4}>
-
-                                                </Grid>
-                                            </Grid>
-
-                                        </Grid>
-                                    </Grid>
 
 
 
@@ -926,7 +945,7 @@ const Profile = () => {
                                         </Grid>
 
                                         <Grid item xs={9} sm={9} md={9} lg={9}>
-                                            <Typography variant="h5" gutterBottom>Characters remaining : 1500.</Typography>
+                                            {/* <Typography variant="h5" gutterBottom>Characters remaining : 1500.</Typography> */}
                                             <TextField
                                                 fullWidth
                                                 label="Profile Details"
@@ -945,7 +964,7 @@ const Profile = () => {
 
 
 
-                                    <Grid container spacing={2} style={{ marginTop: "15px" }}>
+                                    {/* <Grid container spacing={2} style={{ marginTop: "15px" }}>
                                         <Grid item xs={2} sm={2} md={2} lg={2} style={{ display: "flex", alignItems: "center" }}>
                                             <label>Activity: <span style={{ color: "red" }}>*</span></label>
                                         </Grid>
@@ -968,13 +987,13 @@ const Profile = () => {
                                             </FormControl>
                                         </Grid>
 
-                                    </Grid>
+                                    </Grid> */}
 
 
 
 
 
-                                    <Grid container spacing={2} style={{ marginTop: "15px" }}>
+                                    {/* <Grid container spacing={2} style={{ marginTop: "15px" }}>
 
                                         <Grid item xs={4} sm={4} md={4} lg={4}>
 
@@ -1002,7 +1021,7 @@ const Profile = () => {
                                                             label={genre}
                                                             sx={{
                                                                 '& .MuiSvgIcon-root': {
-                                                                    // display: 'none',
+                                                                    
                                                                 },
                                                             }}
                                                         />
@@ -1011,11 +1030,10 @@ const Profile = () => {
                                             </FormControl>
                                         </Grid>
 
-                                    </Grid>
+                                    </Grid> */}
 
                                     <Grid container spacing={2} style={{ marginTop: "15px" }}>
                                         <Grid item xs={4} sm={4} md={4} lg={4}>
-
                                         </Grid>
                                         <Grid item xs={4} sm={4} md={4} lg={4}>
                                             <div className="form-group">

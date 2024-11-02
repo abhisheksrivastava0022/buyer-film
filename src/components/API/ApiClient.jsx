@@ -173,9 +173,36 @@ const ApiClient = () => {
         }
     };
 
+    const fetchFilms = () => async () => {  
+
+      
+        try {
+          const response = await fetch(`${BASE_URL_API}/film`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+          });
+      
+          if (response.status === 401) {
+         
+            return;
+          }
+      
+          // Parse JSON response if the status code is not 401
+          const data = await response.json();
+          return data;
+          
+        } catch (error) {
+          console.error('API request error:', error);
+          throw error;
+        }
+      };
 
 
-    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, patchRequestApi };
+
+    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, patchRequestApi, fetchFilms };
 };
 
 export default ApiClient;
