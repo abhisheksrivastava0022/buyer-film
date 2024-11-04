@@ -14,6 +14,9 @@ import InterestSend from '../components/Dashboard/InterestSend';
 import InterestDecline from '../components/Dashboard/InterestDecline';
 import InterestApproved from '../components/Dashboard/InterestApproved';
 import ViewDetails from '../components/ViewDetails/ViewDetails';
+import SellerListing from '../components/Film/SellerListing';
+import ViewFilmDetails from '../components/Film/ViewFilmDetails';
+
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
 
@@ -28,6 +31,7 @@ export const routes = [
                 // element: <HomePage />,
                 element: (
                     <Dashboard />
+                    
                 ),
 
             },
@@ -102,5 +106,15 @@ export const routes = [
         element: <NotFound />,
         //   errorElement: <ErrorBoundary />,
     },
+    {
+        path: '/sellerlist',
+        element: <SellerListing/>,
+    },
+    {
+        path: '/view-film-details',
+        element: <ViewFilmDetails/>,
+    },
+   
+
 
 ];

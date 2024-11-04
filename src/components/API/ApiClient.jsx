@@ -173,11 +173,26 @@ const ApiClient = () => {
         }
     };
 
+     const postRequestGlobal = async (data) => {
+        const response = await fetch(`${BASE_URL_API}auth/validate-email`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        });
+        const returndata = await response.json();
+        return returndata;
+    }
+
+
+
   
 
 
 
-    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, patchRequestApi};
+    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, patchRequestApi, postRequestGlobal};
 };
 
 export default ApiClient;

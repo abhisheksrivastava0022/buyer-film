@@ -8,7 +8,6 @@ import SideNavbar from '../SideNavbar';
 const MainLayout = () => {
   return (
     <>
-      {/* Header */}
       <Header />
       <div className="container-fluid">
         <div className="row">
@@ -17,8 +16,6 @@ const MainLayout = () => {
         </div>
       </div>
       <Footer />
-      {/* Footer */}
-
     </ >
   );
 };

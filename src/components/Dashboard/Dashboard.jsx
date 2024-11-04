@@ -291,14 +291,14 @@ const Dashboard = () => {
                                           <FavoriteIcon
                                              style={{
                                                 cursor: 'pointer',
-                                                color: "#D3D3D3"
+                                                color: "red"
                                              }}
                                              onClick={() => NotInterestedApply(row.id)} />
                                           :
                                           <FavoriteIcon
                                              style={{
                                                 cursor: 'pointer',
-                                                color: "red"
+                                                color: "D3D3D3"
                                              }}
                                              onClick={() => InterestedApply(row.id)} />
                                        }&nbsp;

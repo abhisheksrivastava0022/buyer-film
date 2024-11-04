@@ -135,6 +135,8 @@ h1,
   .my-menu .my-menu-toggle {
     display: block;
   }
+  .filter-div{ display:block!important; }
+  .logo img{ width:100px }
 }
 
 .page-header {
@@ -218,3 +220,22 @@ h1,
 .bluetxt {
   color: #244189
 }
+
+
+.tabslist{ background:#fff; padding:10px 10px 0 10px; }
+.tabslist a{ color:#000; font-weight:600; }
+.tabslist .active{ border-color:#fff!important; background-color:#fff!important; color:#000!important; border-bottom:solid 4px #ffd503!important; }
+.w-70{ width:150px; }
+ .filter-text{ display:flex; column-gap:10px; font-size: 20px;align-items: center; }
+.top-pager{ justify-content:end; }
+.search-sidebar label { margin-bottom:10px; font-weight:600 }
+.search-title{ border-bottom: solid 1px #ddd; padding-bottom: 10px}
+.active>.page-link, .page-link.active{ border-color:#24418a !important; background-color:#24418a!important; }
+.btn-yellow{ background:#ffd503!important; color:#000!important; border-color:#ffd503!important; font-weight:600; }
+
+.filterbtn{ position:fixed; right:0; bottom:50px; z-index:9 }
+ .filter-div{ display:none; }
+ .address{ padding:0; list-style:none; display:flex; row-gap:10px; flex-direction: column; font-weight:500; margin-top:50px; }
+  .address li{ display: flex; column-gap:5px; }
+
+

@@ -1,27 +1,18 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import ApiClient from '../API/ApiClient';
+import React from 'react';
 
 const Footer = () => {
 
     return (
         <>
-            <div className="container-fluid footer bg-dark " >
-                <div className="container ">
+            <footer className="container-fluid bg-dark">
+                <div className="container">
                     <div className="text-center footer-copyright">
                         <span className="text-light">
-                            <a href="#" className="text-secondary">
-                                All right reserved,   Copyright© Powered by Film Bazzar.
-                            </a></span><a href="#" className="text-secondary">
-                        </a>
+                            All rights reserved, Copyright © Powered by Film Bazaar.
+                        </span>
                     </div>
-                    <a href="#" className="text-secondary">
-                    </a>
                 </div>
-                <a href="#" className="text-secondary">
-                </a>
-            </div>
+            </footer>
         </>
     )
 }

@@ -3,6 +3,11 @@ import iffi from "../../assets/img/iffi.png";
 import filmbazaar from "../../assets/img/filmbazaar.png";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ApiClient from '../API/ApiClient'
+import { Alert, IconButton, InputAdornment, Snackbar, TextField } from '@mui/material';
+import Footer from '../Footer/Footer';
+import AuthText from '../AuthText/AuthText';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 const RecoverPassword = () => {
     const { token } = useParams();
     const { postRequestApi } = ApiClient();
@@ -11,6 +16,21 @@ const RecoverPassword = () => {
         confirm_password: ''
     });
     const [errors, setErrors] = useState({});
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertSeverity, setAlertSeverity] = useState("success");
+
+    const [showPasswordOne, setShowPasswordOne] = useState(false);
+    const [showPasswordTwo, setShowPasswordTwo] = useState(false);
+
+    const handleClickShowPasswordOne = () => setShowPasswordOne((show) => !show);
+    const handleClickShowPasswordTwo = () => setShowPasswordTwo((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
 
     // Handle input changes
     const handleChange = (e) => {
@@ -49,7 +69,10 @@ const RecoverPassword = () => {
         if (validateForm()) {
             const response = await postRequestApi(`auth/recover/${token}`, formData);
             if (response?.status && response.message) {
-                alert("Password recovered successfully.");
+                // alert("Password recovered successfully.");
+                setAlertSeverity('success');
+                setAlertMessage('Password recovered successfully!.');
+                setAlertOpen(true);
                 setFormData({
                     password: '',
                     confirm_password: ''
@@ -58,6 +81,9 @@ const RecoverPassword = () => {
             } else {
                 // alert("dd");
                 //   navigate("404");
+                setAlertSeverity('error');
+                setAlertMessage('Failed to reset password. Please try again!');
+                setAlertOpen(true);
 
             }
             // Submit the form data here (e.g., API call)
@@ -76,32 +102,44 @@ const RecoverPassword = () => {
                         <div className="card-body p-0">
                             <div className="row">
                                 <div className="col-md-7 col-sm-7 bluebg">
-                                <div class="px-3">
-                                        <h1 class="bluetxt">Welcome to the Film Bazaar Buyer Portal!</h1><br />
-                                        <p>
-                                            We're excited to have you join us in this dynamic marketplace. As a buyer, you have access to a diverse array of films and projects, all curated to meet your needs and interests.<br /><br />
-
-                                            Explore new talent, discover unique stories, and connect with creators who are passionate about their work. Your participation is essential in fostering a thriving film community.<br /><br />
-
-                                            Log in to start your journey. If you need assistance, our support team is ready to help!<br /><br />
-
-                                            You can share your queries at :  <a href="mailto:info@filmbazarindia.com">info@filmbazarindia.com</a><br /><br />
-
-                                            Happy Discovering!
-                                        </p>
-                                    </div>
+                                <AuthText/>
                                 </div>
                                 <div className="col-md-5 col-sm-5 form-pg">
                                     <div className="px-5 pt-4 pb-4">
                                         <h2 className="mt-3 pb-4">Recover your password</h2>
                                         <form onSubmit={handleSubmit}>
-
-
-
                                             <div className="form-group">
                                                 <label>Password</label>
                                                 <input
                                                     type="password"
+                                                    name="password"
+                                                    value={formData.password}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="Password"
+                                                />
+                                                 <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                   
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPasswordOne}
+                                                                    onMouseDown={handleMouseDownPassword}
+                                                                    edge="end"
+                                                                >
+                                                                    {showPasswordOne ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        ),
+                                                        // style: { border: '1px solid black', borderRadius: '5px' },
+                                                    }}
+
+
+                                                    type={showPasswordOne ? "text" : "password"}
                                                     name="password"
                                                     value={formData.password}
                                                     onChange={handleChange}
@@ -113,8 +151,33 @@ const RecoverPassword = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label>Confirm Password</label>
-                                                <input
+                                                {/* <input
                                                     type="password"
+                                                    name="confirm_password"
+                                                    value={formData.confirm_password}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="Confirm Password"
+                                                /> */}
+                                                <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPasswordTwo}
+                                                                    onMouseDown={handleMouseDownPassword}
+                                                                    edge="end"
+                                                                >
+                                                                    {showPasswordTwo ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        ),
+                                                        // style: { border: '1px solid black', borderRadius: '5px' },
+                                                    }}
+                                                    type={showPasswordTwo ? "text" : "password"}
                                                     name="confirm_password"
                                                     value={formData.confirm_password}
                                                     onChange={handleChange}
@@ -140,7 +203,7 @@ const RecoverPassword = () => {
                     </div>
                 </div>
             </div>
-            <div className="container-fluid footer bg-dark">
+            {/* <div className="container-fluid footer bg-dark">
                 <div className="container">
                     <div className="text-center footer-copyright">
                         <span className="text-light">
@@ -148,7 +211,19 @@ const RecoverPassword = () => {
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> */}
+
+            <Footer/>
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={6000}
+                onClose={() => setAlertOpen(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+                <Alert severity={alertSeverity} variant="filled">
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </>
     );
 };

@@ -408,7 +408,7 @@ const Profile = () => {
         e.preventDefault();
 
         if (validateForm(formData)) {
-            alert("pass")
+            // alert("pass")
             const response = await postRequestApi(`film/buyer/update`, formData);
 
             // if (response?.status && response.data) {

@@ -3,6 +3,11 @@ import iffi from "../../assets/img/iffi.png";
 import filmbazaar from "../../assets/img/filmbazaar.png";
 import { Link, useNavigate } from 'react-router-dom';
 import ApiClient from '../API/ApiClient'
+import { Alert, IconButton, InputAdornment, Snackbar, TextField } from '@mui/material';
+import Footer from '../Footer/Footer';
+import AuthText from '../AuthText/AuthText';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 const Signup = () => {
     const { postRequestApi } = ApiClient();
     const [formData, setFormData] = useState({
@@ -13,6 +18,20 @@ const Signup = () => {
         confirm_password: ''
     });
     const [errors, setErrors] = useState({});
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertSeverity, setAlertSeverity] = useState("success");
+
+    const [showPasswordOne, setShowPasswordOne] = useState(false);
+    const [showPasswordTwo, setShowPasswordTwo] = useState(false);
+
+    const handleClickShowPasswordOne = () => setShowPasswordOne((show) => !show);
+    const handleClickShowPasswordTwo = () => setShowPasswordTwo((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     // Handle input changes
     const handleChange = (e) => {
@@ -25,7 +44,7 @@ const Signup = () => {
         setErrors({
             ...errors,
             [name]: ''
-          });
+        });
 
 
     };
@@ -59,7 +78,10 @@ const Signup = () => {
         if (validateForm()) {
             const response = await postRequestApi(`auth/register`, formData);
             if (response?.status && response.data) {
-                alert("registered successfully.");
+                // alert("registered successfully.");
+                setAlertSeverity('success');
+                setAlertMessage('Registered successfully!.');
+                setAlertOpen(true);
                 setFormData({
                     first_name: '',
                     last_name: '',
@@ -71,6 +93,9 @@ const Signup = () => {
             } else {
                 // alert("dd");
                 //   navigate("404");
+                setAlertSeverity('error');
+                setAlertMessage('Failed to registration. Please try again!.');
+                setAlertOpen(true);
 
             }
             // Submit the form data here (e.g., API call)
@@ -89,20 +114,7 @@ const Signup = () => {
                         <div className="card-body p-0">
                             <div className="row">
                                 <div className="col-md-7 col-sm-7 bluebg">
-                                <div class="px-3">
-                                        <h1 class="bluetxt">Welcome to the Film Bazaar Buyer Portal!</h1><br />
-                                        <p>
-                                            We're excited to have you join us in this dynamic marketplace. As a buyer, you have access to a diverse array of films and projects, all curated to meet your needs and interests.<br /><br />
-
-                                            Explore new talent, discover unique stories, and connect with creators who are passionate about their work. Your participation is essential in fostering a thriving film community.<br /><br />
-
-                                            Log in to start your journey. If you need assistance, our support team is ready to help!<br /><br />
-
-                                            You can share your queries at :  <a href="mailto:info@filmbazarindia.com">info@filmbazarindia.com</a><br /><br />
-
-                                            Happy Discovering!
-                                        </p>
-                                    </div>
+                                    <AuthText />
                                 </div>
                                 <div className="col-md-5 col-sm-5 form-pg">
                                     <div className="px-5 pt-4 pb-4">
@@ -111,8 +123,18 @@ const Signup = () => {
 
                                             <div className="form-group">
                                                 <label>First Name</label>
-                                                <input
+                                                {/* <input
                                                     type="text"
+                                                    name="first_name"
+                                                    value={formData.first_name}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="First Name"
+                                                /> */}
+                                                <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    type='text'
                                                     name="first_name"
                                                     value={formData.first_name}
                                                     onChange={handleChange}
@@ -123,8 +145,18 @@ const Signup = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label>Last Name</label>
-                                                <input
+                                                {/* <input
                                                     type="text"
+                                                    name="last_name"
+                                                    value={formData.last_name}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="Last Name"
+                                                /> */}
+                                                 <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    type='text'
                                                     name="last_name"
                                                     value={formData.last_name}
                                                     onChange={handleChange}
@@ -135,37 +167,102 @@ const Signup = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label>Email</label>
-                                                <input
+                                                {/* <input
                                                     type="email"
                                                     name="email"
                                                     value={formData.email}
                                                     onChange={handleChange}
                                                     className="form-control"
                                                     placeholder="Email"
+                                                /> */}
+                                                 <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    type='email'
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="Email"
                                                 />
+                                                
                                                 {errors.email && <small className="text-danger">{errors.email}</small>}
                                             </div>
                                             <div className="form-group">
                                                 <label>Password</label>
-                                                <input
+                                                {/* <input
                                                     type="password"
                                                     name="password"
                                                     value={formData.password}
                                                     onChange={handleChange}
                                                     className="form-control"
                                                     placeholder="Password"
+                                                /> */}
+                                                <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                   
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPasswordOne}
+                                                                    onMouseDown={handleMouseDownPassword}
+                                                                    edge="end"
+                                                                >
+                                                                    {showPasswordOne ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        ),
+                                                        // style: { border: '1px solid black', borderRadius: '5px' },
+                                                    }}
+
+
+                                                    type={showPasswordOne ? "text" : "password"}
+                                                    name="password"
+                                                    value={formData.password}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    
+                                                    placeholder="Password"
                                                 />
                                                 {errors.password && <small className="text-danger">{errors.password}</small>}
                                             </div>
                                             <div className="form-group">
                                                 <label>Confirm Password</label>
-                                                <input
+                                                {/* <input
                                                     type="password"
                                                     name="confirm_password"
                                                     value={formData.confirm_password}
                                                     onChange={handleChange}
                                                     className="form-control"
                                                     placeholder="Confirm Password"
+                                                /> */}
+                                                 <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPasswordTwo}
+                                                                    onMouseDown={handleMouseDownPassword}
+                                                                    edge="end"
+                                                                >
+                                                                    {showPasswordTwo ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        ),
+                                                        // style: { border: '1px solid black', borderRadius: '5px' },
+                                                    }}
+                                                    type={showPasswordTwo ? "text" : "password"}
+                                                    name="confirm_password"
+                                                    value={formData.confirm_password}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="Password"
                                                 />
                                                 {errors.confirm_password && <small className="text-danger">{errors.confirm_password}</small>}
                                             </div>
@@ -186,7 +283,7 @@ const Signup = () => {
                     </div>
                 </div>
             </div>
-            <div className="container-fluid footer bg-dark">
+            {/* <div className="container-fluid footer bg-dark">
                 <div className="container">
                     <div className="text-center footer-copyright">
                         <span className="text-light">
@@ -194,7 +291,18 @@ const Signup = () => {
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <Footer />
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={6000}
+                onClose={() => setAlertOpen(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+                <Alert severity={alertSeverity} variant="filled">
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </>
     );
 };

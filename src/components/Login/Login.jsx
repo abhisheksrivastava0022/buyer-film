@@ -3,16 +3,34 @@ import iffi from "../../assets/img/iffi.png";
 import filmbazaar from "../../assets/img/filmbazaar.png";
 import { Link, useNavigate } from 'react-router-dom';
 import ApiClient from '../API/ApiClient'
+import { Alert, IconButton, InputAdornment, Snackbar, TextField } from '@mui/material';
+import Footer from '../Footer/Footer';
+import AuthText from '../AuthText/AuthText';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 const Login = () => {
-    const { postRequestApi, userLoginCheck } = ApiClient();
+    const { postRequestApi, userLoginCheck,postRequestGlobal } = ApiClient();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
 
     });
+    const [emailError, setEmailError] = useState('');
+
+    const [showPasswordOne, setShowPasswordOne] = useState(false);
+
+    const handleClickShowPasswordOne = () => setShowPasswordOne((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertSeverity, setAlertSeverity] = useState("success");
 
     const validate = () => {
         const newErrors = {};
@@ -35,35 +53,83 @@ const Login = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleChange = (e) => {
+    const handleEmailVerify = async (value) => {
+
+        let flag = true;
+
+
+        let emailErrorMsg = '';
+        if (!value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)) {
+            flag = false;
+            emailErrorMsg = 'Invalid email format';
+        } else {
+            try {
+                const payload = { email: value };
+
+                const response = await postRequestGlobal("verify-email", payload);
+                if (response.data === 0) {
+                    flag = false;
+                    emailErrorMsg = 'Email ID does not exist';
+                }
+            } catch (error) {
+                console.error('Error verifying email:', error);
+            }
+        }
+        setEmailError(emailErrorMsg);
+        // console.log({flag});
+
+        return flag
+    }
+
+
+    const handleChange = async (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
             ...formData,
             [name]: type === 'checkbox' ? checked : value,
         });
 
+        if (name === 'email') {
+            await handleEmailVerify(value);
+        }
+
         setErrors({
             ...errors,
             [name]: ''
-          });
+        });
     };
     const navigate = useNavigate();
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         if (validate()) {
             setIsSubmitting(true);
+            const emailErrorMsg = await handleEmailVerify(formData.email);
+            // console.log({ emailErrorMsg });
+            if (!emailErrorMsg) {
+                return;
+            }
             const response = await postRequestApi(`auth/login`, formData);
             if (response?.status) {
-                alert("login successfully.");
+                // alert("login successfully.");
+                setAlertSeverity('success');
+                setAlertMessage('Login successfully!.');
+                setAlertOpen(true);
                 setFormData({ email: '', password: '' });
                 navigate("/");
+            } else {
+                setAlertSeverity('error');
+                setAlertMessage(response.message);
+                setAlertOpen(true);
             }
-
             // Reset form and submission status after success
-
             setIsSubmitting(false);
         } else {
             console.log('Validation failed:', errors);
+            setAlertSeverity('error');
+            setAlertMessage('Failed to login. Please try again!');
+            setAlertOpen(true);
         }
     };
 
@@ -85,21 +151,8 @@ const Login = () => {
                     <div className="card mt-4 mb-4">
                         <div className="card-body p-0">
                             <div className="row">
-                                <div className="col-md-7 col-sm-7 bluebg">                                   
-                                    <div class="px-3">
-                                        <h1 class="bluetxt">Welcome to the Film Bazaar Buyer Portal!</h1><br />
-                                        <p>
-                                            We're excited to have you join us in this dynamic marketplace. As a buyer, you have access to a diverse array of films and projects, all curated to meet your needs and interests.<br /><br />
-
-                                            Explore new talent, discover unique stories, and connect with creators who are passionate about their work. Your participation is essential in fostering a thriving film community.<br /><br />
-
-                                            Log in to start your journey. If you need assistance, our support team is ready to help!<br /><br />
-
-                                            You can share your queries at :  <a href="mailto:info@filmbazarindia.com">info@filmbazarindia.com</a><br /><br />
-
-                                            Happy Discovering!
-                                        </p>
-                                    </div>
+                                <div className="col-md-7 col-sm-7 bluebg">
+                                    <AuthText />
                                 </div>
                                 <div className="col-md-5 col-sm-5 form-pg">
                                     <div className="px-5 pt-4 pb-4">
@@ -107,7 +160,7 @@ const Login = () => {
                                         <form onSubmit={handleSubmit} noValidate>
                                             <div className="form-group">
                                                 <label htmlFor="email">Email</label>
-                                                <input
+                                                {/* <input
                                                     type="email"
                                                     id="email"
                                                     name="email"
@@ -115,12 +168,23 @@ const Login = () => {
                                                     placeholder="Enter Email"
                                                     value={formData.email}
                                                     onChange={handleChange}
+                                                /> */}
+                                                 <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    type='email'
+                                                    placeholder='Enter Email'
+                                                    className="form-control"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleChange}
                                                 />
                                                 {errors.email && <p className="text-danger">{errors.email}</p>}
+                                                {emailError && <p className="error text-danger">{emailError}</p>}
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="password">Password</label>
-                                                <input
+                                                {/* <input
                                                     type="password"
                                                     id="password"
                                                     name="password"
@@ -128,8 +192,38 @@ const Login = () => {
                                                     placeholder="*******"
                                                     value={formData.password}
                                                     onChange={handleChange}
+                                                /> */}
+                                                <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    placeholder='*************'
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPasswordOne}
+                                                                    onMouseDown={handleMouseDownPassword}
+                                                                    edge="end"
+                                                                >
+                                                                    {showPasswordOne ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        ),
+                                                        // style: { border: '1px solid black', borderRadius: '5px' },
+                                                    }}
+
+
+                                                    type={showPasswordOne ? "text" : "password"}
+                                                    name="password"
+                                                    value={formData.password}
+                                                    onChange={handleChange}
+                                                    className="form-control"
                                                 />
+
+
                                                 {errors.password && <p className="text-danger">{errors.password}</p>}
+                                                
                                             </div>
 
                                             <div className="form-group">
@@ -157,7 +251,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            <footer className="container-fluid bg-dark">
+            {/* <footer className="container-fluid bg-dark">
                 <div className="container">
                     <div className="text-center footer-copyright">
                         <span className="text-light">
@@ -165,7 +259,18 @@ const Login = () => {
                         </span>
                     </div>
                 </div>
-            </footer>
+            </footer> */}
+            <Footer />
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={6000}
+                onClose={() => setAlertOpen(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+                <Alert severity={alertSeverity} variant="filled">
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </>
     );
 };

@@ -3,12 +3,20 @@ import iffi from "../../assets/img/iffi.png";
 import filmbazaar from "../../assets/img/filmbazaar.png";
 import { Link, useNavigate } from 'react-router-dom';
 import ApiClient from '../API/ApiClient'
+import { Alert, Snackbar, TextField } from '@mui/material';
+import Footer from '../Footer/Footer';
+import AuthText from '../AuthText/AuthText';
+
 const ForgetPassword = () => {
     const { postRequestApi } = ApiClient();
     const [formData, setFormData] = useState({
         email: '',
     });
     const [errors, setErrors] = useState({});
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertSeverity, setAlertSeverity] = useState("success");
 
     // Handle input changes
     const handleChange = (e) => {
@@ -46,7 +54,10 @@ const ForgetPassword = () => {
         if (validateForm()) {
             const response = await postRequestApi(`auth/forget-password`, formData);
             if (response?.status && response.data) {
-                alert(response.message);
+                // alert(response.message);
+                setAlertSeverity('success');
+                setAlertMessage('Your password has been sent to your registered mail id!.');
+                setAlertOpen(true);
                 setFormData({
                     email: '',
                 });
@@ -54,6 +65,9 @@ const ForgetPassword = () => {
             } else {
                 // alert("dd");
                 //   navigate("404");
+                setAlertSeverity('error');
+                setAlertMessage('Failed to sent password on your registered mail id. Please try again!.');
+                setAlertOpen(true);
 
             }
             // Submit the form data here (e.g., API call)
@@ -72,20 +86,7 @@ const ForgetPassword = () => {
                         <div className="card-body p-0">
                             <div className="row">
                                 <div className="col-md-7 col-sm-7 bluebg">
-                                <div class="px-3">
-                                        <h1 class="bluetxt">Welcome to the Film Bazaar Buyer Portal!</h1><br />
-                                        <p>
-                                            We're excited to have you join us in this dynamic marketplace. As a buyer, you have access to a diverse array of films and projects, all curated to meet your needs and interests.<br /><br />
-
-                                            Explore new talent, discover unique stories, and connect with creators who are passionate about their work. Your participation is essential in fostering a thriving film community.<br /><br />
-
-                                            Log in to start your journey. If you need assistance, our support team is ready to help!<br /><br />
-
-                                            You can share your queries at :  <a href="mailto:info@filmbazarindia.com">info@filmbazarindia.com</a><br /><br />
-
-                                            Happy Discovering!
-                                        </p>
-                                    </div>
+                                    <AuthText/>
                                 </div>
                                 <div className="col-md-5 col-sm-5 form-pg">
                                     <div className="px-5 pt-4 pb-4">
@@ -95,8 +96,18 @@ const ForgetPassword = () => {
 
                                             <div className="form-group">
                                                 <label>Email</label>
-                                                <input
+                                                {/* <input
                                                     type="email"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="Email"
+                                                /> */}
+                                                 <TextField
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    type='email'
                                                     name="email"
                                                     value={formData.email}
                                                     onChange={handleChange}
@@ -124,7 +135,7 @@ const ForgetPassword = () => {
                     </div>
                 </div>
             </div>
-            <div className="container-fluid footer bg-dark">
+            {/* <div className="container-fluid footer bg-dark">
                 <div className="container">
                     <div className="text-center footer-copyright">
                         <span className="text-light">
@@ -132,7 +143,18 @@ const ForgetPassword = () => {
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <Footer/>
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={6000}
+                onClose={() => setAlertOpen(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+                <Alert severity={alertSeverity} variant="filled">
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </>
     );
 };
