@@ -41,6 +41,11 @@ const Login = () => {
             ...formData,
             [name]: type === 'checkbox' ? checked : value,
         });
+
+        setErrors({
+            ...errors,
+            [name]: ''
+          });
     };
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
@@ -80,18 +85,23 @@ const Login = () => {
                     <div className="card mt-4 mb-4">
                         <div className="card-body p-0">
                             <div className="row">
-                                <div className="col-md-6 col-sm-6 bluebg">
-                                    <div className="px-3">
-                                        <h1 className="bluetxt">Welcome to the Film Bazaar Seller Portal!</h1>
+                                <div className="col-md-7 col-sm-7 bluebg">                                   
+                                    <div class="px-3">
+                                        <h1 class="bluetxt">Welcome to the Film Bazaar Buyer Portal!</h1><br />
                                         <p>
-                                            We're thrilled to have you here. This platform connects talented filmmakers and sellers like you with the vibrant film community.<br /><br />
-                                            As a seller, you can showcase your projects, network with industry professionals, and explore exciting collaborations. Your contributions are key to the growth and diversity of our film ecosystem.<br /><br />
-                                            Get started by logging in below. If you have questions, reach out to us at <a href="mailto:info@filmbazarindia.com">info@filmbazarindia.com</a>.<br /><br />
-                                            Happy Selling!
+                                            We're excited to have you join us in this dynamic marketplace. As a buyer, you have access to a diverse array of films and projects, all curated to meet your needs and interests.<br /><br />
+
+                                            Explore new talent, discover unique stories, and connect with creators who are passionate about their work. Your participation is essential in fostering a thriving film community.<br /><br />
+
+                                            Log in to start your journey. If you need assistance, our support team is ready to help!<br /><br />
+
+                                            You can share your queries at :  <a href="mailto:info@filmbazarindia.com">info@filmbazarindia.com</a><br /><br />
+
+                                            Happy Discovering!
                                         </p>
                                     </div>
                                 </div>
-                                <div className="col-md-6 col-sm-6 form-pg">
+                                <div className="col-md-5 col-sm-5 form-pg">
                                     <div className="px-5 pt-4 pb-4">
                                         <h2 className="mt-3 pb-4">Login to your account</h2>
                                         <form onSubmit={handleSubmit} noValidate>

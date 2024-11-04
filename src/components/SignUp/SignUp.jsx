@@ -22,6 +22,11 @@ const Signup = () => {
             [name]: value
         }));
 
+        setErrors({
+            ...errors,
+            [name]: ''
+          });
+
 
     };
 
@@ -34,9 +39,10 @@ const Signup = () => {
         if (!formData.email) {
             errors.email = "Email is required";
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            errors.email = "Email is invalid";
+            errors.email = "Email address is invalid";
         }
         if (!formData.password) errors.password = "Password is required";
+        if (!formData.confirm_password) errors.confirm_password = "Confirm Password is required";
         if (formData.password !== formData.confirm_password) {
             errors.confirm_password = "Passwords do not match";
         }
@@ -82,23 +88,23 @@ const Signup = () => {
                     <div className="card mt-4 mb-4">
                         <div className="card-body p-0">
                             <div className="row">
-                                <div className="col-md-6 col-sm-6 bluebg">
+                                <div className="col-md-7 col-sm-7 bluebg">
                                 <div class="px-3">
-                                        <h1 class="bluetxt"> Welcome to the Film Bazaar Seller Portal!</h1><br/>
+                                        <h1 class="bluetxt">Welcome to the Film Bazaar Buyer Portal!</h1><br />
                                         <p>
-                                            We're thrilled to have you here. This platform is designed to connect talented filmmakers and sellers like you with the vibrant film community.<br/><br/>
+                                            We're excited to have you join us in this dynamic marketplace. As a buyer, you have access to a diverse array of films and projects, all curated to meet your needs and interests.<br /><br />
 
-                                            As a seller, you have the opportunity to showcase your projects, network with industry professionals, and discover exciting collaborations. Your contributions are vital to the growth and diversity of our film ecosystem.<br/><br/>
+                                            Explore new talent, discover unique stories, and connect with creators who are passionate about their work. Your participation is essential in fostering a thriving film community.<br /><br />
 
-                                            Get started by logging in below. If you have any questions, our support team is here to help!<br/><br/>
-                                            
-                                            You can share your queries at : info@filmbazarindia.com<br/><br/>
+                                            Log in to start your journey. If you need assistance, our support team is ready to help!<br /><br />
 
-                                            Happy Selling!
+                                            You can share your queries at :  <a href="mailto:info@filmbazarindia.com">info@filmbazarindia.com</a><br /><br />
+
+                                            Happy Discovering!
                                         </p>
                                     </div>
                                 </div>
-                                <div className="col-md-6 col-sm-6 form-pg">
+                                <div className="col-md-5 col-sm-5 form-pg">
                                     <div className="px-5 pt-4 pb-4">
                                         <h2 className="mt-3 pb-4">Create Your Account</h2>
                                         <form onSubmit={handleSubmit}>
@@ -170,7 +176,7 @@ const Signup = () => {
                                                 <div>
                                                     <Link to={"/login"}>Login</Link>
                                                 </div>
-                                                <div><Link to={"/forgetpassword"}>Forgot your password?</Link></div>
+                                                <div><Link to={"/forget-password"}>Forgot your password?</Link></div>
                                             </div>
                                         </form>
                                     </div>
