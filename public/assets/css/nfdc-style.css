@@ -336,3 +336,7 @@ h1,
 .title-heading {
   font-size: 18px !important;
 }
+
+.title-heading {
+  font: size 18px !important;
+}

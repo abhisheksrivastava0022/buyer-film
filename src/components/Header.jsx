@@ -61,13 +61,13 @@ const Header = () => {
                                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Interest</a>
                                         <ul className="dropdown-menu">
                                             <li>
-                                                <Link className="dropdown-item" to="film" >Send</Link>
+                                                <Link className="dropdown-item" to="/interest-send" >Send</Link>
                                             </li>
                                             <li>
-                                                <Link className="dropdown-item" to="film" >Decline</Link>
+                                                <Link className="dropdown-item" to="/interest-Decline" >Decline</Link>
                                             </li>
                                             <li>
-                                                <Link className="dropdown-item" to="film" >Approved</Link>
+                                                <Link className="dropdown-item" to="/interest-approved" >Approved</Link>
                                             </li>
 
                                         </ul>
@@ -89,9 +89,9 @@ const Header = () => {
                                         <li>
                                             <Link className="dropdown-item" to="profile">Account</Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link className="dropdown-item" to="change-password">Change password</Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <hr className="dropdown-divider" />
                                         </li>
