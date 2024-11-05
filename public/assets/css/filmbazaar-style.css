@@ -336,3 +336,5 @@ h1,
 .update-profile-form  h1{ font-size: 20px; background-color: #f2f2f2; padding: 15px; margin-bottom: 15px; margin-top: 25px;}
 .update-profile-form  li{ margin-bottom: 15px;}
 .span-link{ padding: 5px; cursor: pointer;}
+.discrription{ margin-top: -5px; }
+.discrription .card-body{border-radius: 0 0 5px 5px!important;}

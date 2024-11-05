@@ -83,7 +83,7 @@ const ViewFilmDetails = () => {
 
               </div>
             </div>
-            <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+            <div className="row g-0 border rounded overflow-hidden flex-md-row shadow-sm h-md-250 card position-relative">
 
               <div className="col-auto  d-lg-block">
                 {type2Document ?
@@ -102,8 +102,87 @@ const ViewFilmDetails = () => {
                 <p className="card-text mb-auto">
                   Is film Complete: {data.is_film_complete ? "yes" : "No"}
                 </p>
+               
 
               </div>
+            </div>
+            <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 discrription card position-relative">
+              <div class="card-body">
+              <p className="card-text mb-auto">
+                  English Title : {data.english_title ? data.english_title : ""}
+                </p>
+                <p className="card-text mb-auto">
+                  Post Production work : {data.post_production_work ? "Yes" : "No"}
+                </p>
+                <p className="card-text mb-auto">
+                  Rough cut of your film : {data.rough_cut_duration ? data.rough_cut_duration : ""}
+                </p>
+                <p className="card-text mb-auto">
+                  Will your film be complete by November 20, 2024 ? : {data.will_be_complete_by ? "Yes" : "No"}
+                </p>
+                <p className="card-text mb-auto">
+                  Final Duration : {data.duration ? data.duration : ""}
+                </p>
+                <p className="card-text mb-auto">
+                  Month of completion : {data.month_of_completion ? data.month_of_completion : ""}
+                </p>
+                <p className="card-text mb-auto">
+                  Year of Completion : {data.year_of_completion ? data.year_of_completion : ""} 
+                </p>
+
+                <p className="card-text mb-auto">
+                  Synopsis of Film : {data.synopsis ? data.synopsis : ""} 
+                </p>
+
+                
+                <p className="card-text mb-auto">
+                  Director's Note : {data.director_comment ? data.director_comment : ""} 
+                </p>
+
+                <p className="card-text mb-auto">
+                  Screenplay : {data.screenplay ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                  Lead Cast : {data.lead_cast ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Writer : {data.writer ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Directotr of Photography : {data.director_of_photography ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Editor : {data.editor ? "Yes" : "No"}  
+                </p>
+
+                <p className="card-text mb-auto">
+                 Editor's Filmography : {data.editor_filmography ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Sound : {data.sound ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Music : {data.music ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Production Designer :  {data.production_design ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Costume :  {data.costume ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Additional Crew : {data.additional_crew ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Downloadable Preview Link :  {data.download_preview_link ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Preview Link Password :  {data.preview_link_password ? "Yes" : "No"}  
+                </p>
+                <p className="card-text mb-auto">
+                 Notes :  {data.note ? "Yes" : "No"}  
+                </p>                
+                </div>
             </div>
           </div>
 
