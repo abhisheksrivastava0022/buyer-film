@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import ApiClient from './API/ApiClient'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import filmbazaar from "../assets/img/filmbazaar.png";
 const Header = () => {
     const [data, setData] = useState({})
     const { getRequestApi, userInfo } = ApiClient();
     const navigate = useNavigate();
-    const logoutHander = async () => {
+    const logoutHander = async (e) => {
+        e.preventDefault();
         const data = await getRequestApi('auth/logout', {});
         navigate("/login");
     }
@@ -47,7 +48,7 @@ const Header = () => {
                             <div className="col-md-8 col-sm-8">
                                 <ul className="nav nav-tabs">
                                     <li className="nav-item" role="presentation">
-                                        <a className="nav-link active" href="#" >Film</a>
+                                        <Link className="nav-link active" to="film" >Film</Link>
                                     </li>
                                     <li className="nav-item" role="presentation">
                                         <a className="nav-link " href="#" role="tab" >Company</a>
@@ -59,9 +60,16 @@ const Header = () => {
                                     <li className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Interest</a>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Interest Recieved</a></li>
-                                            <li><a className="dropdown-item" href="#">Interest Decline</a></li>
-                                            <li><a className="dropdown-item" href="#">Wishlist</a></li>
+                                            <li>
+                                                <Link className="dropdown-item" to="film" >Send</Link>
+                                            </li>
+                                            <li>
+                                                <Link className="dropdown-item" to="film" >Decline</Link>
+                                            </li>
+                                            <li>
+                                                <Link className="dropdown-item" to="film" >Approved</Link>
+                                            </li>
+
                                         </ul>
                                     </li>
                                 </ul>
@@ -78,12 +86,18 @@ const Header = () => {
                                         {data.first_name}  {data.last_name}
                                     </a>
                                     <ul className="dropdown-menu dropdown-menu-end">
-                                        <li> <a className="dropdown-item" href="#">Account</a></li>
-                                        <li><a className="dropdown-item" href="#">Change password</a></li>
+                                        <li>
+                                            <Link className="dropdown-item" to="profile">Account</Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item" to="change-password">Change password</Link>
+                                        </li>
                                         <li>
                                             <hr className="dropdown-divider" />
                                         </li>
-                                        <li> <a className="dropdown-item" href="#">Sign out</a></li>
+                                        <li>
+                                            <a className="dropdown-item" href="#" onClick={logoutHander} >Sign out</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
