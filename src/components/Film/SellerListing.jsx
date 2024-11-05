@@ -178,23 +178,36 @@ const SellerListing = () => {
 
                             {
 
-                                data.map((row) => (
-                                    <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                data.map((row) => {
+                                    const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                    console.log(type2Document);
+                                    const dataurl = process.env.REACT_APP_BASE_URL;
+                                    console.log({ dataurl });
+                                    return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
 
                                         <div className="col-auto  d-lg-block">
-                                            <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                            {type2Document ?
+                                                <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                :
+                                                <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                            }
                                         </div>
                                         <div className="col p-4 d-flex flex-column position-static">
-                                            <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.type?.name}</strong>
-                                            <h3 className="mb-0">{row.title}</h3>
-                                            <div className="mb-1 text-body-secondary">Nov 12</div>
-                                            <p className="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                                            <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
+                                            <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
+                                            <div className="mb-1 text-body-secondary">
+                                                Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
+
+                                            </div>
+                                            <p className="card-text mb-auto">
+                                                Is film Complete: {row.is_film_complete ? "yes" : "No"}
+                                            </p>
                                             <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
                                                 Continue reading
                                             </Link>
                                         </div>
                                     </div>
-                                ))
+                                })
                             }
 
 

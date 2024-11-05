@@ -332,3 +332,7 @@ h1,
   display: flex;
   column-gap: 5px;
 }
+
+.title-heading {
+  font-size: 18px !important;
+}
