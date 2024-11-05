@@ -5,12 +5,14 @@ import Header from '../Header';
 import Footer from '../Footer/Footer';
 import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const SellerListing = () => {
     const [data, setData] = useState([])
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
+
 
 
     const { getRequestApi } = ApiClient();
@@ -97,8 +99,9 @@ const SellerListing = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                PageOnLoad()
                 console.log('Response Data:', data);
-                loadPreLoadData()
+                
             } else {
                 console.error('Failed to  interest.');
             }
@@ -120,8 +123,9 @@ const SellerListing = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                PageOnLoad()
                 console.log('Response Data:', data);
-                loadPreLoadData()
+              
             } else {
                 console.error('Failed to  interest.');
             }
@@ -129,6 +133,34 @@ const SellerListing = () => {
             console.error('Error occurred:', error);
         }
     };
+
+    const PageOnLoad = async () => {
+        try {
+           const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+              method: 'GET',
+              headers: {
+                 'Content-Type': 'application/json',
+              },
+              credentials: "include"
+           });
+  
+  
+           if (response.ok) {
+              const data = await response.json();
+              setLoadingData(data.data)
+              console.log('Response Data:', data);
+  
+           } else {
+              console.error('Failed to load data.');
+           }
+        } catch (error) {
+           console.error('Error occurred:', error);
+        }
+     };
+  
+     useEffect(() => {
+        PageOnLoad()
+     }, [])
 
 
 
@@ -226,9 +258,29 @@ const SellerListing = () => {
                                                 Continue reading
                                             </Link>
                                         </div>
+                                        <div className='star'>
+                                            {loadingData?.film_interest?.[row.id] ?
+                                                <StarBorderIcon
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                        color: "#808080"
+                                                    }}
+                                                    onClick={() => NotInterestedApply(row.id)} />
+                                                :
+                                                <StarBorderIcon
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                        color: "ffd503"
+                                                    }}
+                                                    onClick={() => InterestedApply(row.id)} />
+                                            }
+                                        </div>
                                     </div>
+
                                 })
                             }
+
+
 
 
 

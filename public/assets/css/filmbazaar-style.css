@@ -338,3 +338,8 @@ h1,
 .span-link{ padding: 5px; cursor: pointer;}
 .discrription{ margin-top: -5px; }
 .discrription .card-body{border-radius: 0 0 5px 5px!important;}
+.star{    position: absolute;
+  z-index: 999;
+  right: 15px;
+  width: auto;
+  top: 15px;}

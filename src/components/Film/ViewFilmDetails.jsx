@@ -3,6 +3,7 @@ import defaultimg from "../../assets/img/default.jpg";
 import filmbazaar from "../../assets/img/filmbazaar.png";
 import ApiClient from '../API/ApiClient';
 import { useParams } from 'react-router-dom';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const ViewFilmDetails = () => {
   const { getRequestApi } = ApiClient();
@@ -30,7 +31,7 @@ const ViewFilmDetails = () => {
         setBannerStyle({
           backgroundImage: `url(${process.env.REACT_APP_BASE_URL}/film-buyer/file/read/${type2.url})`,
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center top",
+          backgroundPosition: "center center",
           backgroundSize: "cover",
         });
       }
@@ -42,6 +43,84 @@ const ViewFilmDetails = () => {
   useEffect(() => {
     preloading()
   }, [])
+
+  const [loadingData, setLoadingData] = useState({})
+
+  const InterestedApply = async (id) => {
+    try {
+      const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/interested`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: "include"
+      });
+
+
+      if (response.ok) {
+        const data = await response.json();
+        PageOnLoad()
+  
+        console.log('Response Data:', data);
+      } else {
+        console.error('Failed to  interest.');
+      }
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
+  };
+
+  const NotInterestedApply = async (id) => {
+    try {
+      const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/not-interested`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: "include"
+      });
+
+
+      if (response.ok) {
+        const data = await response.json();
+       
+        console.log('Response Data:', data);
+      } else {
+        console.error('Failed to  interest.');
+      }
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
+  };
+
+  const PageOnLoad = async () => {
+    try {
+       const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+          method: 'GET',
+          headers: {
+             'Content-Type': 'application/json',
+          },
+          credentials: "include"
+       });
+
+
+       if (response.ok) {
+          const data = await response.json();
+          setLoadingData(data.data)
+          console.log('Response Data:', data);
+
+       } else {
+          console.error('Failed to load data.');
+       }
+    } catch (error) {
+       console.error('Error occurred:', error);
+    }
+ };
+
+ useEffect(() => {
+    PageOnLoad()
+ }, [])
+
 
   return (
     <>
@@ -61,6 +140,7 @@ const ViewFilmDetails = () => {
                 <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
 
               </ul>
+              
             </div>
           </div>
         </div>
@@ -102,13 +182,31 @@ const ViewFilmDetails = () => {
                 <p className="card-text mb-auto">
                   Is film Complete: {data.is_film_complete ? "yes" : "No"}
                 </p>
-               
 
+
+              </div>
+              
+              <div className='star'>
+                {loadingData?.film_interest?.[data.id] ?
+                  <StarBorderIcon
+                    style={{
+                      cursor: 'pointer',
+                      color: "#ffd503"
+                    }}
+                    onClick={() => NotInterestedApply(data.id)} />
+                  :
+                  <StarBorderIcon
+                    style={{
+                      cursor: 'pointer',
+                      color: "#808080"
+                    }}
+                    onClick={() => InterestedApply(data.id)} />
+                }
               </div>
             </div>
             <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 discrription card position-relative">
               <div class="card-body">
-              <p className="card-text mb-auto">
+                <p className="card-text mb-auto">
                   English Title : {data.english_title ? data.english_title : ""}
                 </p>
                 <p className="card-text mb-auto">
@@ -127,62 +225,62 @@ const ViewFilmDetails = () => {
                   Month of completion : {data.month_of_completion ? data.month_of_completion : ""}
                 </p>
                 <p className="card-text mb-auto">
-                  Year of Completion : {data.year_of_completion ? data.year_of_completion : ""} 
+                  Year of Completion : {data.year_of_completion ? data.year_of_completion : ""}
                 </p>
 
                 <p className="card-text mb-auto">
-                  Synopsis of Film : {data.synopsis ? data.synopsis : ""} 
+                  Synopsis of Film : {data.synopsis ? data.synopsis : ""}
                 </p>
 
-                
-                <p className="card-text mb-auto">
-                  Director's Note : {data.director_comment ? data.director_comment : ""} 
-                </p>
 
                 <p className="card-text mb-auto">
-                  Screenplay : {data.screenplay ? "Yes" : "No"}  
-                </p>
-                <p className="card-text mb-auto">
-                  Lead Cast : {data.lead_cast ? "Yes" : "No"}  
-                </p>
-                <p className="card-text mb-auto">
-                 Writer : {data.writer ? "Yes" : "No"}  
-                </p>
-                <p className="card-text mb-auto">
-                 Directotr of Photography : {data.director_of_photography ? "Yes" : "No"}  
-                </p>
-                <p className="card-text mb-auto">
-                 Editor : {data.editor ? "Yes" : "No"}  
+                  Director's Note : {data.director_comment ? data.director_comment : ""}
                 </p>
 
                 <p className="card-text mb-auto">
-                 Editor's Filmography : {data.editor_filmography ? "Yes" : "No"}  
+                  Screenplay : {data.screenplay ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Sound : {data.sound ? "Yes" : "No"}  
+                  Lead Cast : {data.lead_cast ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Music : {data.music ? "Yes" : "No"}  
+                  Writer : {data.writer ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Production Designer :  {data.production_design ? "Yes" : "No"}  
+                  Directotr of Photography : {data.director_of_photography ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Costume :  {data.costume ? "Yes" : "No"}  
+                  Editor : {data.editor ? "Yes" : "No"}
+                </p>
+
+                <p className="card-text mb-auto">
+                  Editor's Filmography : {data.editor_filmography ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Additional Crew : {data.additional_crew ? "Yes" : "No"}  
+                  Sound : {data.sound ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Downloadable Preview Link :  {data.download_preview_link ? "Yes" : "No"}  
+                  Music : {data.music ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Preview Link Password :  {data.preview_link_password ? "Yes" : "No"}  
+                  Production Designer :  {data.production_design ? "Yes" : "No"}
                 </p>
                 <p className="card-text mb-auto">
-                 Notes :  {data.note ? "Yes" : "No"}  
-                </p>                
-                </div>
+                  Costume :  {data.costume ? "Yes" : "No"}
+                </p>
+                <p className="card-text mb-auto">
+                  Additional Crew : {data.additional_crew ? "Yes" : "No"}
+                </p>
+                <p className="card-text mb-auto">
+                  Downloadable Preview Link :  {data.download_preview_link ? "Yes" : "No"}
+                </p>
+                <p className="card-text mb-auto">
+                  Preview Link Password :  {data.preview_link_password ? "Yes" : "No"}
+                </p>
+                <p className="card-text mb-auto">
+                  Notes :  {data.note ? "Yes" : "No"}
+                </p>
+              </div>
             </div>
           </div>
 
