@@ -4,7 +4,7 @@ const AuthText = () => {
     return (
         <>
             <div className="px-3">
-                <h1 className="bluetxt">Welcome to the Film Bazaar Buyer Portal!</h1><br />
+                <h1 className="bluetxt">Welcome to the Online Film Bazaar Buyer Portal!</h1><br />
                 <p>
                     We're excited to have you join us in this dynamic marketplace. As a buyer, you have access to a diverse array of films and projects, all curated to meet your needs and interests.<br /><br />
 

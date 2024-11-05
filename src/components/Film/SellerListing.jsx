@@ -232,7 +232,7 @@ const SellerListing = () => {
 
                                 data.map((row) => {
                                     const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
-                                    console.log(type2Document);
+                                    console.log(type2Document, "data");
                                     const dataurl = process.env.REACT_APP_BASE_URL;
                                     console.log({ dataurl });
                                     return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
