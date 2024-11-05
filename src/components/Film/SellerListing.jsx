@@ -263,14 +263,14 @@ const SellerListing = () => {
                                                 <StarBorderIcon
                                                     style={{
                                                         cursor: 'pointer',
-                                                        color: "#808080"
+                                                        color: "#ffd503"
                                                     }}
                                                     onClick={() => NotInterestedApply(row.id)} />
                                                 :
                                                 <StarBorderIcon
                                                     style={{
                                                         cursor: 'pointer',
-                                                        color: "ffd503"
+                                                        color: "#808080"
                                                     }}
                                                     onClick={() => InterestedApply(row.id)} />
                                             }
