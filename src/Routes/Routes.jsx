@@ -30,7 +30,7 @@ export const routes = [
                 path: '/',
                 // element: <HomePage />,
                 element: (
-                    <Dashboard />
+                    <SellerListing />
 
                 ),
 

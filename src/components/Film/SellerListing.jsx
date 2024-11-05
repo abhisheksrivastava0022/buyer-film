@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 
 const SellerListing = () => {
     const [data, setData] = useState([])
-    const [loadData, setLoadData] = useState([]);
-    const [typeCount, setTypeCount] = useState([])
+    const [filmtype, setFilmtype] = useState([]);
+    const [language, setlanguage] = useState([]);
+    const [country, setCountry] = useState([]);
 
 
     const { getRequestApi } = ApiClient();
@@ -19,34 +20,46 @@ const SellerListing = () => {
         currentPage: 1,
         limit: 10,
     });
+    const [searchForm, setSearchForm] = useState({ title: '', category: '' });
 
-    const preloading = async () => {
-
-        const data1 = await getRequestApi('film/type-count', {});
-        if (data1.status) {
-            setTypeCount(data1.data);
-        }
-
-
+    const handleSearchform = async (e) => {
+        e.preventDefault();
+        loadPreLoadData();
     }
 
+    // Function to handle input changes
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setSearchForm((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+    const preloading = async () => {
 
+        let data1 = await getRequestApi('site/film-type', {});
+        if (data1.status) {
+            setFilmtype(data1.data);
+        }
+        data1 = await getRequestApi('site/language', {});
+        if (data1.status) {
+            setlanguage(data1.data);
+        }
+        data1 = await getRequestApi('site/country', {});
+        if (data1.status) {
+            setCountry(data1.data);
+        }
+    }
     useEffect(() => {
         preloading();
         loadPreLoadData();
     }, []);
-
-
-
-
-
-
-
-
     const loadPreLoadData = async (page = 1) => {
         const queryParams = new URLSearchParams({
+
             limit: pagination.limit,
             page: page,
+            ...searchForm,
         });
 
         try {
@@ -132,23 +145,30 @@ const SellerListing = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
+                            <h3>Filter</h3>
+                            <form onSubmit={handleSearchform}>
+                                <div className="form-group">
+                                    <label>Title of film</label>
+                                    <div className="input-group mb-3">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Search"
+                                            aria-label="Search"
+                                            aria-describedby="basic-addon1"
+                                            name="title"
+                                            value={searchForm.title}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                </div>
 
-                            <h4 className="search-title mb-4"> Search </h4>
-                            <div className="form-group">
-                                <label>Name</label>
-                                <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="Search " aria-label="Search" aria-describedby="basic-addon1" />
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-primary btn-yellow">
+                                        Submit
+                                    </button>
                                 </div>
-                            </div>
-                            <div className="form-group">
-                                <label>Category</label>
-                                <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="Search " aria-label="Search" aria-describedby="basic-addon1" />
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <button className="btn btn-primary btn-yellow">Submit</button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
