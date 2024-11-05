@@ -8,14 +8,18 @@ import SideNavbar from '../SideNavbar';
 const MainLayout = () => {
   return (
     <>
-      <Header />
       <div className="container-fluid">
         <div className="row">
-          <SideNavbar />
-          <Outlet />
+          <Header />
+          <div className="container-fluid">
+            <div className="row">
+              {/* <SideNavbar /> */}
+              <Outlet />
+            </div>
+          </div>
+          <Footer />
         </div>
       </div>
-      <Footer />
     </ >
   );
 };

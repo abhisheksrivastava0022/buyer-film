@@ -31,7 +31,7 @@ export const routes = [
                 // element: <HomePage />,
                 element: (
                     <Dashboard />
-                    
+
                 ),
 
             },
@@ -70,10 +70,18 @@ export const routes = [
                 path: '/view-film/:id',
                 // element: <HomePage />,
                 element: (
-                    <ViewDetails/>
+                    <ViewDetails />
                 ),
 
-            }
+            },
+            {
+                path: '/film',
+                element: <SellerListing />,
+            },
+            {
+                path: '/film/:id',
+                element: <ViewFilmDetails />,
+            },
         ],
 
         loader: async () => {
@@ -108,13 +116,13 @@ export const routes = [
     },
     {
         path: '/sellerlist',
-        element: <SellerListing/>,
+        element: <SellerListing />,
     },
     {
         path: '/view-film-details',
-        element: <ViewFilmDetails/>,
+        element: <ViewFilmDetails />,
     },
-   
+
 
 
 ];

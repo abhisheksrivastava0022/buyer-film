@@ -4,15 +4,23 @@ const Footer = () => {
 
     return (
         <>
-            <footer className="container-fluid bg-dark">
-                <div className="container">
+            <div className="filter-div">
+                <button className="btn btn-primary btn-yellow filterbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i className="bi bi-funnel"></i> Filter
+                </button>
+            </div>
+
+            <div className="container-fluid footer bg-dark mt-2 " >
+                <div className="container ">
                     <div className="text-center footer-copyright">
                         <span className="text-light">
-                            All rights reserved, Copyright © Powered by Film Bazaar.
+                            All right reserved,   Copyright© Powered by Film Bazzar.
                         </span>
                     </div>
+
                 </div>
-            </footer>
+
+            </div>
         </>
     )
 }
