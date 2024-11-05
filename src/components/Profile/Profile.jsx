@@ -17,7 +17,6 @@ import {
     Grid, FormControlLabel, Checkbox, FormControl, RadioGroup,
     FormLabel, Radio, Typography, InputLabel, MenuItem,
     FormGroup,
-    Grid2,
     Button
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -426,25 +425,45 @@ const Profile = () => {
 
 
 
-    return (
+    return ( 
         <>
-            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+        <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+          <div className="offcanvas-header">
+            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+          </div>
+          <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+            <div className="col-md-12 px-3 search-sidebar">
+
+              <ul className="address">
+                <li> <i className="bi bi-geo-alt"></i> San Francisco, USA</li>
+                <li><i className="bi bi-envelope"></i> email@example.com</li>
+                <li> <i className="bi bi-globe"></i> www.jquery2dotnet.com</li>
+                <li> <i className="bi bi-calendar3"></i> June 02, 1988</li>
+                <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+        <div className=" main-content-space ">
+          <div class="update-profile-form card ">
                 <Grid container>
                     <Grid item xs={2} sm={2} md={2} lg={2}>
                     </Grid>
                     <Grid item xs={8} sm={8} md={8} lg={8}>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <Typography style={{ textAlign: "center" }} variant="h5" gutterBottom>All fields marked in <span style={{ color: "red" }}>'*'</span> are mandatory.</Typography>
+                                
+                          
+                          
                                 {/* <form style={{ maxWidth: '900px', margin: '3rem auto', padding: '2rem', border: '1px solid #ccc', borderRadius: '8px' }}> */}
-                                <form style={{ maxWidth: '100%', padding: '2rem', border: '1px solid #ccc', borderRadius: '8px' }} onSubmit={handleSubmit}>
-
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                                            <Typography variant="h5" gutterBottom>Personal Information</Typography>
-                                        </Grid>
-                                    </Grid>
-
+                                <form  onSubmit={handleSubmit}>
+                                <Typography style={{  }} variant="h5" gutterBottom>All fields marked in <span style={{ color: "red" }}>'*'</span> are mandatory.</Typography>
+                               <h1 className='mt-4'>Personal Information</h1> 
                                     <Grid container spacing={1} style={{ marginTop: "5px" }}>
                                         <Grid item xs={6} sm={6} md={6} lg={6} style={{ display: "flex", alignItems: "center" }}>
                                             <FormControl fullWidth>
@@ -765,34 +784,20 @@ const Profile = () => {
 
 
 
+                                    <h1 className='mt-4'>Photo</h1>
 
-                                    <Grid container spacing={2} style={{ marginTop: "15px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <h1>Photo</h1>
-                                        </Grid>
-                                    </Grid>
-
-
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <Typography style={{ marginTop: "15px" }}>Photo for catalogues (Size - 2x2 inch, Resolution - 72dpi)</Typography>
-                                        </Grid>
-
-                                    </Grid>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <Typography style={{ marginTop: "15px" }}>Medium Close up/ Close up photo of yourself in jpg format (no larger than 1024 kb).
-                                                Front profile | Individual portrait | Properly exposed colour photograph
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
+                                  <p> Photo for catalogues (Size - 2x2 inch, Resolution - 72dpi)</p> 
+                                  <p> Medium Close up/ Close up photo of yourself in jpg format (no larger than 1024 kb).
+                                    Front profile | Individual portrait | Properly exposed colour photograph</p>
+                                    
+                                  
 
 
 
 
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <div className="form-group" style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div className="form-group">
                                                 <label className="control-label" htmlFor="PHOTO_URL">
                                                     Photo:<span style={{ color: 'red' }}> *</span>
                                                 </label>
@@ -948,11 +953,12 @@ const Profile = () => {
                                             {/* <Typography variant="h5" gutterBottom>Characters remaining : 1500.</Typography> */}
                                             <TextField
                                                 fullWidth
-                                                label="Profile Details"
+                                                // label="Profile Details"
                                                 name="about_us"
                                                 value={formData.about_us}
                                                 onChange={handleChange}
                                                 multiline
+                                                placeholder= "Profile Details"
                                                 rows={8}
                                                 className='custom-label'
                                             />
@@ -1033,7 +1039,7 @@ const Profile = () => {
                                     </Grid> */}
 
                                     <Grid container spacing={2} style={{ marginTop: "15px" }}>
-                                        <Grid item xs={4} sm={4} md={4} lg={4}>
+                                        <Grid item xs={4} sm={3} md={3} lg={3}>
                                         </Grid>
                                         <Grid item xs={4} sm={4} md={4} lg={4}>
                                             <div className="form-group">
@@ -1043,8 +1049,7 @@ const Profile = () => {
                                             </div>
 
                                         </Grid>
-                                        <Grid item xs={4} sm={4} md={4} lg={4}>
-                                        </Grid>
+                                       
                                     </Grid>
 
                                 </form>
@@ -1099,7 +1104,11 @@ const Profile = () => {
                         </DialogActions>
                     </BootstrapDialog>
                 </React.Fragment>
+                
+                </div>
+                </div>
             </main>
+            
         </>
 
 

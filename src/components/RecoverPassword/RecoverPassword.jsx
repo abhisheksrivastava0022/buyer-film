@@ -110,14 +110,14 @@ const RecoverPassword = () => {
                                         <form onSubmit={handleSubmit}>
                                             <div className="form-group">
                                                 <label>Password</label>
-                                                <input
+                                                {/* <input
                                                     type="password"
                                                     name="password"
                                                     value={formData.password}
                                                     onChange={handleChange}
                                                     className="form-control"
                                                     placeholder="Password"
-                                                />
+                                                /> */}
                                                  <TextField
                                                     variant="outlined"
                                                     fullWidth
