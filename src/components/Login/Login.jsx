@@ -9,10 +9,11 @@ import AuthText from '../AuthText/AuthText';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Login = () => {
-    const { postRequestApi, userLoginCheck,postRequestGlobal } = ApiClient();
+    const { postRequestApi, userLoginCheck } = ApiClient();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
+      
 
     });
     const [emailError, setEmailError] = useState('');
@@ -66,7 +67,7 @@ const Login = () => {
             try {
                 const payload = { email: value };
 
-                const response = await postRequestGlobal("verify-email", payload);
+                const response = await postRequestApi("auth/validate-email", payload);
                 if (response.data === 0) {
                     flag = false;
                     emailErrorMsg = 'Email ID does not exist';

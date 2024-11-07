@@ -188,19 +188,9 @@ const ViewFilmDetails = () => {
 
               <div className='star'>
                 {loadingData?.film_interest?.[data.id] ?
-                  <StarBorderIcon
-                    style={{
-                      cursor: 'pointer',
-                      color: "#ffd503"
-                    }}
-                    onClick={() => NotInterestedApply(data.id)} />
+                    <button className='btn btn-danger' onClick={() => NotInterestedApply(data.id)}>Not Interested</button>
                   :
-                  <StarBorderIcon
-                    style={{
-                      cursor: 'pointer',
-                      color: "#808080"
-                    }}
-                    onClick={() => InterestedApply(data.id)} />
+                    <button className='btn btn-yellow' onClick={() => InterestedApply(data.id)}>Show interest</button>
                 }
               </div>
             </div>

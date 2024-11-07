@@ -101,7 +101,7 @@ const SellerListing = () => {
                 const data = await response.json();
                 PageOnLoad()
                 console.log('Response Data:', data);
-                
+
             } else {
                 console.error('Failed to  interest.');
             }
@@ -125,7 +125,7 @@ const SellerListing = () => {
                 const data = await response.json();
                 PageOnLoad()
                 console.log('Response Data:', data);
-              
+
             } else {
                 console.error('Failed to  interest.');
             }
@@ -136,31 +136,31 @@ const SellerListing = () => {
 
     const PageOnLoad = async () => {
         try {
-           const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
-              method: 'GET',
-              headers: {
-                 'Content-Type': 'application/json',
-              },
-              credentials: "include"
-           });
-  
-  
-           if (response.ok) {
-              const data = await response.json();
-              setLoadingData(data.data)
-              console.log('Response Data:', data);
-  
-           } else {
-              console.error('Failed to load data.');
-           }
+            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: "include"
+            });
+
+
+            if (response.ok) {
+                const data = await response.json();
+                setLoadingData(data.data)
+                console.log('Response Data:', data);
+
+            } else {
+                console.error('Failed to load data.');
+            }
         } catch (error) {
-           console.error('Error occurred:', error);
+            console.error('Error occurred:', error);
         }
-     };
-  
-     useEffect(() => {
+    };
+
+    useEffect(() => {
         PageOnLoad()
-     }, [])
+    }, [])
 
 
 
@@ -254,25 +254,34 @@ const SellerListing = () => {
                                             <p className="card-text mb-auto">
                                                 Is film Complete: {row.is_film_complete ? "yes" : "No"}
                                             </p>
-                                            <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
+                                            {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
                                                 Continue reading
-                                            </Link>
+                                            </Link> */}
                                         </div>
+
                                         <div className='star'>
+                                            <button className='btn btn-primary'>
+                                                <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                    Continue reading
+                                                </Link>
+                                            </button> &nbsp;
+
+
                                             {loadingData?.film_interest?.[row.id] ?
-                                                <StarBorderIcon
-                                                    style={{
+                                                <>
+                                                    <button className='btn btn-danger' onClick={() => NotInterestedApply(row.id)} style={{
                                                         cursor: 'pointer',
-                                                        color: "#ffd503"
-                                                    }}
-                                                    onClick={() => NotInterestedApply(row.id)} />
+
+                                                    }}>Not Interested</button>
+
+                                                </>
                                                 :
-                                                <StarBorderIcon
-                                                    style={{
+                                                <>
+                                                    <button className='btn btn-yellow' onClick={() => InterestedApply(row.id)} style={{
                                                         cursor: 'pointer',
-                                                        color: "#808080"
-                                                    }}
-                                                    onClick={() => InterestedApply(row.id)} />
+
+                                                    }}>Show interest</button>
+                                                </>
                                             }
                                         </div>
                                     </div>

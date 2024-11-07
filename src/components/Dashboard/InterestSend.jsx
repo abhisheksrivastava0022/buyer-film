@@ -178,9 +178,13 @@ const InterestSend = () => {
                                  <p className="card-text mb-auto">
                                     Is film Complete: {row.is_film_complete ? "yes" : "No"}
                                  </p>
-                                 <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
-                                    Continue reading
-                                 </Link>
+                                 <div className='star'>
+                                    <button className='btn btn-primary'>
+                                       <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                          Continue reading
+                                       </Link>
+                                    </button>
+                                 </div>
                               </div>
                            </div>
                         })
