@@ -89,7 +89,7 @@ const Signup = () => {
                     password: '',
                     confirm_password: ''
                 });
-                navigate("login");
+                navigate("/login");
             } else {
                 // alert("dd");
                 //   navigate("404");
@@ -153,7 +153,7 @@ const Signup = () => {
                                                     className="form-control"
                                                     placeholder="Last Name"
                                                 /> */}
-                                                 <TextField
+                                                <TextField
                                                     variant="outlined"
                                                     fullWidth
                                                     type='text'
@@ -175,7 +175,7 @@ const Signup = () => {
                                                     className="form-control"
                                                     placeholder="Email"
                                                 /> */}
-                                                 <TextField
+                                                <TextField
                                                     variant="outlined"
                                                     fullWidth
                                                     type='email'
@@ -185,7 +185,7 @@ const Signup = () => {
                                                     className="form-control"
                                                     placeholder="Email"
                                                 />
-                                                
+
                                                 {errors.email && <small className="text-danger">{errors.email}</small>}
                                             </div>
                                             <div className="form-group">
@@ -201,7 +201,7 @@ const Signup = () => {
                                                 <TextField
                                                     variant="outlined"
                                                     fullWidth
-                                                   
+
                                                     InputProps={{
                                                         endAdornment: (
                                                             <InputAdornment position="end">
@@ -224,7 +224,7 @@ const Signup = () => {
                                                     value={formData.password}
                                                     onChange={handleChange}
                                                     className="form-control"
-                                                    
+
                                                     placeholder="Password"
                                                 />
                                                 {errors.password && <small className="text-danger">{errors.password}</small>}
@@ -239,7 +239,7 @@ const Signup = () => {
                                                     className="form-control"
                                                     placeholder="Confirm Password"
                                                 /> */}
-                                                 <TextField
+                                                <TextField
                                                     variant="outlined"
                                                     fullWidth
                                                     InputProps={{
