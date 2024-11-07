@@ -262,14 +262,14 @@ const SellerListing = () => {
                                         <div className='star'>
                                             <button className='btn btn-primary'>
                                                 <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
-                                                    Continue reading
+                                                    View Details
                                                 </Link>
                                             </button> &nbsp;
 
 
                                             {loadingData?.film_interest?.[row.id] ?
                                                 <>
-                                                    <button className='btn btn-danger' onClick={() => NotInterestedApply(row.id)} style={{
+                                                    <button className='btn btn-danger make-above-link' onClick={() => NotInterestedApply(row.id)} style={{
                                                         cursor: 'pointer',
 
                                                     }}>Not Interested</button>
@@ -277,7 +277,7 @@ const SellerListing = () => {
                                                 </>
                                                 :
                                                 <>
-                                                    <button className='btn btn-yellow' onClick={() => InterestedApply(row.id)} style={{
+                                                    <button className='btn btn-yellow make-above-link' onClick={() => InterestedApply(row.id)} style={{
                                                         cursor: 'pointer',
 
                                                     }}>Show interest</button>

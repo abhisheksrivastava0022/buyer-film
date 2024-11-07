@@ -181,7 +181,7 @@ const InterestSend = () => {
                                  <div className='star'>
                                     <button className='btn btn-primary'>
                                        <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
-                                          Continue reading
+                                          View Details
                                        </Link>
                                     </button>
                                  </div>
