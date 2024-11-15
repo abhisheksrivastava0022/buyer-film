@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 import defaultimg from '../../assets/img/default.jpg';
+import ApiClient from '../API/ApiClient';
 
 
 
@@ -18,8 +19,28 @@ const FilmView = ({ loadFormatTypes }) => {
     const [error, setError] = useState(null);
     const [countries, setcountries] = useState([]);
     const [languages, setlanguage] = useState([]);
-    const [types, typeslanguage] = useState([]);
     const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
+    const [types, setTypes] = useState([]);
+    const { getRequestApi } = ApiClient();
+    const loadPreDefaultdata = async () => {
+        let data = await getRequestApi(`site/language`, {});
+        if (data.status) {
+            setlanguage(data.data)
+        }
+        data = await getRequestApi(`site/country`, {});
+        if (data.status) {
+            setcountries(data.data)
+        }
+        data = await getRequestApi(`site/film-type`, {});
+        if (data.status) {
+            setTypes(data.data)
+        }
+    }
+    useEffect(() => {
+        loadPreDefaultdata();
+    }, [])
+
+
 
     useEffect(() => {
         const fetchFilm = async () => {

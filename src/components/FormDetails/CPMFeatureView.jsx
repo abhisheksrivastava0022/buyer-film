@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import defaultimg from '../../assets/img/default.jpg';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
+import ApiClient from '../API/ApiClient';
 
 
 
@@ -15,9 +16,27 @@ const CPMFeatureView = ({ loadFormatTypes }) => {
     const [error, setError] = useState(null);
     const [countries, setcountries] = useState([]);
     const [languages, setlanguage] = useState([]);
-    const types = useSelector((state) => state.types.data)
-    const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
 
+    const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
+    const [types, setTypes] = useState([]);
+    const { getRequestApi } = ApiClient();
+    const loadPreDefaultdata = async () => {
+        let data = await getRequestApi(`site/language`, {});
+        if (data.status) {
+            setlanguage(data.data)
+        }
+        data = await getRequestApi(`site/country`, {});
+        if (data.status) {
+            setcountries(data.data)
+        }
+        data = await getRequestApi(`site/film-type`, {});
+        if (data.status) {
+            setTypes(data.data)
+        }
+    }
+    useEffect(() => {
+        loadPreDefaultdata();
+    }, [])
 
     useEffect(() => {
         const fetchFilm = async () => {

@@ -5,6 +5,7 @@ import defaultimg from '../../assets/img/default.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { useParams } from 'react-router-dom';
+import ApiClient from '../API/ApiClient';
 const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
 
 const ScriptView = ({ loadFormatTypes }) => {
@@ -15,7 +16,32 @@ const ScriptView = ({ loadFormatTypes }) => {
     const [error, setError] = useState(null);
     const [countries, setcountries] = useState([]);
     const [languages, setlanguage] = useState([]);
+
+    const [types, setTypes] = useState([]);
+    const { getRequestApi } = ApiClient();
+    const loadPreDefaultdata = async () => {
+        let data = await getRequestApi(`site/language`, {});
+        if (data.status) {
+            setlanguage(data.data)
+        }
+        data = await getRequestApi(`site/country`, {});
+        if (data.status) {
+            setcountries(data.data)
+        }
+        data = await getRequestApi(`site/film-type`, {});
+        if (data.status) {
+            setTypes(data.data)
+        }
+    }
+    useEffect(() => {
+        loadPreDefaultdata();
+    }, [])
+
+
+
     const [preData, setPreData] = useState([]);
+
+
 
     const loadData = async () => {
         console.log("Film ID:", id); // Check if `id` is `null` or has the correct value

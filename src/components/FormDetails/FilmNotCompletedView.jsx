@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 import defaultimg from '../../assets/img/default.jpg';
+import ApiClient from '../API/ApiClient';
 
 
 
@@ -19,10 +20,43 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
     const [countries, setcountries] = useState([]);
     const [languages, setlanguage] = useState([]);
     const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
-    const [types, steTypes] = useState([]);
+
     const [ratios, setRatios] = useState([]);
     const [sounds, setSounds] = useState([]);
     const [prints, setprints] = useState([]);
+
+    const [types, setTypes] = useState([]);
+    const { getRequestApi } = ApiClient();
+    const loadPreDefaultdata = async () => {
+        let data = await getRequestApi(`site/language`, {});
+        if (data.status) {
+            setlanguage(data.data)
+        }
+        data = await getRequestApi(`site/country`, {});
+        if (data.status) {
+            setcountries(data.data)
+        }
+        data = await getRequestApi(`site/aspect-ratio`, {});
+        if (data.status) {
+            setRatios(data.data)
+        }
+        data = await getRequestApi(`site/sound-format`, {});
+        if (data.status) {
+            setSounds(data.data)
+        }
+        data = await getRequestApi(`site/film-type`, {});
+        if (data.status) {
+            setTypes(data.data)
+        }
+        data = await getRequestApi(`site/print-format`, {});
+        if (data.status) {
+            setprints(data.data)
+        }
+    }
+
+    useEffect(() => {
+        loadPreDefaultdata();
+    }, [])
     useEffect(() => {
         const fetchFilm = async () => {
             try {

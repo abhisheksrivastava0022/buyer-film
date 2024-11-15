@@ -5,6 +5,7 @@ import { Card, CardContent, Typography, Grid } from '@mui/material';
 
 
 import defaultimg from '../../assets/img/default.jpg';
+import ApiClient from '../API/ApiClient';
 const CPMWebSeriesView = ({ loadFormatTypes }) => {
 
     const navigate = useNavigate();
@@ -15,8 +16,25 @@ const CPMWebSeriesView = ({ loadFormatTypes }) => {
 
     const [countries, setcountries] = useState([]);
     const [languages, setlanguage] = useState([]);
-
-    const types = useSelector((state) => state.types.data)
+    const [types, setTypes] = useState([]);
+    const { getRequestApi } = ApiClient();
+    const loadPreDefaultdata = async () => {
+        let data = await getRequestApi(`site/language`, {});
+        if (data.status) {
+            setlanguage(data.data)
+        }
+        data = await getRequestApi(`site/country`, {});
+        if (data.status) {
+            setcountries(data.data)
+        }
+        data = await getRequestApi(`site/film-type`, {});
+        if (data.status) {
+            setTypes(data.data)
+        }
+    }
+    useEffect(() => {
+        loadPreDefaultdata();
+    }, [])
     const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer/";
     useEffect(() => {
         const fetchFilm = async () => {
