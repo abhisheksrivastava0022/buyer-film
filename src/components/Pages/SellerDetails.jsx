@@ -90,16 +90,15 @@ const SellerDetails = () => {
                      
                   </div>
           </div> */}
-                        <div className=" page-header py-5 mb-3 mt-4" style={bannerStyle}>
-                            <div className="container text-center text-wihte py-5">
 
-                            </div>
-                        </div>
                         <div className="row g-0 border rounded overflow-hidden flex-md-row shadow-sm h-md-250 card position-relative">
 
                             <div className="col-auto  d-lg-block">
 
-                                <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                <img
+                                    src={data?.profile_img?.url ? `${dataurl}/film-buyer/file/${data.profile_img.url}` : defaultimg}
+
+                                    alt={data?.profile_img?.name ? `${dataurl}/film-buyer/file/${data.profile_img.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
 
                             </div>
                             <div className="col p-4 d-flex flex-column position-static">
@@ -115,27 +114,38 @@ const SellerDetails = () => {
                         <h3 className=' mt-4 '>Project List</h3>
                         <div className='row mt-4 '>
                             {data?.Films?.length > 0 ? (
-                                data.Films.map((film) => (
-                                    <div className='col-sm-6 col-md-6 '>
-                                        <div class="row card g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                                            <div class="col-auto d-none d-lg-block p-3 pt-3 "><img src="https://iffigoa.org/nfdcapi/api/gallery/1727440010952_9064342.png" class="profile-img" alt="Profile" /></div>
-                                            <div class="col p-3 d-flex flex-column position-static">
-                                                <p class="mb-0 profile-link text-end">
-                                                    <Link to={`/seller-projects/${film.id}`} className="btn btn-primary  stretched-link" style={{ color: "#fff" }}>
-                                                        View
-                                                    </Link>
-                                                </p>
-                                                <strong class="d-inline-block mb-2 text-success-emphasis">{film.title}</strong>
-                                                <div class="card-text mb-auto">
-                                                    <p class="mb-0"> <b className='bold-500'>Title in English</b> :{film.english_title}</p>
+                                data.Films.map((film) => {
+                                    const type2Document = film.FilmDocuments.find(doc => doc.type === 8);
+
+                                    return (
+                                        <div className='col-sm-6 col-md-6 '>
+                                            <div class="row card g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                                <div class="col-auto d-none d-lg-block p-3 pt-3 ">
+                                                    {type2Document ?
+                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                        :
+                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                    }
+
+                                                </div>
+                                                <div class="col p-3 d-flex flex-column position-static">
+                                                    <p class="mb-0 profile-link text-end">
+                                                        <Link to={`/seller-projects/${film.id}`} className="btn btn-primary  stretched-link" style={{ color: "#fff" }}>
+                                                            View
+                                                        </Link>
+                                                    </p>
+                                                    <strong class="d-inline-block mb-2 text-success-emphasis">{film.title}</strong>
+                                                    <div class="card-text mb-auto">
+                                                        <p class="mb-0"> <b className='bold-500'>Title in English</b> :{film.english_title}</p>
 
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                ))) : <></>
+                                    )
+                                })) : <></>
                             }
 
                         </div>

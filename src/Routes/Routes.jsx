@@ -20,6 +20,7 @@ import Seller from '../components/Pages/Seller';
 import SellerDetails from '../components/Pages/SellerDetails';
 import Buyer from '../components/Pages/Buyer';
 import BuyerDetails from '../components/Pages/BuyerDetails';
+import MainView from '../components/FormDetails/MainView';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -84,7 +85,7 @@ export const routes = [
             },
             {
                 path: '/seller-projects/:id',
-                element: <ViewFilmDetails />,
+                element: <MainView />,
             },
             {
                 path: '/seller',

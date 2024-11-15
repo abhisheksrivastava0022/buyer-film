@@ -14,7 +14,7 @@ const Seller = () => {
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
-
+    const dataurl = process.env.REACT_APP_BASE_URL;
 
 
     const { getRequestApi } = ApiClient();
@@ -182,7 +182,7 @@ const Seller = () => {
                             <h3>Filter</h3>
                             <form onSubmit={handleSearchform}>
                                 <div className="form-group">
-                                    <label>Title of film</label>
+                                    <label>Name</label>
                                     <div className="input-group mb-3">
                                         <input
                                             type="text"
@@ -237,8 +237,11 @@ const Seller = () => {
                                     return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
 
                                         <div className="col-auto  d-lg-block">
+                                            <img
+                                                src={row?.profile_img?.url ? `${dataurl}/film-buyer/file/${row.profile_img.url}` : defaultimg}
 
-                                            <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                alt={row?.profile_img?.name ? `${dataurl}/film-buyer/file/${row.profile_img.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
+
                                         </div>
                                         <div className="col p-4 d-flex flex-column position-static">
                                             <h3 className="mb-0 title-heading" >Name: {row?.first_name} {row?.last_name}</h3>
