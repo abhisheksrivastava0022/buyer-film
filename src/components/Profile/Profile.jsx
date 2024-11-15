@@ -35,7 +35,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 
 const Profile = () => {
-
+    const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
     //   const dispatch = useDispatch();
     const navigate = useNavigate()
     // State to track the current step (1 or 2)
@@ -72,7 +72,7 @@ const Profile = () => {
         gstin: "",
         published_in_market_guide: "",
         activity: "",
-        photo: "",
+        passport_photo: "",
 
     })
     const preLoadData = async () => {
@@ -92,13 +92,6 @@ const Profile = () => {
         };
         loadCountries();
     }, []);
-
-
-
-
-
-
-
 
 
     const [errors, setErrors] = useState({});
@@ -318,11 +311,6 @@ const Profile = () => {
         }
     };
 
-
-
-
-
-
     // const handleSavePhoto = () => {
     //   if (selectedFile) {
     //     const uploadedPhotoUrl = URL.createObjectURL(selectedFile); // Temporarily use object URL for preview
@@ -350,7 +338,7 @@ const Profile = () => {
                     if (result.id) {
                         setFormData((prevFormData) => ({
                             ...prevFormData,
-                            photo: result.id,
+                            passport_photo: result.id,
                         }));
                     }
 
@@ -409,7 +397,8 @@ const Profile = () => {
         if (validateForm(formData)) {
             // alert("pass")
             const response = await postRequestApi(`film/buyer/update`, formData);
-
+            alert("Data saved successfully.")
+            navigate(0);
             // if (response?.status && response.data) {
 
 
@@ -425,552 +414,545 @@ const Profile = () => {
 
 
 
-    return ( 
+    return (
         <>
-        <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-        <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
-          <div className="offcanvas-header">
-            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
-          </div>
-          <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-            <div className="col-md-12 px-3 search-sidebar">
+            <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+                <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+                    <div className="offcanvas-header">
+                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+                    </div>
+                    <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+                        <div className="col-md-12 px-3 search-sidebar">
 
-              <ul className="address">
-                <li> <i className="bi bi-geo-alt"></i> San Francisco, USA</li>
-                <li><i className="bi bi-envelope"></i> email@example.com</li>
-                <li> <i className="bi bi-globe"></i> www.jquery2dotnet.com</li>
-                <li> <i className="bi bi-calendar3"></i> June 02, 1988</li>
-                <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
+                            <ul className="address">
+                                <li> <i className="bi bi-geo-alt"></i> San Francisco, USA</li>
+                                <li><i className="bi bi-envelope"></i> email@example.com</li>
+                                <li> <i className="bi bi-globe"></i> www.jquery2dotnet.com</li>
+                                <li> <i className="bi bi-calendar3"></i> June 02, 1988</li>
+                                <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
 
-              </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
-        <div className=" main-content-space ">
-          <div class="update-profile-form card ">
-                <Grid container>
-                    <Grid item xs={2} sm={2} md={2} lg={2}>
-                    </Grid>
-                    <Grid item xs={8} sm={8} md={8} lg={8}>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} sm={12} md={12} lg={12}>
-                                
-                          
-                          
-                                {/* <form style={{ maxWidth: '900px', margin: '3rem auto', padding: '2rem', border: '1px solid #ccc', borderRadius: '8px' }}> */}
-                                <form  onSubmit={handleSubmit}>
-                                <Typography style={{  }} variant="h5" gutterBottom>All fields marked in <span style={{ color: "red" }}>'*'</span> are mandatory.</Typography>
-                               <h1 className='mt-4'>Personal Information</h1> 
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={6} sm={6} md={6} lg={6} style={{ display: "flex", alignItems: "center" }}>
-                                            <FormControl fullWidth>
-                                                <InputLabel id="title-label">Please select title</InputLabel>
-                                                <Select
-                                                    labelId="title-label"
-                                                    name="title"
-                                                    value={formData.title}
-                                                    onChange={(event) => {
-                                                        handleChange({
-                                                            ...event,
-                                                            target: {
-                                                                ...event.target,
-                                                                value: String(event.target.value), // Convert the single value to a string if needed
-                                                            },
-                                                        });
-                                                    }}
-                                                    label="Please select title"
-                                                    renderValue={(selected) => title[selected] || ''}
-                                                >
-                                                    {Object.entries(title).map(([id, name]) => (
-                                                        <MenuItem key={id} value={id}>
-                                                            {name}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
-
-
-                                        </Grid>
-
-                                        <Grid item xs={6} sm={6} md={6} lg={6}>
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="First Name"
-                                                name="first_name"
-                                                value={formData.first_name}
-                                                onChange={handleChange}
-                                            />
-                                            {errors.first_name && (
-                                                <p className="error text-danger">
-                                                    {errors.first_name}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="Last Name"
-                                                name="last_name"
-                                                value={formData.last_name}
-                                                onChange={handleChange}
-
-                                            />
-                                            {errors.last_name && (
-                                                <p className="error text-danger">
-                                                    {errors.last_name}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="Company Name"
-                                                type="text"
-                                                name="company"
-                                                value={formData.company}
-                                                onChange={handleChange}
-
-
-                                            />
-                                            {errors.company && (
-                                                <p className="error text-danger">
-                                                    {errors.company}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-
-                                            <TextField
-                                                fullWidth
-                                                label="Job Title"
-                                                type="text"
-                                                name="job_title"
-                                                value={formData.job_title}
-                                                onChange={handleChange}
-                                                placeholder="Job Title"
-
-                                            />
-                                            {errors.job_title && (
-                                                <p className="error text-danger">
-                                                    {errors.job_title}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="Address"
-                                                name="address"
-                                                value={formData.address}
-                                                onChange={handleChange}
-                                                multiline
-                                                rows={4}
-
-                                            />
-                                            {errors.address && (
-                                                <p className="error text-danger">
-                                                    {errors.address}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="City"
-                                                type="text"
-                                                name="city"
-                                                value={formData.city}
-                                                onChange={handleChange}
-
-
-                                            />
-                                            {errors.city && (
-                                                <p className="error text-danger">
-                                                    {errors.city}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="ZIP"
-                                                type="number"
-                                                name="zip"
-                                                value={formData.zip}
-                                                onChange={handleChange}
-
-
-                                            />
-                                            {errors.zip && (
-                                                <p className="error text-danger">
-                                                    {errors.zip}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="State"
-                                                type="text"
-                                                name="state"
-                                                value={formData.state}
-                                                onChange={handleChange}
-
-
-                                            />
-                                            {errors.state && (
-                                                <p className="error text-danger">
-                                                    {errors.state}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-
-                                            <FormControl fullWidth>
-                                                <InputLabel id="countries-label">Please select country</InputLabel>
-                                                <Select
-                                                    labelId="countries-label"
-                                                    name="country_id"
-                                                    value={formData.country_id}
-                                                    onChange={handleChange}
-                                                    label="Country"
-                                                    renderValue={(selected) => {
-                                                        const selectedCountry = countries.find((country) => country.id === selected);
-                                                        return selectedCountry ? selectedCountry.name : '';
-                                                    }}
-                                                >
-                                                    {countries.map((country) => (
-                                                        <MenuItem key={country.id} value={country.id}>
-                                                            {country.name}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Select>
-
-                                            </FormControl>
-
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="Email"
-                                                type="text"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                placeholder="Email"
-
-                                            />
-                                            {errors.email && (
-                                                <p className="error text-danger">
-                                                    {errors.email}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                    </Grid>
-
-
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="Phone"
-                                                type="number"
-                                                name="phone"
-                                                value={formData.phone}
-                                                onChange={handleChange}
-                                                placeholder="Phone"
-                                            />
-                                            {errors.phone && (
-                                                <p className="error text-danger">
-                                                    {errors.phone}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="Mobile"
-                                                type="text"
-                                                name="mobile"
-                                                value={formData.mobile}
-                                                onChange={handleChange}
-                                                placeholder="Mobile"
-                                            />
-                                            {errors.mobile && (
-                                                <p className="error text-danger">
-                                                    {errors.mobile}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="Company Website"
-                                                type="text"
-                                                name="website"
-                                                value={formData.website}
-                                                onChange={handleChange}
-                                                placeholder="Company Website"
-                                            />
-                                            {errors.website && (
-                                                <p className="error text-danger">
-                                                    {errors.website}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <TextField
-                                                fullWidth
-                                                label="GSTIN"
-                                                type="text"
-                                                name="gstin"
-                                                value={formData.gstin}
-                                                onChange={handleChange}
-                                                placeholder="GSTIN"
-
-                                            />
-                                            {errors.gstin && (
-                                                <p className="error text-danger">
-                                                    {errors.gstin}
-                                                </p>
-                                            )}
-
-                                        </Grid>
-                                    </Grid>
-
-
-
-
-
-
-
-
-
-                                    <h1 className='mt-4'>Photo</h1>
-
-                                  <p> Photo for catalogues (Size - 2x2 inch, Resolution - 72dpi)</p> 
-                                  <p> Medium Close up/ Close up photo of yourself in jpg format (no larger than 1024 kb).
-                                    Front profile | Individual portrait | Properly exposed colour photograph</p>
-                                    
-                                  
-
-
-
-
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <div className="form-group">
-                                                <label className="control-label" htmlFor="PHOTO_URL">
-                                                    Photo:<span style={{ color: 'red' }}> *</span>
-                                                </label>
-                                                <div>
-                                                    <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-                                                        <div className="row">
-                                                            <div className="col-md-12" style={{ paddingRight: '0px' }}>
-                                                                <img
-                                                                    width="200px"
-                                                                    id="imgPhoto"
-                                                                    src={photoUrl}
-                                                                    style={{ cursor: "pointer" }}
-                                                                    onError={() => {
-                                                                        setPhotoUrl('/images/nophoto.gif');
-                                                                        setPhotoInputValue('');
-                                                                    }}
-                                                                    alt="Uploaded"
-                                                                    onClick={handleClickOpen}
-                                                                />
-                                                                <br />
-                                                                <div id="myCroppic">
-
-                                                                </div>
-
-                                                                <span
-                                                                    id="btnUploadPhoto"
-                                                                    className="span-link"
-                                                                    style={{ marginTop: '10px', display: 'inline-block' }}
-
-                                                                    onClick={handleClickOpen}
-                                                                >
-                                                                    UPLOAD
-                                                                </span>
-                                                                |
-                                                                <span
-                                                                    id="btnDelete"
-                                                                    className="span-link"
-                                                                    style={{ marginTop: '10px', display: 'inline-block' }}
-                                                                    onClick={handleDeleteClick}
-                                                                >
-                                                                    REMOVE
-                                                                </span>
-
-                                                                <table id="PHOTO_URL_ET" className="dxeValidDynEditorTable" style={{ width: '100%' }}>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td style={{ width: '100%' }}>
-                                                                                <input
-                                                                                    type="hidden"
-                                                                                    name="PHOTO_URL$State"
-                                                                                    id="PHOTO_URL_State"
-                                                                                    value={'{"validationState": ""}'}
-                                                                                />
-
-                                                                            </td>
-                                                                        </tr>
-
-                                                                    </tbody>
-                                                                </table>
-
-                                                                <span className="field-validation-valid text-danger" data-valmsg-for="PHOTO_URL" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {errors.photo && (
+            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+                <div className=" main-content-space ">
+                    <div class="update-profile-form card ">
+                        <Grid container>
+                            <Grid item xs={2} sm={2} md={2} lg={2}>
+                            </Grid>
+                            <Grid item xs={8} sm={8} md={8} lg={8}>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+
+
+
+                                        {/* <form style={{ maxWidth: '900px', margin: '3rem auto', padding: '2rem', border: '1px solid #ccc', borderRadius: '8px' }}> */}
+                                        <form onSubmit={handleSubmit}>
+                                            <Typography style={{}} variant="h5" gutterBottom>All fields marked in <span style={{ color: "red" }}>'*'</span> are mandatory.</Typography>
+                                            <h1 className='mt-4'>Personal Information</h1>
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={6} sm={6} md={6} lg={6} style={{ display: "flex", alignItems: "center" }}>
+                                                    <FormControl fullWidth>
+                                                        <InputLabel id="title-label">Please select title</InputLabel>
+                                                        <Select
+                                                            labelId="title-label"
+                                                            name="title"
+                                                            value={formData.title}
+                                                            onChange={(event) => {
+                                                                handleChange({
+                                                                    ...event,
+                                                                    target: {
+                                                                        ...event.target,
+                                                                        value: String(event.target.value), // Convert the single value to a string if needed
+                                                                    },
+                                                                });
+                                                            }}
+                                                            label="Please select title"
+                                                            renderValue={(selected) => title[selected] || ''}
+                                                        >
+                                                            {Object.entries(title).map(([id, name]) => (
+                                                                <MenuItem key={id} value={id}>
+                                                                    {name}
+                                                                </MenuItem>
+                                                            ))}
+                                                        </Select>
+                                                    </FormControl>
+
+
+                                                </Grid>
+
+                                                <Grid item xs={6} sm={6} md={6} lg={6}>
+
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="First Name"
+                                                        name="first_name"
+                                                        value={formData.first_name}
+                                                        onChange={handleChange}
+                                                    />
+                                                    {errors.first_name && (
                                                         <p className="error text-danger">
-                                                            {errors.photo}
+                                                            {errors.first_name}
                                                         </p>
                                                     )}
-                                                </div>
-                                            </div>
-                                        </Grid>
-                                    </Grid>
 
-
-
-
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                                            <h1 style={{ marginTop: "15px" }}>Market Guide Profile</h1>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <Typography>Do you want your personal information published in the Market Guide? <span style={{ color: "red" }}>*</span></Typography>
-                                        </Grid>
-
-                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                            <div style={{ display: "flex" }}>
-                                                <div className="form-check form-check-inline">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="radio"
-                                                        name="published_in_market_guide"
-                                                        id="published_in_market_guide_no"
-                                                        value="0"
-                                                        checked={formData.published_in_market_guide === 0 || formData.published_in_market_guide === "0"}
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Last Name"
+                                                        name="last_name"
+                                                        value={formData.last_name}
                                                         onChange={handleChange}
+
                                                     />
-                                                    <label className="form-check-label" htmlFor="published_in_market_guide_no">
-                                                        No
-                                                    </label>
-                                                </div>
-                                                <div className="form-check form-check-inline">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="radio"
-                                                        name="published_in_market_guide"
-                                                        id="published_in_market_guide_yes"
-                                                        value="1"
-                                                        checked={formData.published_in_market_guide == 1 || formData.published_in_market_guide == "1"}
+                                                    {errors.last_name && (
+                                                        <p className="error text-danger">
+                                                            {errors.last_name}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Company Name"
+                                                        type="text"
+                                                        name="company"
+                                                        value={formData.company}
                                                         onChange={handleChange}
+
+
                                                     />
-                                                    <label className="form-check-label" htmlFor="published_in_market_guide_yes">
-                                                        Yes
-                                                    </label>
-                                                </div>
+                                                    {errors.company && (
+                                                        <p className="error text-danger">
+                                                            {errors.company}
+                                                        </p>
+                                                    )}
 
-                                            </div>
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
 
-                                        </Grid>
-                                    </Grid>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Job Title"
+                                                        type="text"
+                                                        name="job_title"
+                                                        value={formData.job_title}
+                                                        onChange={handleChange}
+                                                        placeholder="Job Title"
 
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12}>
-                                            <h1>Company Profile</h1>
-                                        </Grid>
-                                    </Grid>
+                                                    />
+                                                    {errors.job_title && (
+                                                        <p className="error text-danger">
+                                                            {errors.job_title}
+                                                        </p>
+                                                    )}
 
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12}>
-                                            <ul>
-                                                <li>
-                                                    If you are representing <strong>a Company/Organisation/Institution</strong>, please provide a brief description and select the main activity for the same.
-                                                </li>
-                                                <li>If you are <strong>not associated</strong> with a Company/Organisation/Institution, please provide a brief description about your profession and select your main activity.</li>
-                                            </ul>
-                                        </Grid>
-                                    </Grid>
+                                                </Grid>
+                                            </Grid>
 
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Address"
+                                                        name="address"
+                                                        value={formData.address}
+                                                        onChange={handleChange}
+                                                        multiline
+                                                        rows={4}
 
+                                                    />
+                                                    {errors.address && (
+                                                        <p className="error text-danger">
+                                                            {errors.address}
+                                                        </p>
+                                                    )}
 
-
-                                    <Grid container spacing={2}>
-
-                                        <Grid item xs={3} sm={3} md={3} lg={3}>
-                                            <Typography>Profile: <span style={{ color: "red" }}>*</span></Typography>
-                                            <span><i>(max. 1500 characters</i>)</span>
-                                        </Grid>
-
-                                        <Grid item xs={9} sm={9} md={9} lg={9}>
-                                            {/* <Typography variant="h5" gutterBottom>Characters remaining : 1500.</Typography> */}
-                                            <TextField
-                                                fullWidth
-                                                // label="Profile Details"
-                                                name="about_us"
-                                                value={formData.about_us}
-                                                onChange={handleChange}
-                                                multiline
-                                                placeholder= "Profile Details"
-                                                rows={8}
-                                                className='custom-label'
-                                            />
-                                        </Grid>
-
-
-                                    </Grid>
-
-
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="City"
+                                                        type="text"
+                                                        name="city"
+                                                        value={formData.city}
+                                                        onChange={handleChange}
 
 
-                                    {/* <Grid container spacing={2} style={{ marginTop: "15px" }}>
+                                                    />
+                                                    {errors.city && (
+                                                        <p className="error text-danger">
+                                                            {errors.city}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="ZIP"
+                                                        type="number"
+                                                        name="zip"
+                                                        value={formData.zip}
+                                                        onChange={handleChange}
+
+
+                                                    />
+                                                    {errors.zip && (
+                                                        <p className="error text-danger">
+                                                            {errors.zip}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="State"
+                                                        type="text"
+                                                        name="state"
+                                                        value={formData.state}
+                                                        onChange={handleChange}
+
+
+                                                    />
+                                                    {errors.state && (
+                                                        <p className="error text-danger">
+                                                            {errors.state}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+
+                                                    <FormControl fullWidth>
+                                                        <InputLabel id="countries-label">Please select country</InputLabel>
+                                                        <Select
+                                                            labelId="countries-label"
+                                                            name="country_id"
+                                                            value={formData.country_id}
+                                                            onChange={handleChange}
+                                                            label="Country"
+                                                            renderValue={(selected) => {
+                                                                const selectedCountry = countries.find((country) => country.id === selected);
+                                                                return selectedCountry ? selectedCountry.name : '';
+                                                            }}
+                                                        >
+                                                            {countries.map((country) => (
+                                                                <MenuItem key={country.id} value={country.id}>
+                                                                    {country.name}
+                                                                </MenuItem>
+                                                            ))}
+                                                        </Select>
+
+                                                    </FormControl>
+
+
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Email"
+                                                        type="text"
+                                                        name="email"
+                                                        value={formData.email}
+                                                        onChange={handleChange}
+                                                        placeholder="Email"
+
+                                                    />
+                                                    {errors.email && (
+                                                        <p className="error text-danger">
+                                                            {errors.email}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                            </Grid>
+
+
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Phone"
+                                                        type="number"
+                                                        name="phone"
+                                                        value={formData.phone}
+                                                        onChange={handleChange}
+                                                        placeholder="Phone"
+                                                    />
+                                                    {errors.phone && (
+                                                        <p className="error text-danger">
+                                                            {errors.phone}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Mobile"
+                                                        type="text"
+                                                        name="mobile"
+                                                        value={formData.mobile}
+                                                        onChange={handleChange}
+                                                        placeholder="Mobile"
+                                                    />
+                                                    {errors.mobile && (
+                                                        <p className="error text-danger">
+                                                            {errors.mobile}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Company Website"
+                                                        type="text"
+                                                        name="website"
+                                                        value={formData.website}
+                                                        onChange={handleChange}
+                                                        placeholder="Company Website"
+                                                    />
+                                                    {errors.website && (
+                                                        <p className="error text-danger">
+                                                            {errors.website}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="GSTIN"
+                                                        type="text"
+                                                        name="gstin"
+                                                        value={formData.gstin}
+                                                        onChange={handleChange}
+                                                        placeholder="GSTIN"
+
+                                                    />
+                                                    {errors.gstin && (
+                                                        <p className="error text-danger">
+                                                            {errors.gstin}
+                                                        </p>
+                                                    )}
+
+                                                </Grid>
+                                            </Grid>
+
+
+
+
+
+
+
+
+
+                                            <h1 className='mt-4'>Photo</h1>
+
+                                            <p> Photo for catalogues (Size - 2x2 inch, Resolution - 72dpi)</p>
+                                            <p> Medium Close up/ Close up photo of yourself in jpg format (no larger than 1024 kb).
+                                                Front profile | Individual portrait | Properly exposed colour photograph</p>
+
+
+
+
+
+
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <div className="form-group">
+                                                        <label className="control-label" htmlFor="PHOTO_URL">
+                                                            Photo:<span style={{ color: 'red' }}> *</span>
+                                                        </label>
+                                                        <div>
+                                                            <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                                                                <div className="row">
+                                                                    <div className="col-md-12" style={{ paddingRight: '0px' }}>
+
+                                                                        <img
+                                                                            width="200px"
+                                                                            id="imgPhoto"
+                                                                            src={formData?.passport?.url ? `${REACT_APP_BASE_URL}/film-buyer/file/${formData.passport.url}` : photoUrl}
+                                                                            style={{ cursor: "pointer" }}
+                                                                            onError={() => {
+                                                                                setPhotoUrl('/images/nophoto.gif');
+                                                                                setPhotoInputValue('');
+                                                                            }}
+                                                                            alt="Uploaded"
+                                                                            onClick={handleClickOpen}
+                                                                        />
+                                                                        <br />
+                                                                        <div id="myCroppic">
+
+                                                                        </div>
+
+                                                                        <span
+                                                                            id="btnUploadPhoto"
+                                                                            className="span-link"
+                                                                            style={{ marginTop: '10px', display: 'inline-block' }}
+
+                                                                            onClick={handleClickOpen}
+                                                                        >
+                                                                            UPLOAD
+                                                                        </span>
+
+
+                                                                        <table id="PHOTO_URL_ET" className="dxeValidDynEditorTable" style={{ width: '100%' }}>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style={{ width: '100%' }}>
+                                                                                        <input
+                                                                                            type="hidden"
+                                                                                            name="PHOTO_URL$State"
+                                                                                            id="PHOTO_URL_State"
+                                                                                            value={'{"validationState": ""}'}
+                                                                                        />
+
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                        <span className="field-validation-valid text-danger" data-valmsg-for="PHOTO_URL" data-valmsg-replace="true"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {errors.photo && (
+                                                                <p className="error text-danger">
+                                                                    {errors.photo}
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </Grid>
+                                            </Grid>
+
+
+
+
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} sm={12} md={12} lg={12}>
+                                                    <h1 style={{ marginTop: "15px" }}>Market Guide Profile</h1>
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <Typography>Do you want your personal information published in the Market Guide? <span style={{ color: "red" }}>*</span></Typography>
+                                                </Grid>
+
+                                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                    <div style={{ display: "flex" }}>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="radio"
+                                                                name="published_in_market_guide"
+                                                                id="published_in_market_guide_no"
+                                                                value="0"
+                                                                checked={formData.published_in_market_guide === 0 || formData.published_in_market_guide === "0"}
+                                                                onChange={handleChange}
+                                                            />
+                                                            <label className="form-check-label" htmlFor="published_in_market_guide_no">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="radio"
+                                                                name="published_in_market_guide"
+                                                                id="published_in_market_guide_yes"
+                                                                value="1"
+                                                                checked={formData.published_in_market_guide == 1 || formData.published_in_market_guide == "1"}
+                                                                onChange={handleChange}
+                                                            />
+                                                            <label className="form-check-label" htmlFor="published_in_market_guide_yes">
+                                                                Yes
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
+
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12}>
+                                                    <h1>Company Profile</h1>
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12}>
+                                                    <ul>
+                                                        <li>
+                                                            If you are representing <strong>a Company/Organisation/Institution</strong>, please provide a brief description and select the main activity for the same.
+                                                        </li>
+                                                        <li>If you are <strong>not associated</strong> with a Company/Organisation/Institution, please provide a brief description about your profession and select your main activity.</li>
+                                                    </ul>
+                                                </Grid>
+                                            </Grid>
+
+
+
+
+                                            <Grid container spacing={2}>
+
+                                                <Grid item xs={3} sm={3} md={3} lg={3}>
+                                                    <Typography>Profile: <span style={{ color: "red" }}>*</span></Typography>
+                                                    <span><i>(max. 1500 characters</i>)</span>
+                                                </Grid>
+
+                                                <Grid item xs={9} sm={9} md={9} lg={9}>
+                                                    {/* <Typography variant="h5" gutterBottom>Characters remaining : 1500.</Typography> */}
+                                                    <TextField
+                                                        fullWidth
+                                                        // label="Profile Details"
+                                                        name="about_us"
+                                                        value={formData.about_us}
+                                                        onChange={handleChange}
+                                                        multiline
+                                                        placeholder="Profile Details"
+                                                        rows={8}
+                                                        className='custom-label'
+                                                    />
+                                                </Grid>
+
+
+                                            </Grid>
+
+
+
+
+                                            {/* <Grid container spacing={2} style={{ marginTop: "15px" }}>
                                         <Grid item xs={2} sm={2} md={2} lg={2} style={{ display: "flex", alignItems: "center" }}>
                                             <label>Activity: <span style={{ color: "red" }}>*</span></label>
                                         </Grid>
@@ -999,7 +981,7 @@ const Profile = () => {
 
 
 
-                                    {/* <Grid container spacing={2} style={{ marginTop: "15px" }}>
+                                            {/* <Grid container spacing={2} style={{ marginTop: "15px" }}>
 
                                         <Grid item xs={4} sm={4} md={4} lg={4}>
 
@@ -1038,77 +1020,77 @@ const Profile = () => {
 
                                     </Grid> */}
 
-                                    <Grid container spacing={2} style={{ marginTop: "15px" }}>
-                                        <Grid item xs={4} sm={3} md={3} lg={3}>
-                                        </Grid>
-                                        <Grid item xs={4} sm={4} md={4} lg={4}>
-                                            <div className="form-group">
-                                                <div>
-                                                    <button className="btn btn-primary btn-yellow">Submit</button>
-                                                </div>
-                                            </div>
+                                            <Grid container spacing={2} style={{ marginTop: "15px" }}>
+                                                <Grid item xs={4} sm={3} md={3} lg={3}>
+                                                </Grid>
+                                                <Grid item xs={4} sm={4} md={4} lg={4}>
+                                                    <div className="form-group">
+                                                        <div>
+                                                            <button className="btn btn-primary btn-yellow">Submit</button>
+                                                        </div>
+                                                    </div>
 
-                                        </Grid>
-                                       
+                                                </Grid>
+
+                                            </Grid>
+
+                                        </form>
                                     </Grid>
+                                </Grid>
 
-                                </form>
                             </Grid>
+                            <Grid item xs={2} sm={2} md={2} lg={2}></Grid>
                         </Grid>
 
-                    </Grid>
-                    <Grid item xs={2} sm={2} md={2} lg={2}></Grid>
-                </Grid>
+                        <React.Fragment>
+                            <BootstrapDialog
+                                onClose={handleClose}
+                                aria-labelledby="customized-dialog-title"
+                                open={open}
+                            >
+                                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+                                    Photo Upload
+                                </DialogTitle>
+                                <IconButton
+                                    aria-label="close"
+                                    onClick={handleClose}
+                                    sx={(theme) => ({
+                                        position: 'absolute',
+                                        right: 8,
+                                        top: 8,
+                                        color: theme.palette.grey[500],
+                                    })}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                                <DialogContent dividers>
+                                    <Typography gutterBottom>
+                                        Upload the file or use the webcam to capture your picture.
+                                    </Typography>
+                                </DialogContent>
+                                <DialogContent dividers>
 
-                <React.Fragment>
-                    <BootstrapDialog
-                        onClose={handleClose}
-                        aria-labelledby="customized-dialog-title"
-                        open={open}
-                    >
-                        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                            Photo Upload
-                        </DialogTitle>
-                        <IconButton
-                            aria-label="close"
-                            onClick={handleClose}
-                            sx={(theme) => ({
-                                position: 'absolute',
-                                right: 8,
-                                top: 8,
-                                color: theme.palette.grey[500],
-                            })}
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                        <DialogContent dividers>
-                            <Typography gutterBottom>
-                                Upload the file or use the webcam to capture your picture.
-                            </Typography>
-                        </DialogContent>
-                        <DialogContent dividers>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileChange}
+                                    />
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button autoFocus onClick={handleClose}>
+                                        CLOSE
+                                    </Button>
+                                    <Button autoFocus onClick={handleSavePhoto}>
+                                        SAVE PHOTO
+                                    </Button>
+                                </DialogActions>
+                            </BootstrapDialog>
+                        </React.Fragment>
 
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button autoFocus onClick={handleClose}>
-                                CLOSE
-                            </Button>
-                            <Button autoFocus onClick={handleSavePhoto}>
-                                SAVE PHOTO
-                            </Button>
-                        </DialogActions>
-                    </BootstrapDialog>
-                </React.Fragment>
-                
-                </div>
+                    </div>
                 </div>
             </main>
-            
+
         </>
 
 

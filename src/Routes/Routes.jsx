@@ -16,6 +16,10 @@ import InterestApproved from '../components/Dashboard/InterestApproved';
 import ViewDetails from '../components/ViewDetails/ViewDetails';
 import SellerListing from '../components/Film/SellerListing';
 import ViewFilmDetails from '../components/Film/ViewFilmDetails';
+import Seller from '../components/Pages/Seller';
+import SellerDetails from '../components/Pages/SellerDetails';
+import Buyer from '../components/Pages/Buyer';
+import BuyerDetails from '../components/Pages/BuyerDetails';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -75,12 +79,28 @@ export const routes = [
 
             },
             {
-                path: '/film',
+                path: '/seller-projects',
                 element: <SellerListing />,
             },
             {
-                path: '/film/:id',
+                path: '/seller-projects/:id',
                 element: <ViewFilmDetails />,
+            },
+            {
+                path: '/seller',
+                element: <Seller />,
+            },
+            {
+                path: '/seller/:id',
+                element: <SellerDetails />,
+            },
+            {
+                path: '/buyer',
+                element: <Buyer />,
+            },
+            {
+                path: '/buyer/:id',
+                element: <BuyerDetails />,
             },
         ],
 

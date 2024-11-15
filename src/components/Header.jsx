@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ApiClient from './API/ApiClient'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import filmbazaar from "../assets/img/filmbazaar.png";
 const Header = () => {
+    const location = useLocation();
+
     const [data, setData] = useState({})
     const { getRequestApi, userInfo } = ApiClient();
     const navigate = useNavigate();
@@ -16,11 +18,19 @@ const Header = () => {
         if (data.status) {
             setData(data.data);
         }
+        if (location.pathname === '/profile') {
+            //alert("profile")
+        } else {
+            if (data.data.status == 1) {
+                navigate("/profile");
+            }
+        }
     }
     useEffect(() => {
+
         preloading();
 
-    }, []);
+    }, [location]);
 
 
     return (
@@ -47,31 +57,45 @@ const Header = () => {
 
                             <div className="col-md-8 col-sm-8">
                                 <ul className="nav nav-tabs">
-                                    <li className="nav-item" role="presentation">
-                                        <Link className="nav-link active" to="film" >Film</Link>
-                                    </li>
-                                    <li className="nav-item" role="presentation">
-                                        <a className="nav-link " href="#" role="tab" >Company</a>
-                                    </li>
-                                    <li className="nav-item" role="presentation">
-                                        <a className="nav-link" href="#">People</a>
-                                    </li>
+                                    {
+                                        data.status === 1 ? (
+                                            <></> // Render nothing if `data.status` is 1
+                                        ) : (
+                                            <>
+                                                <li className="nav-item" role="presentation">
+                                                    <Link className="nav-link active" to="seller-projects">
+                                                        Seller Projects
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item" role="presentation">
+                                                    <Link className="nav-link" to="seller" role="tab">
+                                                        Seller
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item" role="presentation">
+                                                    <Link className="nav-link" to="buyer">
+                                                        Buyer
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item dropdown">
+                                                    <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">My Interest</a>
+                                                    <ul className="dropdown-menu">
+                                                        <li>
+                                                            <Link className="dropdown-item" to="/interest-send" >Send</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link className="dropdown-item" to="/interest-Decline" >Decline</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link className="dropdown-item" to="/interest-approved" >Approved</Link>
+                                                        </li>
 
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Interest</a>
-                                        <ul className="dropdown-menu">
-                                            <li>
-                                                <Link className="dropdown-item" to="/interest-send" >Send</Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="/interest-Decline" >Decline</Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="/interest-approved" >Approved</Link>
-                                            </li>
+                                                    </ul>
+                                                </li>
+                                            </>
+                                        )
+                                    }
 
-                                        </ul>
-                                    </li>
                                 </ul>
                             </div>
                             <div className="col-md-4 col-sm-4 ">
