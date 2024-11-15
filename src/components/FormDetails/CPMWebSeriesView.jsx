@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-
-import useAuth from '../../hooks/useAuth';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Card, CardContent, Typography, Grid } from '@mui/material';
+
+
 import defaultimg from '../../assets/img/default.jpg';
-import { fetchCountries, fetchLanguage } from '../../store/actions/filmActions';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-
-
-
-
 const CPMWebSeriesView = ({ loadFormatTypes }) => {
-    const dispatch = useDispatch();
-    const { logoutUser } = useAuth();
+
     const navigate = useNavigate();
     const { id } = useParams();
     const [film, setFilm] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const countries = useSelector(state => state.films.countries.data);
-    const languages = useSelector(state => state.languages.data);
-    const types = useSelector((state) => state.types.data)
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    useEffect(() => {
-        dispatch(fetchCountries());
-        dispatch(fetchLanguage());
-    }, [dispatch]);
 
+    const [countries, setcountries] = useState([]);
+    const [languages, setlanguage] = useState([]);
+
+    const types = useSelector((state) => state.types.data)
+    const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer/";
     useEffect(() => {
         const fetchFilm = async () => {
             try {
@@ -74,20 +64,11 @@ const CPMWebSeriesView = ({ loadFormatTypes }) => {
     const [stageTypes, setStageTypes] = useState([]);
 
 
-    const handleDropdownData = (event) => {
-        const { name, value } = event.target;
-
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: value,
-        }));
-
-    };
     console.log('video', formDataDetails.data)
     useEffect(() => {
         const fetchVideographyTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/videography-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/videography-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -111,7 +92,7 @@ const CPMWebSeriesView = ({ loadFormatTypes }) => {
 
         const loadFormatTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/format-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/format-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -135,7 +116,7 @@ const CPMWebSeriesView = ({ loadFormatTypes }) => {
 
         const loadStageTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/stage-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/stage-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -155,10 +136,6 @@ const CPMWebSeriesView = ({ loadFormatTypes }) => {
         loadStageTypes();
     }, []);
 
-    const handleLogout = async () => {
-        await logoutUser();
-        window.location.href = '/login';
-    };
 
     // const getCountryNames = (countryIds) => {
     //     if (!countryIds) return "";

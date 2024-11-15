@@ -2,36 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import useAuth from '../../hooks/useAuth';
 import { useDispatch, useSelector } from 'react-redux';
-import defaultimg from '../../assets/img/default.jpg';
-import { fetchCountries, fetchLanguage } from '../../store/actions/filmActions';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
+import defaultimg from '../../assets/img/default.jpg';
 
 
 
 const FilmNotCompletedView = ({ loadFormatTypes }) => {
-    const dispatch = useDispatch();
-    const { logoutUser } = useAuth();
+
     const navigate = useNavigate();
     const { id } = useParams();
     const [film, setFilm] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const countries = useSelector(state => state.films.countries.data);
-    const languages = useSelector(state => state.languages.data);
-    const types = useSelector((state) => state.types.data)
-    const prints = useSelector((state) => state.types.prints)
-    const ratios = useSelector((state) => state.types.ratios)
-    const sounds = useSelector((state) => state.types.sounds)
-
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    useEffect(() => {
-        dispatch(fetchCountries());
-        dispatch(fetchLanguage());
-    }, [dispatch]);
-
+    const [countries, setcountries] = useState([]);
+    const [languages, setlanguage] = useState([]);
+    const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
+    const [types, steTypes] = useState([]);
+    const [ratios, setRatios] = useState([]);
+    const [sounds, setSounds] = useState([]);
+    const [prints, setprints] = useState([]);
     useEffect(() => {
         const fetchFilm = async () => {
             try {
@@ -78,20 +69,12 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
     const [stageTypes, setStageTypes] = useState([]);
 
 
-    const handleDropdownData = (event) => {
-        const { name, value } = event.target;
 
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: value,
-        }));
-
-    };
     console.log('video', formDataDetails.data)
     useEffect(() => {
         const fetchVideographyTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/videography-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/videography-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -115,7 +98,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
 
         const loadFormatTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/format-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/format-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -139,7 +122,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
 
         const loadStageTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/stage-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/stage-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -159,10 +142,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
         loadStageTypes();
     }, []);
 
-    const handleLogout = async () => {
-        await logoutUser();
-        window.location.href = '/login';
-    };
+
 
     // const getCountryNames = (countryIds) => {
     //     if (!countryIds) return "";
@@ -211,7 +191,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
     //     return AspectRatioIds.map(id => ratios.find(filmDetails => filmDetails.id === id)?.name || 'Unknown').join(', ');
     // };
 
-    
+
     const getAspectRatio = (AspectRatioIds) => {
         if (!AspectRatioIds) return "";
 
@@ -354,7 +334,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
 
                                 </div>
                                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                                  
+
                                     <div className="list-group-item active header-title-bg mb-4">
                                         <div className="d-flex align-items-center justify-content-start w-100">
                                             <h6>Basic information</h6>
@@ -387,7 +367,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                 </div>
 
                                 <Grid item xs={12} sm={12} md={12} lg={12} className='mt-4'>
-                                   
+
                                     <div className="list-group-item active header-title-bg mb-4">
                                         <div className="d-flex align-items-center justify-content-start w-100">
                                             <h6>Film information</h6>
@@ -445,12 +425,12 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                             <tr>
                                                 <th scope="row">Year of Completion :</th>
                                                 <td>{film.year_of_completion}</td>
-                                            </tr>                                          
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                
-                                <Grid item xs={12} sm={12} md={12} lg={12} className='mt-4'>    
+
+                                <Grid item xs={12} sm={12} md={12} lg={12} className='mt-4'>
                                     <div className="list-group-item active header-title-bg mb-4">
                                         <div className="d-flex align-items-center justify-content-start w-100">
                                             <h6>Other Project Details</h6>
@@ -486,7 +466,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                 <div className="table-responsive">
                                     <table className="table table-striped table-list-view">
                                         <tbody>
-                                        <tr>
+                                            <tr>
                                                 <th scope="row">Select Genres :</th>
                                                 <td>
                                                     {film.genre && film.genre.length > 0
@@ -502,19 +482,19 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                             <tr>
                                                 <th scope="row">Print Format :</th>
                                                 <td>
-                                                {getPrintFormat(film.print_format)}
+                                                    {getPrintFormat(film.print_format)}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Aspect ratio :</th>
                                                 <td>
-                                                {getAspectRatio(film.aspect_ratio)}
+                                                    {getAspectRatio(film.aspect_ratio)}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Sound Format :</th>
                                                 <td>
-                                                {getSoundFormat(film.sound_format)}
+                                                    {getSoundFormat(film.sound_format)}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -623,7 +603,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                 <div className="table-responsive">
                                     <table className="table table-striped table-list-view">
                                         <tbody>
-                                        <tr>
+                                            <tr>
                                                 <th scope="row">Lead Cast :</th>
                                                 <td>{film.lead_cast}</td>
                                             </tr>
@@ -679,7 +659,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
 
                                         <tbody>
                                             <tr>
-                                               
+
                                                 <td>
                                                     {film.looking_for
                                                         ? film.looking_for.map(id => lookingForOptions[id] || 'Unknown').join(', ')
@@ -727,7 +707,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                 </p>
 
                                 <Grid item xs={12} sm={12} md={12} lg={12} className='mt-4'>
-                                   
+
                                     <div className="list-group-item active header-title-bg mb-4">
                                         <div className="d-flex align-items-center justify-content-start w-100">
                                             <h6>Preview Link</h6>
@@ -737,7 +717,7 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                 <div className="table-responsive">
                                     <table className="table table-striped table-list-view">
                                         <tbody>
-                                        <tr>
+                                            <tr>
                                                 <th scope="row">Downloadable Preview Link :</th>
                                                 <td>{film.download_preview_link}</td>
                                             </tr>
@@ -763,17 +743,17 @@ const FilmNotCompletedView = ({ loadFormatTypes }) => {
                                 <div className="table-responsive">
                                     <table className="table table-striped table-list-view">
                                         <tbody>
-                                        <tr>
+                                            <tr>
                                                 <th scope="row">Notes (if any) :</th>
                                                 <td>{film.note}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                
 
 
-                               
+
+
                             </>
                         ) : (
                             <p>No film data available.</p>

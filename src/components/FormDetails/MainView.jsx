@@ -7,12 +7,12 @@ import CPMWebSeriesView from "./CPMWebSeriesView";
 import FilmNotCompletedView from "./FilmNotCompletedView";
 import logo from '../../assets/img/filmbazaar.png';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
 const MainView = () => {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
     const [loading, setLoading] = useState(true);
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    //  alert(BASE_URL)
     useEffect(() => {
         const fetchFilm = async () => {
             try {
@@ -46,7 +46,7 @@ const MainView = () => {
                 setFilm(data.data);
             } catch (error) {
                 console.error('Error fetching film data:', error);
-                setError(error.message);
+                //   setError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -106,42 +106,42 @@ const MainView = () => {
         <>
 
             <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-                <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabIndex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+                <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
                     </div>
-                    {film ? (
-                        <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-                            <div className="col-md-12 px-3 search-sidebar">
-                                <p className="logo"><img src={logo} alt="logo" /></p>
-                                <h4 className="search-title mb-4">Details</h4>
-                                <ul class="address">
-                                    <li> <i className="bi bi-person"></i> {film.maker_info.first_name} {film.maker_info.last_name}</li>
-                                    <li><i class="bi bi-envelope"></i> {film.maker_info.email}</li>
-                                    <li> <i class="bi bi-globe"></i> www.jquery2dotnet.com</li>
-                                    {/* <li> <i class="bi bi-calendar3"></i> June 02, 1988</li> */}
-                                    <li><a href=""><i class="bi bi-facebook"></i></a> <a href=""><i class="bi bi-twitter"></i></a> <a href=""><i class="bi bi-linkedin"></i></a></li>
+                    <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+                        <div className="col-md-12 px-3 search-sidebar">
 
-                                </ul>
-                            </div>
-                        </div>) : (
-                        <p>No data available.</p>
-                    )}
-                </div>
-            </div>
-            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div className="mt-4">
+                            <ul className="address">
+                                {/* <li> <i className="bi bi-geo-alt"></i>{data?.FilmMaker?.first_name} {data?.FilmMaker?.last_name}</li>
+                                <li><i className="bi bi-envelope"></i> {data?.FilmMaker?.email}</li>
+                                <li> <i className="bi bi-globe"></i> https://filmbazaarindia.com/</li>
+                                <li> <i className="bi bi-calendar3"></i> June 02, 1988</li>
+                                <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li> */}
 
-                    <div className="tab-content1" >
-                        <div className='mx-auto mt-4'>
-                            <div className="list-group">
-                                {renderTemplate()}
-                            </div>
+                            </ul>
+
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
+            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
+                <div className=" main-content-space ">
+
+                    <div className="tab-content" >
+                        <div className="tab-content1" >
+                            <div className='mx-auto mt-4'>
+                                <div className="list-group">
+                                    {renderTemplate()}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
 
         </>
     )

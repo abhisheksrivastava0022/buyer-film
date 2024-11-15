@@ -410,3 +410,11 @@ h1,
 .bold-500 {
   font-weight: 500
 }
+
+.header-title-bg {
+  background-color: #343896 !important;
+}
+
+.header-title-bg h6 {
+  margin: 0;
+}
