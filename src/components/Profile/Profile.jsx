@@ -1106,7 +1106,7 @@ const Profile = () => {
                                             <Grid container spacing={2}>
 
                                                 <Grid item xs={3} sm={3} md={3} lg={3}>
-                                                    <Typography>Profile: <span style={{ color: "red" }}>*</span></Typography>
+                                                    <Typography>Profile:</Typography>
                                                     <span><i>(max. 1500 characters</i>)</span>
                                                 </Grid>
 
