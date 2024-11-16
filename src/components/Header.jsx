@@ -87,7 +87,7 @@ const Header = () => {
                                                             <Link className="dropdown-item" to="/interest-Decline" >Decline</Link>
                                                         </li>
                                                         <li>
-                                                            <Link className="dropdown-item" to="/interest-approved" >Connections</Link>
+                                                            <Link className="dropdown-item" to="/interest-approved" >Connection Build</Link>
                                                         </li>
 
                                                     </ul>
