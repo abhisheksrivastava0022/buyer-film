@@ -230,13 +230,13 @@ const Profile = () => {
                 element.focus();
             }
         }
-        if (!formData.website) {
-            errors.website = "Website is required";
-            element = document.getElementById("website");
-            if (element) {
-                element.focus();
-            }
-        }
+        // if (!formData.website) {
+        //     errors.website = "Website is required";
+        //     element = document.getElementById("website");
+        //     if (element) {
+        //         element.focus();
+        //     }
+        // }
 
         if (!formData.email) {
 
@@ -863,6 +863,7 @@ const Profile = () => {
                                                         }
                                                         type="number"
                                                         name="phone"
+                                                        id="phone"
                                                         value={formData.phone}
                                                         onChange={handleChange}
                                                         placeholder="Phone"
@@ -885,6 +886,7 @@ const Profile = () => {
                                                         }
                                                         type="text"
                                                         name="mobile"
+                                                        id="mobile"
                                                         value={formData.mobile}
                                                         onChange={handleChange}
                                                         placeholder="Mobile"
@@ -902,12 +904,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        // label="Company Website"
-                                                        label={
-                                                            <span>
-                                                                Company Website<span style={{ color: 'red' }}>*</span>
-                                                            </span>
-                                                        }
+                                                        label="Company Website"
+                                                        // label={
+                                                        //     <span>
+                                                        //         Company Website<span style={{ color: 'red' }}>*</span>
+                                                        //     </span>
+                                                        // }
                                                         type="text"
                                                         name="website"
                                                         value={formData.website}
