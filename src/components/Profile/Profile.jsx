@@ -136,20 +136,109 @@ const Profile = () => {
         // if (!values?.title) {
         //     errors.title = 'At least one title is required';
         // }
+        let element
+        if (!formData.first_name) {
+            errors.first_name = "First Name is required"
+            element = document.getElementById("first_name");
+            if (element) {
+                element.focus();
+            }
+        };
+        if (!formData.last_name) {
+            errors.last_name = "Last Name is required"
+            element = document.getElementById("last_name");
+            if (element) {
+                element.focus();
+            }
+        };
+        if (!formData.company) {
 
-        if (!formData.first_name) errors.first_name = "First Name is required";
-        if (!formData.last_name) errors.last_name = "Last Name is required";
-        if (!formData.company) errors.company = "Company Name is required";
-        if (!formData.job_title) errors.job_title = "Job title is required";
-        if (!formData.address) errors.address = "Address is required";
-        if (!formData.city) errors.city = "City is required";
-        if (!formData.zip) errors.zip = "Zip code is required";
-        if (!formData.state) errors.state = "State is required";
-        if (!formData.phone) errors.phone = "Phone number is required";
-        if (!formData.mobile) errors.mobile = "Mobile is required";
-        if (!formData.website) errors.website = "Website is required";
-        if (!formData.gstin) errors.gstin = "GST is required";
-        if (!formData.published_in_market_guide) errors.published_in_market_guide = "Selectr any option";
+            errors.company = "Company Name is required"
+            element = document.getElementById("company");
+            if (element) {
+                element.focus();
+            }
+        };
+        if (!formData.job_title) {
+            errors.job_title = "Job title is required"
+            element = document.getElementById("job_title");
+            if (element) {
+                element.focus();
+            }
+        };
+        if (!formData.address) {
+
+            errors.address = "Address is required";
+            element = document.getElementById("last_name");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.city) {
+
+            errors.city = "City is required";
+            element = document.getElementById("city");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.state) {
+
+            errors.state = "state is required";
+            element = document.getElementById("state");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.country_id) {
+
+            errors.country_id = "Ccuntry is required";
+            element = document.getElementById("state");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.zip) {
+
+            errors.zip = "Zip code is required";
+            element = document.getElementById("zip");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.state) {
+
+            errors.state = "State is required";
+            element = document.getElementById("state");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.phone) {
+
+            errors.phone = "Phone number is required";
+            element = document.getElementById("last_name");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.mobile) {
+
+            errors.mobile = "Mobile is required";
+            element = document.getElementById("mobile");
+            if (element) {
+                element.focus();
+            }
+        }
+        if (!formData.website) {
+            errors.website = "Website is required";
+            element = document.getElementById("website");
+            if (element) {
+                element.focus();
+            }
+        }
+        //  if (!formData.gstin) errors.gstin = "GST is required";
+        // if (!formData.published_in_market_guide) errors.published_in_market_guide = "Selectr any option";
 
 
 
@@ -254,7 +343,10 @@ const Profile = () => {
         //     errors.email = 'Email ID is required ';
         // }
         setErrors(errors);
+
+
         return Object.keys(errors).length === 0;
+
 
 
 
@@ -496,8 +588,10 @@ const Profile = () => {
                                                         fullWidth
                                                         label="First Name"
                                                         name="first_name"
+                                                        id="first_name"
                                                         value={formData.first_name}
                                                         onChange={handleChange}
+
                                                     />
                                                     {errors.first_name && (
                                                         <p className="error text-danger">
@@ -513,7 +607,7 @@ const Profile = () => {
                                                         name="last_name"
                                                         value={formData.last_name}
                                                         onChange={handleChange}
-
+                                                        id="last_name"
                                                     />
                                                     {errors.last_name && (
                                                         <p className="error text-danger">
@@ -531,6 +625,7 @@ const Profile = () => {
                                                         label="Company Name"
                                                         type="text"
                                                         name="company"
+                                                        id="company"
                                                         value={formData.company}
                                                         onChange={handleChange}
 
@@ -550,6 +645,7 @@ const Profile = () => {
                                                         label="Job Title"
                                                         type="text"
                                                         name="job_title"
+                                                        id="job_title"
                                                         value={formData.job_title}
                                                         onChange={handleChange}
                                                         placeholder="Job Title"
@@ -570,6 +666,7 @@ const Profile = () => {
                                                         fullWidth
                                                         label="Address"
                                                         name="address"
+                                                        id="address"
                                                         value={formData.address}
                                                         onChange={handleChange}
                                                         multiline
@@ -589,6 +686,7 @@ const Profile = () => {
                                                         label="City"
                                                         type="text"
                                                         name="city"
+                                                        id="city"
                                                         value={formData.city}
                                                         onChange={handleChange}
 
@@ -610,6 +708,7 @@ const Profile = () => {
                                                         label="ZIP"
                                                         type="number"
                                                         name="zip"
+                                                        id="zip"
                                                         value={formData.zip}
                                                         onChange={handleChange}
 
@@ -627,6 +726,7 @@ const Profile = () => {
                                                         fullWidth
                                                         label="State"
                                                         type="text"
+                                                        id="state"
                                                         name="state"
                                                         value={formData.state}
                                                         onChange={handleChange}
@@ -652,6 +752,7 @@ const Profile = () => {
                                                             name="country_id"
                                                             value={formData.country_id}
                                                             onChange={handleChange}
+                                                            id="country_id"
                                                             label="Country"
                                                             renderValue={(selected) => {
                                                                 const selectedCountry = countries.find((country) => country.id === selected);
@@ -667,7 +768,11 @@ const Profile = () => {
 
                                                     </FormControl>
 
-
+                                                    {errors.country_id && (
+                                                        <p className="error text-danger">
+                                                            {errors.country_id}
+                                                        </p>
+                                                    )}
                                                 </Grid>
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField

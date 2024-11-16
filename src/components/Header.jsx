@@ -81,13 +81,13 @@ const Header = () => {
                                                     <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">My Interest</a>
                                                     <ul className="dropdown-menu">
                                                         <li>
-                                                            <Link className="dropdown-item" to="/interest-send" >Send</Link>
+                                                            <Link className="dropdown-item" to="/interest-send" >Pending</Link>
                                                         </li>
                                                         <li>
                                                             <Link className="dropdown-item" to="/interest-Decline" >Decline</Link>
                                                         </li>
                                                         <li>
-                                                            <Link className="dropdown-item" to="/interest-approved" >Approved</Link>
+                                                            <Link className="dropdown-item" to="/interest-approved" >Connections</Link>
                                                         </li>
 
                                                     </ul>
