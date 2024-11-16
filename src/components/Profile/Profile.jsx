@@ -169,7 +169,7 @@ const Profile = () => {
         if (!formData.address) {
 
             errors.address = "Address is required";
-            element = document.getElementById("last_name");
+            element = document.getElementById("address");
             if (element) {
                 element.focus();
             }
@@ -193,7 +193,7 @@ const Profile = () => {
         if (!formData.country_id) {
 
             errors.country_id = "Ccuntry is required";
-            element = document.getElementById("state");
+            element = document.getElementById("country_id");
             if (element) {
                 element.focus();
             }
@@ -217,7 +217,7 @@ const Profile = () => {
         if (!formData.phone) {
 
             errors.phone = "Phone number is required";
-            element = document.getElementById("last_name");
+            element = document.getElementById("phone");
             if (element) {
                 element.focus();
             }
@@ -598,9 +598,9 @@ const Profile = () => {
                                                         // label="First Name"
                                                         label={
                                                             <span>
-                                                              First Name <span style={{ color: 'red' }}>*</span>
+                                                                First Name <span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         name="first_name"
                                                         id="first_name"
                                                         value={formData.first_name}
@@ -620,10 +620,10 @@ const Profile = () => {
                                                         // label="Last Name"
                                                         label={
                                                             <span>
-                                                              Last Name <span style={{ color: 'red' }}>*</span>
+                                                                Last Name <span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
-                                                        
+                                                        }
+
                                                         name="last_name"
                                                         value={formData.last_name}
                                                         onChange={handleChange}
@@ -645,9 +645,9 @@ const Profile = () => {
                                                         // label="Company Name"
                                                         label={
                                                             <span>
-                                                              Company Name <span style={{ color: 'red' }}>*</span>
+                                                                Company Name <span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="text"
                                                         name="company"
                                                         id="company"
@@ -670,9 +670,9 @@ const Profile = () => {
                                                         // label="Job Title"
                                                         label={
                                                             <span>
-                                                              Job Title<span style={{ color: 'red' }}>*</span>
+                                                                Job Title<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="text"
                                                         name="job_title"
                                                         id="job_title"
@@ -697,9 +697,9 @@ const Profile = () => {
                                                         // label="Address"
                                                         label={
                                                             <span>
-                                                              Address<span style={{ color: 'red' }}>*</span>
+                                                                Address<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         name="address"
                                                         id="address"
                                                         value={formData.address}
@@ -721,9 +721,9 @@ const Profile = () => {
                                                         // label="City"
                                                         label={
                                                             <span>
-                                                              City<span style={{ color: 'red' }}>*</span>
+                                                                City<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="text"
                                                         name="city"
                                                         id="city"
@@ -748,9 +748,9 @@ const Profile = () => {
                                                         // label="ZIP"
                                                         label={
                                                             <span>
-                                                              ZIP<span style={{ color: 'red' }}>*</span>
+                                                                ZIP<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="number"
                                                         name="zip"
                                                         id="zip"
@@ -772,9 +772,9 @@ const Profile = () => {
                                                         // label="State"
                                                         label={
                                                             <span>
-                                                              State<span style={{ color: 'red' }}>*</span>
+                                                                State<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="text"
                                                         id="state"
                                                         name="state"
@@ -796,7 +796,7 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
 
                                                     <FormControl fullWidth>
-                                                        <InputLabel id="countries-label">Please select country <span style={{color:"red"}}>*</span></InputLabel>
+                                                        <InputLabel id="countries-label">Please select country <span style={{ color: "red" }}>*</span></InputLabel>
                                                         <Select
                                                             labelId="countries-label"
                                                             name="country_id"
@@ -831,9 +831,9 @@ const Profile = () => {
                                                         id="email"
                                                         label={
                                                             <span>
-                                                              Email<span style={{ color: 'red' }}>*</span>
+                                                                Email<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="text"
                                                         name="email"
                                                         value={formData.email}
@@ -858,9 +858,9 @@ const Profile = () => {
                                                         // label="Phone"
                                                         label={
                                                             <span>
-                                                              Phone<span style={{ color: 'red' }}>*</span>
+                                                                Phone<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="number"
                                                         name="phone"
                                                         value={formData.phone}
@@ -880,9 +880,9 @@ const Profile = () => {
                                                         // label="Mobile"
                                                         label={
                                                             <span>
-                                                              Mobile<span style={{ color: 'red' }}>*</span>
+                                                                Mobile<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="text"
                                                         name="mobile"
                                                         value={formData.mobile}
@@ -905,9 +905,9 @@ const Profile = () => {
                                                         // label="Company Website"
                                                         label={
                                                             <span>
-                                                              Company Website<span style={{ color: 'red' }}>*</span>
+                                                                Company Website<span style={{ color: 'red' }}>*</span>
                                                             </span>
-                                                          }
+                                                        }
                                                         type="text"
                                                         name="website"
                                                         value={formData.website}
