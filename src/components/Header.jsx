@@ -63,17 +63,27 @@ const Header = () => {
                                         ) : (
                                             <>
                                                 <li className="nav-item" role="presentation">
-                                                    <Link className="nav-link active" to="seller-projects">
+                                                    <Link
+                                                        className={`nav-link ${location.pathname === "/seller-projects" || location.pathname === "/" ? "active" : ""
+                                                            }`}
+                                                        to="/seller-projects"
+                                                    >
                                                         Seller Projects
                                                     </Link>
                                                 </li>
                                                 <li className="nav-item" role="presentation">
-                                                    <Link className="nav-link" to="seller" role="tab">
+                                                    <Link
+                                                        className={`nav-link ${location.pathname === "/seller" ? "active" : ""}`}
+                                                        to="/seller"
+                                                    >
                                                         Seller
                                                     </Link>
                                                 </li>
                                                 <li className="nav-item" role="presentation">
-                                                    <Link className="nav-link" to="buyer">
+                                                    <Link
+                                                        className={`nav-link ${location.pathname === "/buyer" ? "active" : ""}`}
+                                                        to="/buyer"
+                                                    >
                                                         Buyer
                                                     </Link>
                                                 </li>
