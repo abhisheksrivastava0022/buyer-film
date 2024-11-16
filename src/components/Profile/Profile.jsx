@@ -192,7 +192,7 @@ const Profile = () => {
         }
         if (!formData.country_id) {
 
-            errors.country_id = "Ccuntry is required";
+            errors.country_id = "Country is required";
             element = document.getElementById("country_id");
             if (element) {
                 element.focus();
