@@ -237,6 +237,15 @@ const Profile = () => {
                 element.focus();
             }
         }
+
+        if (!formData.email) {
+
+            errors.email = "Email is required";
+            element = document.getElementById("email");
+            if (element) {
+                element.focus();
+            }
+        }
         //  if (!formData.gstin) errors.gstin = "GST is required";
         // if (!formData.published_in_market_guide) errors.published_in_market_guide = "Selectr any option";
 
@@ -586,7 +595,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="First Name"
+                                                        // label="First Name"
+                                                        label={
+                                                            <span>
+                                                              First Name <span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         name="first_name"
                                                         id="first_name"
                                                         value={formData.first_name}
@@ -603,7 +617,13 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="Last Name"
+                                                        // label="Last Name"
+                                                        label={
+                                                            <span>
+                                                              Last Name <span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
+                                                        
                                                         name="last_name"
                                                         value={formData.last_name}
                                                         onChange={handleChange}
@@ -622,7 +642,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="Company Name"
+                                                        // label="Company Name"
+                                                        label={
+                                                            <span>
+                                                              Company Name <span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="text"
                                                         name="company"
                                                         id="company"
@@ -642,7 +667,12 @@ const Profile = () => {
 
                                                     <TextField
                                                         fullWidth
-                                                        label="Job Title"
+                                                        // label="Job Title"
+                                                        label={
+                                                            <span>
+                                                              Job Title<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="text"
                                                         name="job_title"
                                                         id="job_title"
@@ -664,7 +694,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="Address"
+                                                        // label="Address"
+                                                        label={
+                                                            <span>
+                                                              Address<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         name="address"
                                                         id="address"
                                                         value={formData.address}
@@ -683,7 +718,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="City"
+                                                        // label="City"
+                                                        label={
+                                                            <span>
+                                                              City<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="text"
                                                         name="city"
                                                         id="city"
@@ -705,7 +745,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="ZIP"
+                                                        // label="ZIP"
+                                                        label={
+                                                            <span>
+                                                              ZIP<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="number"
                                                         name="zip"
                                                         id="zip"
@@ -724,7 +769,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="State"
+                                                        // label="State"
+                                                        label={
+                                                            <span>
+                                                              State<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="text"
                                                         id="state"
                                                         name="state"
@@ -746,7 +796,7 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
 
                                                     <FormControl fullWidth>
-                                                        <InputLabel id="countries-label">Please select country</InputLabel>
+                                                        <InputLabel id="countries-label">Please select country <span style={{color:"red"}}>*</span></InputLabel>
                                                         <Select
                                                             labelId="countries-label"
                                                             name="country_id"
@@ -777,7 +827,13 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="Email"
+                                                        // label="Email"
+                                                        id="email"
+                                                        label={
+                                                            <span>
+                                                              Email<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="text"
                                                         name="email"
                                                         value={formData.email}
@@ -799,7 +855,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="Phone"
+                                                        // label="Phone"
+                                                        label={
+                                                            <span>
+                                                              Phone<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="number"
                                                         name="phone"
                                                         value={formData.phone}
@@ -816,7 +877,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="Mobile"
+                                                        // label="Mobile"
+                                                        label={
+                                                            <span>
+                                                              Mobile<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="text"
                                                         name="mobile"
                                                         value={formData.mobile}
@@ -836,7 +902,12 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <TextField
                                                         fullWidth
-                                                        label="Company Website"
+                                                        // label="Company Website"
+                                                        label={
+                                                            <span>
+                                                              Company Website<span style={{ color: 'red' }}>*</span>
+                                                            </span>
+                                                          }
                                                         type="text"
                                                         name="website"
                                                         value={formData.website}
@@ -854,6 +925,7 @@ const Profile = () => {
                                                     <TextField
                                                         fullWidth
                                                         label="GSTIN"
+
                                                         type="text"
                                                         name="gstin"
                                                         value={formData.gstin}
@@ -893,7 +965,7 @@ const Profile = () => {
                                                 <Grid item xs={12} sm={12} md={6} lg={6}>
                                                     <div className="form-group">
                                                         <label className="control-label" htmlFor="PHOTO_URL">
-                                                            Photo:<span style={{ color: 'red' }}> *</span>
+                                                            Photo:
                                                         </label>
                                                         <div>
                                                             <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
@@ -1170,7 +1242,7 @@ const Profile = () => {
                                 </IconButton>
                                 <DialogContent dividers>
                                     <Typography gutterBottom>
-                                        Upload the file or use the webcam to capture your picture.
+                                        Upload your photo.
                                     </Typography>
                                 </DialogContent>
                                 <DialogContent dividers>
