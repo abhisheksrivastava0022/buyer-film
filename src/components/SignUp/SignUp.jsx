@@ -78,7 +78,7 @@ const Signup = () => {
         if (validateForm()) {
             const response = await postRequestApi(`auth/register`, formData);
             if (response?.status && response.data) {
-                // alert("registered successfully.");
+                alert("registered successfully. Please activate your account.");
                 setAlertSeverity('success');
                 setAlertMessage('Registered successfully!.');
                 setAlertOpen(true);
