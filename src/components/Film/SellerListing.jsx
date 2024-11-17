@@ -6,12 +6,189 @@ import Footer from '../Footer/Footer';
 import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 const SellerListing = () => {
     const [data, setData] = useState([])
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
+
+
+    const [formData, setFormData] = useState({
+        title: '',
+        videography_type: "",
+        format_type: "",
+        stage_type: "",
+      });
+
+      const [errors, setErrors] = useState({});
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertSeverity, setAlertSeverity] = useState("success");
+
+
+    const [formDataDetails, setFormDataDetails] = useState([]);
+    const [formatTypes, setFormatTypes] = useState([]);
+    const [stageTypes, setStageTypes] = useState([]);
+  
+  
+  
+    const handleDropdownData = (event) => {
+      const { name, value } = event.target;
+  
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+  
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+  
+  
+  
+    };
+  
+    useEffect(() => {
+      const fetchVideographyTypes = async () => {
+        try {
+          const response = await fetch("https://119.82.68.149:3001/film-maker/site/videography-type", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+          });
+          const result = await response.json();
+          if (result.status) {
+            setFormDataDetails(result.data);
+          } else {
+            console.error("Error: ", result.message);
+          }
+        } catch (error) {
+          console.error("Error fetching videography types:", error);
+        }
+      };
+      fetchVideographyTypes();
+    }, []);
+  
+    useEffect(() => {
+  
+      const loadFormatTypes = async () => {
+        try {
+          const response = await fetch("https://119.82.68.149:3001/film-maker/site/format-type", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+          });
+          const result = await response.json();
+          if (result.status) {
+            setFormatTypes(result.data);
+          } else {
+            console.error("Error: ", result.message);
+          }
+        } catch (error) {
+          console.error("Error fetching format types:", error);
+        }
+      };
+      loadFormatTypes();
+    }, []);
+  
+    useEffect(() => {
+  
+      const loadStageTypes = async () => {
+        try {
+          const response = await fetch("https://119.82.68.149:3001/film-maker/site/stage-type", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+          });
+          const result = await response.json();
+          if (result.status) {
+            setStageTypes(result.data);
+          } else {
+            console.error("Error: ", result.message);
+          }
+        } catch (error) {
+          console.error("Error fetching stage types:", error);
+        }
+      };
+      loadStageTypes();
+    }, []);
+  
+  
+  
+    const validateForm = () => {
+      const errors = {};
+      if (!formData.title) errors.title = "Title is required";
+      if (!formData.videography_type) errors.videography_type = "Type is required";
+      if (!formData.format_type) errors.format_type = "Format is required";
+      if (!formData.stage_type) errors.stage_type = "Stage is required";
+  
+      setErrors(errors);
+      return Object.keys(errors).length === 0;
+    };
+  
+  
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value
+      }));
+  
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+  
+  
+  
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      if (validateForm()) {
+        try {
+          const response = await fetch(`https://119.82.68.149:3001/film-maker/film/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+            credentials: 'include'
+          });
+  
+          const data = await response.json();
+  
+          if (response.ok) {
+            setAlertSeverity('success');
+            setAlertMessage('Form submitted successfully!');
+            setAlertOpen(true);
+  
+            // navigate(`/project/${data.data}`);
+          } else {
+            setAlertSeverity('error');
+            setAlertMessage(data.message || 'Failed to submit form. Please try again!');
+            setAlertOpen(true);
+          }
+        } catch (error) {
+          setAlertSeverity('error');
+          setAlertMessage('An error occurred. Please try again!');
+          setAlertOpen(true);
+          console.error('Error:', error);
+        }
+      }
+  
+    };
 
 
 
@@ -255,6 +432,135 @@ const SellerListing = () => {
                                 </div>
 
                             </div>
+
+                            <div className="tab-content1  mt-4" >
+                                <div>
+                                    <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
+                                        <div className="list-group">
+                                            <div className="list-group-item list-group-item-action active header-title-bg" >
+                                                <div className="d-flex w-100 justify-content-between">
+                                                    <h5 className="mb-1">Project</h5>
+                                                </div>
+                                            </div>
+                                            <div className="list-group-item form-space " >
+
+
+                                                <div className="row border-0 mt-4 mb-4">
+
+                                                    <Grid container spacing={2}>
+
+                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
+                                                            <form>
+                                                                <div className="form-group">
+                                                                    
+                                                                    <TextField
+                                                                        variant="outlined"
+                                                                        fullWidth
+                                                                        type='text'
+                                                                        // placeholder='Enter title name'
+                                                                        label={
+                                                                            <span>
+                                                                              Enter title name<span style={{ color: 'red' }}> *</span>
+                                                                            </span>
+                                                                          }
+                                                                        className="form-control"
+                                                                        name="title"
+                                                                        value={formData.title}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                   
+
+                                                                </div>
+                                                                {/* <div style={{ display: "flex", justifyContent: "end", marginTop: "5px" }}>
+                                                                <button className="btn btn-primary btn-yellow" >Proceed</button>
+                                                            </div> */}
+
+                                                            </form>
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                            <FormControl fullWidth>
+                                                                <InputLabel id="videography-label">Select type <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                <Select
+                                                                    labelId="videography-label"
+                                                                    name="videography_type"
+                                                                    value={formData.videography_type}
+                                                                    onChange={handleDropdownData}
+                                                                    label="Select videography"
+                                                                    renderValue={(selected) => {
+                                                                        const selectedVideography = formDataDetails.find((videography) => videography.id === selected);
+                                                                        return selectedVideography ? selectedVideography.name : '';
+                                                                    }}
+                                                                >
+                                                                    {formDataDetails.map((type) => (
+                                                                        <MenuItem key={type.id} value={type.id}>
+                                                                            {type.name}
+                                                                        </MenuItem>
+                                                                    ))}
+                                                                </Select>
+
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                            <FormControl fullWidth>
+                                                                <InputLabel id="format-types">Select format <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                <Select
+                                                                    labelId="format-types"
+                                                                    name="format_type"
+                                                                    value={formData.format_type}
+                                                                    onChange={handleDropdownData}
+                                                                    label="Select format types"
+                                                                    renderValue={(selected) => {
+                                                                        const selectedFormat = formatTypes.find((formatTypes) => formatTypes.id === selected);
+                                                                        return selectedFormat ? selectedFormat.name : '';
+                                                                    }}
+                                                                >
+                                                                    {formatTypes.map((formatTypes) => (
+                                                                        <MenuItem key={formatTypes.id} value={formatTypes.id}>
+                                                                            {formatTypes.name}
+                                                                        </MenuItem>
+                                                                    ))}
+                                                                </Select>
+                                                               
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                            <FormControl fullWidth>
+                                                                <InputLabel id="stage-types">Select stage <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                <Select
+                                                                    labelId="stage-types"
+                                                                    name="stage_type"
+                                                                    value={formData.stage_type || ''}
+                                                                    onChange={handleDropdownData}
+                                                                    label="Select stage types"
+                                                                    renderValue={(selected) => {
+                                                                        const selectedStage = stageTypes.find((stagetype) => stagetype.id === selected);
+                                                                        return selectedStage ? selectedStage.name : 'Select stage types';
+                                                                    }}
+                                                                >
+                                                                    {stageTypes.map((stagetype) => (
+                                                                        <MenuItem key={stagetype.id} value={stagetype.id}>
+                                                                            {stagetype.name}
+                                                                        </MenuItem>
+                                                                    ))}
+                                                                </Select>
+                                                                
+                                                            </FormControl>
+
+
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
+                                                            <div style={{ display: "flex", justifyContent: "end", marginTop: "5px" }}>
+                                                                <button className="btn btn-primary btn-yellow" onClick={handleSubmit}>Proceed</button>
+                                                            </div>
+                                                        </Grid>
+                                                    </Grid>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className='row'>
                                 {
 
@@ -341,14 +647,9 @@ const SellerListing = () => {
 
                                             </div>
                                         </div>
-
                                     })
                                 }
                             </div>
-
-
-
-
                         </div>
                     </div>
                     <nav aria-label="...">
@@ -399,9 +700,6 @@ const SellerListing = () => {
                     </nav>
                 </div>
             </main>
-
-
-
         </>
     )
 }
