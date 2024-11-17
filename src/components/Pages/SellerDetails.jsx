@@ -73,7 +73,7 @@ const SellerDetails = () => {
                                 <li><i className="bi bi-envelope"></i>{data?.email}</li>
 
                             </ul> */}
-                            <Sidebar/>
+                            <Sidebar/> 
 
                         </div>
                     </div>
