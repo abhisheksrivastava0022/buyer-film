@@ -230,38 +230,57 @@ const Seller = () => {
 
                             </div>
 
-                            {
+                            <div className='row'>
+                                {
 
-                                data.map((row) => {
+                                    data.map((row) => {
 
-                                    return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                        return <div className='col-md-6 col-sm-6'>
+                                        <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
 
-                                        <div className="col-auto  d-lg-block">
-                                            <img
-                                                src={row?.profile_img?.url ? `${dataurl}/film-buyer/file/${row.profile_img.url}` : defaultimg}
+                                            <div className="col-auto  d-lg-block">
+                                                <img
+                                                    src={row?.profile_img?.url ? `${dataurl}/film-buyer/file/${row.profile_img.url}` : defaultimg}
 
-                                                alt={row?.profile_img?.name ? `${dataurl}/film-buyer/file/${row.profile_img.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
+                                                    alt={row?.profile_img?.name ? `${dataurl}/film-buyer/file/${row.profile_img.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
 
+                                            </div>
+                                            <div className="col p-4 d-flex flex-column position-static">
+                                                <h3 className="mb-0 title-heading" >Name: {row?.first_name} {row?.last_name}</h3>
+                                                <p className="mb-0 title" >Email: {row?.email} </p>
+                                                <p className="mb-0 title" >Project Count: {row.Films.length} </p>
+                                                <div className='btn-link-card'>
+                                                <button className='btn btn-primary'>
+                                                    <Link to={`/seller/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                        View Details
+                                                    </Link>
+                                                </button> &nbsp;
+
+                                                </div>
+
+                                            </div>
+
+                                            {/* <div className='star'>
+                                                <button className='btn btn-primary'>
+                                                    <Link to={`/seller/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                        View Details
+                                                    </Link>
+                                                </button> &nbsp;
+
+                                            </div> */}
                                         </div>
-                                        <div className="col p-4 d-flex flex-column position-static">
-                                            <h3 className="mb-0 title-heading" >Name: {row?.first_name} {row?.last_name}</h3>
-                                            <p className="mb-0 title" >Email: {row?.email} </p>
-                                            <p className="mb-0 title" >Project Count: {row.Films.length} </p>
-
                                         </div>
 
-                                        <div className='star'>
-                                            <button className='btn btn-primary'>
-                                                <Link to={`/seller/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
-                                                    View Details
-                                                </Link>
-                                            </button> &nbsp;
 
-                                        </div>
-                                    </div>
 
-                                })
-                            }
+
+                                    })
+                                }
+
+
+
+                            </div>
+
 
 
 

@@ -47,10 +47,14 @@ const Profile = () => {
 
     const { getRequestApi, postRequestApi } = ApiClient()
     const [countries, setCountries] = useState([]);
+    // const [openDialog, setOpenDialog] = useState(false);
 
     const handleChangeTitle = (event) => {
         setAge(event.target.value);
     };
+    // const handleDialogClose =  () => {
+    //     setOpenDialog(false);
+    // };
 
 
     const [formData, setFormData] = useState({
@@ -366,8 +370,9 @@ const Profile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+       
         if (validateForm(formData)) {
+            // setOpenDialog(true)
             // alert("pass")
             const response = await postRequestApi(`film/buyer/update`, formData);
             alert("Data saved successfully.")
@@ -1137,6 +1142,17 @@ const Profile = () => {
                                 </DialogActions>
                             </BootstrapDialog>
                         </React.Fragment>
+
+                        {/* <Dialog open={openDialog} onClose={() => handleDialogClose(false)}>
+                            <DialogTitle>Are You Sure?</DialogTitle>
+                            <DialogContent>
+                                Once submitted, the form cannot be edited/resubmitted. Do you want to proceed?
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={() => handleDialogClose(false)} color="primary">Cancel</Button>
+                                <Button onClick={() => handleDialogClose(true)} color="primary">Proceed</Button>
+                            </DialogActions>
+                        </Dialog> */}
 
                     </div>
                 </div>

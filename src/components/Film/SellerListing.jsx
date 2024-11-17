@@ -177,7 +177,7 @@ const SellerListing = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                            <h3>Filter</h3>
+                            {/* <h3>Filter</h3>
                             <form onSubmit={handleSearchform}>
                                 <div className="form-group">
                                     <label>Title of film</label>
@@ -200,7 +200,35 @@ const SellerListing = () => {
                                         Submit
                                     </button>
                                 </div>
-                            </form>
+                            </form> */}
+                            <ul className="list-unstyled ps-0 sidebar-navigation">
+                                <li><a href="#" > <i className="bi bi-speedometer"></i> Dashboard</a></li>
+                                <li>
+                                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                                        <i className="bi bi-grid"></i> Project
+                                    </button>
+                                    <div className="collapse" id="dashboard-collapse">
+                                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">In Progress</a></li>
+                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">Submitted</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                                        Orders
+                                    </button>
+                                    <div className="collapse" id="orders-collapse">
+                                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a></li>
+                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">Processed</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="#"><i className="bi bi-person"></i> Profile</a></li>
+                                <li><a href="#"> <i className="bi bi-gear"></i>Settings</a></li>
+                                <li><a href="#" > <i className="bi bi-box-arrow-left"></i> Sign out</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -227,44 +255,65 @@ const SellerListing = () => {
                                 </div>
 
                             </div>
+                            <div className='row'>
+                                {
 
-                            {
+                                    data.map((row) => {
+                                        const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                        console.log(type2Document, "data");
+                                        const dataurl = process.env.REACT_APP_BASE_URL;
+                                        console.log({ dataurl });
+                                        return <div className='col-md-6 col-sm-6'>
+                                            <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                <div className="col-auto  d-lg-block">
+                                                    {type2Document ?
+                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                        :
+                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                    }
+                                                </div>
+                                                <div className="col p-4 d-flex flex-column position-static">
+                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
+                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
+                                                    <div className="mb-1 text-body-secondary">
+                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
 
-                                data.map((row) => {
-                                    const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
-                                    console.log(type2Document, "data");
-                                    const dataurl = process.env.REACT_APP_BASE_URL;
-                                    console.log({ dataurl });
-                                    return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                    </div>
+                                                    <p className="card-text mb-auto">
+                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
+                                                    </p>
+                                                    <div className='btn-link-card'>
+                                                        <button className='btn btn-primary  w-auto'>
+                                                            <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                                View Details
+                                                            </Link>
+                                                        </button>
 
-                                        <div className="col-auto  d-lg-block">
-                                            {type2Document ?
-                                                <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
-                                                :
-                                                <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
-                                            }
-                                        </div>
-                                        <div className="col p-4 d-flex flex-column position-static">
-                                            <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
-                                            <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
-                                            <div className="mb-1 text-body-secondary">
-                                                Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
 
-                                            </div>
-                                            <p className="card-text mb-auto">
-                                                Is film Complete: {row.is_film_complete ? "yes" : "No"}
-                                            </p>
-                                            {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
-                                                Continue reading
-                                            </Link> */}
-                                        </div>
+                                                        {loadingData?.film_interest?.[row.id] ?
+                                                            <>
+                                                                <button className='btn btn-danger make-above-link w-auto' onClick={() => NotInterestedApply(row.id)} style={{
+                                                                    cursor: 'pointer',
 
-                                        <div className='star'>
+                                                                }}>Not Interested</button>
+
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <button className='btn btn-yellow make-above-link  w-auto' onClick={() => InterestedApply(row.id)} style={{
+                                                                    cursor: 'pointer',
+
+                                                                }}>Show interest</button>
+                                                            </>
+
+                                                        }
+                                                    </div>
+                                                    {/* <div className='star'>
                                             <button className='btn btn-primary'>
                                                 <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
                                                     View Details
                                                 </Link>
-                                            </button> &nbsp;
+                                            </button>
 
 
                                             {loadingData?.film_interest?.[row.id] ?
@@ -283,12 +332,19 @@ const SellerListing = () => {
                                                     }}>Show interest</button>
                                                 </>
                                             }
+                                        </div> */}
+                                                    {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
+                                                Continue reading
+                                            </Link> */}
+                                                </div>
+
+
+                                            </div>
                                         </div>
-                                    </div>
 
-                                })
-                            }
-
+                                    })
+                                }
+                            </div>
 
 
 
