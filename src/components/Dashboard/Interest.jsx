@@ -22,10 +22,83 @@ const Interest = () => {
     });
     const [searchForm, setSearchForm] = useState({ title: '', category: '' });
 
-    const handleSearchform = async (e) => {
-        e.preventDefault();
-        loadPreLoadData();
-    }
+    const [formDataDetails, setFormDataDetails] = useState([]);
+    const [formatTypes, setFormatTypes] = useState([]);
+    const [stageTypes, setStageTypes] = useState([]);
+
+
+
+    useEffect(() => {
+        const fetchVideographyTypes = async () => {
+            try {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/videography-type", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.status) {
+                    setFormDataDetails(result.data);
+                } else {
+                    console.error("Error: ", result.message);
+                }
+            } catch (error) {
+                console.error("Error fetching videography types:", error);
+            }
+        };
+        fetchVideographyTypes();
+    }, []);
+
+    useEffect(() => {
+
+        const loadFormatTypes = async () => {
+            try {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/format-type", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.status) {
+                    setFormatTypes(result.data);
+                } else {
+                    console.error("Error: ", result.message);
+                }
+            } catch (error) {
+                console.error("Error fetching format types:", error);
+            }
+        };
+        loadFormatTypes();
+    }, []);
+
+    useEffect(() => {
+
+        const loadStageTypes = async () => {
+            try {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/stage-type", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.status) {
+                    setStageTypes(result.data);
+                } else {
+                    console.error("Error: ", result.message);
+                }
+            } catch (error) {
+                console.error("Error fetching stage types:", error);
+            }
+        };
+        loadStageTypes();
+    }, []);
+
 
     // Function to handle input changes
     const handleInputChange = (e) => {
@@ -162,6 +235,25 @@ const Interest = () => {
 
 
 
+    const getVideography = (videoIds) => {
+        if (!videoIds) return "";
+
+        const Videography = formDataDetails?.find((c) => c.id === videoIds);
+        return Videography ? Videography.name : "";
+    };
+    const getformattype = (formatIds) => {
+        if (!formatIds) return "";
+
+        const getformattypedetails = formatTypes?.find((c) => c.id === formatIds);
+        return getformattypedetails ? getformattypedetails.name : "";
+    };
+    const getformatstagetype = (stageIds) => {
+        if (!stageIds) return "";
+
+        const stagetype = stageTypes?.find((c) => c.id === stageIds);
+        return stagetype ? stagetype.name : "";
+    };
+
 
 
     return (
@@ -186,31 +278,16 @@ const Interest = () => {
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                            {/* <div className="row border-bottom mb-4 mt-4">
-                                <div className="col-md-12">
-                                    <h2 className="d-flex filter-text">
-                                        <i className="bi bi-funnel"></i> Sort By
-                                        <select className="form-select w-70" >
-                                            <option selected="">Select </option>
-                                            <option value="1">Original Title</option>
-                                            <option value="2">English Title</option>
-                                            <option value="3">Language</option>
-                                            <option value="3">Log Line</option>
-                                            <option value="3">Synopsys</option>
-                                        </select>
-                                    </h2>
-                                </div>
 
-                            </div> */}
 
                             <div className="accordion accordion-flush" id="accordionFlushExample1">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="true"  data-bs-target="#flush-collapseOne" aria-controls="flush-collapseOne">
-                                        Pending
+                                        <button class="accordion-button " style={{ background: "#10631d" }} type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#flush-collapseOne" aria-controls="flush-collapseOne">
+                                            Connection Build
                                         </button>
                                     </h2>
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample1">
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample1">
                                         <div class="accordion-body">
 
                                             <div className="tab-content1  " >
@@ -222,63 +299,48 @@ const Interest = () => {
 
 
                                                                 <div className="row border-0 mt-4 mb-4">
-                                                                    {
+                                                                    <div className='row mt-4'>
+                                                                        {
 
-                                                                        data.map((row) => {
-                                                                            const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
-                                                                            console.log(type2Document, "data");
-                                                                            const dataurl = process.env.REACT_APP_BASE_URL;
-                                                                            console.log({ dataurl });
-                                                                            return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                                            data.map((row) => {
+                                                                                const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                                                                console.log(type2Document, "data");
+                                                                                const dataurl = process.env.REACT_APP_BASE_URL;
+                                                                                console.log({ dataurl });
+                                                                                return <div className='col-md-6 col-sm-6'>
+                                                                                    <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                                                        <div className="col-auto  d-lg-block">
+                                                                                            {type2Document ?
+                                                                                                <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                                                                :
+                                                                                                <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                                                            }
+                                                                                        </div>
+                                                                                        <div className="col p-4 d-flex flex-column position-static">
+                                                                                            <h3 className="mb-0 title-heading" > {row.title}</h3>
+                                                                                            {getVideography(row.videography_type)} | {getformattype(row.format_type)}  | {getformatstagetype(row.stage_type)}
+                                                                                            <br />
+                                                                                            <br />
+                                                                                            <br />
+                                                                                            <div className='btn-link-card'>
+                                                                                                <button className='btn btn-primary  w-auto'>
+                                                                                                    <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                                                                        View Details
+                                                                                                    </Link>
+                                                                                                </button>
 
-                                                                                <div className="col-auto  d-lg-block">
-                                                                                    {type2Document ?
-                                                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
-                                                                                        :
-                                                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
-                                                                                    }
-                                                                                </div>
-                                                                                <div className="col p-4 d-flex flex-column position-static">
-                                                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
-                                                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
-                                                                                    <div className="mb-1 text-body-secondary">
-                                                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
+
+
+                                                                                            </div>
+
+                                                                                        </div>
+
 
                                                                                     </div>
-                                                                                    <p className="card-text mb-auto">
-                                                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
-                                                                                    </p>
-                                                                                    {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-            </Link> */}
                                                                                 </div>
-
-                                                                                <div className='star'>
-
-                                                                                    <button className='btn btn-primary'>
-                                                                                        <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
-                                                                                            View Details
-                                                                                        </Link>
-                                                                                    </button> &nbsp;
-
-
-                                                                                    <button className='btn btn-yellow make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Pending</button>   &nbsp;
-                                                                                    <button className='btn btn-danger make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Pending</button>   &nbsp;
-                                                                                    <button className='btn btn-success make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Connection Build</button> &nbsp;
-                                                                                </div>
-                                                                            </div>
-
-                                                                        })
-                                                                    }
+                                                                            })
+                                                                        }
+                                                                    </div>
 
                                                                 </div>
                                                             </div>
@@ -295,7 +357,7 @@ const Interest = () => {
                             <div className="accordion accordion-flush mt-4" id="accordionFlushExample2">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                        <button class="accordion-button collapsed" style={{ background: "red" }} type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                             Decline
                                         </button>
                                     </h2>
@@ -311,63 +373,38 @@ const Interest = () => {
 
 
                                                                 <div className="row border-0 mt-4 mb-4">
-                                                                    {
+                                                                    <div className='row mt-4'>
+                                                                        {
 
-                                                                        data.map((row) => {
-                                                                            const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
-                                                                            console.log(type2Document, "data");
-                                                                            const dataurl = process.env.REACT_APP_BASE_URL;
-                                                                            console.log({ dataurl });
-                                                                            return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                                            data.map((row) => {
+                                                                                const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                                                                console.log(type2Document, "data");
+                                                                                const dataurl = process.env.REACT_APP_BASE_URL;
+                                                                                console.log({ dataurl });
+                                                                                return <div className='col-md-6 col-sm-6'>
+                                                                                    <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                                                        <div className="col-auto  d-lg-block">
+                                                                                            {type2Document ?
+                                                                                                <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                                                                :
+                                                                                                <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                                                            }
+                                                                                        </div>
+                                                                                        <div className="col p-4 d-flex flex-column position-static">
+                                                                                            <h3 className="mb-0 title-heading" > {row.title}</h3>
+                                                                                            {getVideography(row.videography_type)} | {getformattype(row.format_type)}  | {getformatstagetype(row.stage_type)}
+                                                                                            <br />
+                                                                                            <br />
+                                                                                            <br />
 
-                                                                                <div className="col-auto  d-lg-block">
-                                                                                    {type2Document ?
-                                                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
-                                                                                        :
-                                                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
-                                                                                    }
-                                                                                </div>
-                                                                                <div className="col p-4 d-flex flex-column position-static">
-                                                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
-                                                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
-                                                                                    <div className="mb-1 text-body-secondary">
-                                                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
+                                                                                        </div>
+
 
                                                                                     </div>
-                                                                                    <p className="card-text mb-auto">
-                                                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
-                                                                                    </p>
-                                                                                    {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-            </Link> */}
                                                                                 </div>
-
-                                                                                <div className='star'>
-
-                                                                                    <button className='btn btn-primary'>
-                                                                                        <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
-                                                                                            View Details
-                                                                                        </Link>
-                                                                                    </button> &nbsp;
-
-
-                                                                                    <button className='btn btn-yellow make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Pending</button>   &nbsp;
-                                                                                    <button className='btn btn-danger make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Pending</button>   &nbsp;
-                                                                                    <button className='btn btn-success make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Connection Build</button> &nbsp;
-                                                                                </div>
-                                                                            </div>
-
-                                                                        })
-                                                                    }
+                                                                            })
+                                                                        }
+                                                                    </div>
 
                                                                 </div>
                                                             </div>
@@ -385,7 +422,7 @@ const Interest = () => {
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingOne">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                            Connection Build
+                                            Pending
                                         </button>
                                     </h2>
                                     <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample3">
@@ -400,63 +437,60 @@ const Interest = () => {
 
 
                                                                 <div className="row border-0 mt-4 mb-4">
-                                                                    {
+                                                                    <div className='row mt-4'>
+                                                                        {
 
-                                                                        data.map((row) => {
-                                                                            const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
-                                                                            console.log(type2Document, "data");
-                                                                            const dataurl = process.env.REACT_APP_BASE_URL;
-                                                                            console.log({ dataurl });
-                                                                            return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                                            data.map((row) => {
+                                                                                const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                                                                console.log(type2Document, "data");
+                                                                                const dataurl = process.env.REACT_APP_BASE_URL;
+                                                                                console.log({ dataurl });
+                                                                                return <div className='col-md-6 col-sm-6'>
+                                                                                    <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                                                        <div className="col-auto  d-lg-block">
+                                                                                            {type2Document ?
+                                                                                                <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                                                                :
+                                                                                                <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                                                            }
+                                                                                        </div>
+                                                                                        <div className="col p-4 d-flex flex-column position-static">
+                                                                                            <h3 className="mb-0 title-heading" > {row.title}</h3>
+                                                                                            {getVideography(row.videography_type)} | {getformattype(row.format_type)}  | {getformatstagetype(row.stage_type)}
+                                                                                            <br />
+                                                                                            <br />
+                                                                                            <br />
+                                                                                            <div className='btn-link-card'>
 
-                                                                                <div className="col-auto  d-lg-block">
-                                                                                    {type2Document ?
-                                                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
-                                                                                        :
-                                                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
-                                                                                    }
-                                                                                </div>
-                                                                                <div className="col p-4 d-flex flex-column position-static">
-                                                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
-                                                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
-                                                                                    <div className="mb-1 text-body-secondary">
-                                                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
+
+
+                                                                                                {loadingData?.film_interest?.[row.id] ?
+                                                                                                    <>
+                                                                                                        <button className='btn btn-danger make-above-link w-auto' onClick={() => NotInterestedApply(row.id)} style={{
+                                                                                                            cursor: 'pointer',
+
+                                                                                                        }}>Not Interested</button>
+
+                                                                                                    </>
+                                                                                                    :
+                                                                                                    <>
+                                                                                                        <button className='btn btn-yellow make-above-link  w-auto' onClick={() => InterestedApply(row.id)} style={{
+                                                                                                            cursor: 'pointer',
+
+                                                                                                        }}>Show interest</button>
+                                                                                                    </>
+
+                                                                                                }
+                                                                                            </div>
+
+                                                                                        </div>
+
 
                                                                                     </div>
-                                                                                    <p className="card-text mb-auto">
-                                                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
-                                                                                    </p>
-                                                                                    {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-            </Link> */}
                                                                                 </div>
-
-                                                                                <div className='star'>
-
-                                                                                    <button className='btn btn-primary'>
-                                                                                        <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
-                                                                                            View Details
-                                                                                        </Link>
-                                                                                    </button> &nbsp;
-
-
-                                                                                    <button className='btn btn-yellow make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Pending</button>   &nbsp;
-                                                                                    <button className='btn btn-danger make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Pending</button>   &nbsp;
-                                                                                    <button className='btn btn-success make-above-link' style={{
-                                                                                        cursor: 'default',
-
-                                                                                    }}>Connection Build</button> &nbsp;
-                                                                                </div>
-                                                                            </div>
-
-                                                                        })
-                                                                    }
+                                                                            })
+                                                                        }
+                                                                    </div>
 
                                                                 </div>
                                                             </div>
