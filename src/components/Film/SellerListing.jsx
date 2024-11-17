@@ -416,11 +416,7 @@ const SellerListing = () => {
                                                                                         fullWidth
                                                                                         type='text'
 
-                                                                                        label={
-                                                                                            <span>
-                                                                                                Enter title name<span style={{ color: 'red' }}> *</span>
-                                                                                            </span>
-                                                                                        }
+                                                                                        label="search title"
                                                                                         className="form-control"
                                                                                         name="title"
                                                                                         value={formData.title}
@@ -435,7 +431,7 @@ const SellerListing = () => {
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={12} md={6} lg={6}>
                                                                             <FormControl fullWidth>
-                                                                                <InputLabel id="videography-label">Select type <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                                <InputLabel id="videography-label">Select type </InputLabel>
                                                                                 <Select
                                                                                     labelId="videography-label"
                                                                                     name="videography_type"
@@ -458,7 +454,7 @@ const SellerListing = () => {
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={12} md={6} lg={6}>
                                                                             <FormControl fullWidth>
-                                                                                <InputLabel id="format-types">Select format <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                                <InputLabel id="format-types">Select format </InputLabel>
                                                                                 <Select
                                                                                     labelId="format-types"
                                                                                     name="format_type"
@@ -481,7 +477,7 @@ const SellerListing = () => {
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={12} md={6} lg={6}>
                                                                             <FormControl fullWidth>
-                                                                                <InputLabel id="stage-types">Select stage <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                                <InputLabel id="stage-types">Select stage </InputLabel>
                                                                                 <Select
                                                                                     labelId="stage-types"
                                                                                     name="stage_type"
@@ -544,7 +540,7 @@ const SellerListing = () => {
                                                 </div>
                                                 <div className="col p-4 d-flex flex-column position-static">
                                                     <h3 className="mb-0 title-heading" > {row.title}</h3>
-                                                    {getVideography(row.videography_type)} | {getVideography(row.videography_type)}  | {getformatstagetype(row.stage_type)}
+                                                    {getVideography(row.videography_type)} | {getformattype(row.format_type)}  | {getformatstagetype(row.stage_type)}
                                                     <br />
                                                     <br />
                                                     <br />
