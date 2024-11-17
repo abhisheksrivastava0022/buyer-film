@@ -180,7 +180,7 @@ const Buyer = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                            <Sidebar />
+                            <Sidebar /> 
 
                         </div>
                     </div>

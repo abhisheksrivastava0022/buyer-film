@@ -4,6 +4,7 @@ import filmbazaar from "../../assets/img/filmbazaar.png";
 import ApiClient from '../API/ApiClient';
 import { useParams } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import Sidebar from '../Sidebar/Sidebar';
 
 const BuyerDetails = () => {
     const { getRequestApi } = ApiClient();
@@ -132,14 +133,15 @@ const BuyerDetails = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
 
-                            <ul className="address">
+                            {/* <ul className="address">
                                 <li> <i className="bi bi-geo-alt"></i>{data?.FilmMaker?.first_name} {data?.FilmMaker?.last_name}</li>
                                 <li><i className="bi bi-envelope"></i> {data?.FilmMaker?.email}</li>
                                 <li> <i className="bi bi-globe"></i> https://filmbazaarindia.com/</li>
                                 <li> <i className="bi bi-calendar3"></i> June 02, 1988</li>
                                 <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
 
-                            </ul>
+                            </ul> */}
+                            <Sidebar/>
 
                         </div>
                     </div>
