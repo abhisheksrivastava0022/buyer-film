@@ -4,6 +4,7 @@ import filmbazaar from "../../assets/img/filmbazaar.png";
 import ApiClient from '../API/ApiClient';
 import { Link, useParams } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import Sidebar from '../Sidebar/Sidebar';
 
 const SellerDetails = () => {
     const { getRequestApi } = ApiClient();
@@ -67,11 +68,12 @@ const SellerDetails = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
 
-                            <ul className="address">
+                            {/* <ul className="address">
                                 <li> <i className="bi bi-geo-alt"></i>{data?.first_name} {data?.last_name}</li>
                                 <li><i className="bi bi-envelope"></i>{data?.email}</li>
 
-                            </ul>
+                            </ul> */}
+                            <Sidebar/>
 
                         </div>
                     </div>
