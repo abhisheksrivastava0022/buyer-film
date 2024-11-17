@@ -442,3 +442,30 @@ h1,
 .sidebar-navigation li{ padding: 4px 0px 4px 0!important; border-bottom:solid 1px #ddd; }
 .sidebar-navigation .btn-toggle-nav{ background:#fff; border-radius:10px!important; margin:5px 0; }
 .sidebar-navigation .btn-toggle-nav li:last-child{ border-bottom:none!important; }
+
+/* Default Search Button Style */
+.accordion-button {
+  background-color: #007bff; /* Blue */
+  color: white;
+  border: none;
+}
+
+/* On Focus or Hover */
+.accordion-button:focus, 
+.accordion-button:hover {
+  background-color: #0056b3; /* Darker Blue */
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+/* When Expanded */
+.accordion-button:not(.collapsed) {
+  background-color: #0056b3; /* Darker Blue */
+  color: white;
+}
+
+/* Change the background of the accordion body when expanded */
+.accordion-collapse.show {
+  background-color: #e7f3ff; /* Light Blue */
+}

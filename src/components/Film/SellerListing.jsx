@@ -360,143 +360,158 @@ const SellerListing = () => {
                     </div>
                 </div>
             </div>
+
             <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
                 <div className=" main-content-space ">
 
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
+                            <div className="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            Search
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
 
-
-                            <div className="tab-content1  " >
-                                <div>
-                                    <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
-                                        <div className="list-group">
-                                            <div className="list-group-item list-group-item-action active header-title-bg" >
-                                                <div className="d-flex w-100 justify-content-between">
-                                                    <h5 className="mb-1">Project</h5>
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item form-space " >
-
-
-                                                <div className="row border-0 mt-4 mb-4">
-
-                                                    <Grid container spacing={2}>
-
-                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                                                            <form>
-                                                                <div className="form-group">
-
-                                                                    <TextField
-                                                                        variant="outlined"
-                                                                        fullWidth
-                                                                        type='text'
-                                                                        // placeholder='Enter title name'
-                                                                        label={
-                                                                            <span>
-                                                                                Enter title name<span style={{ color: 'red' }}> *</span>
-                                                                            </span>
-                                                                        }
-                                                                        className="form-control"
-                                                                        name="title"
-                                                                        value={formData.title}
-                                                                        onChange={handleChange}
-                                                                    />
-
-
+                                            <div className="tab-content1  " >
+                                                <div>
+                                                    <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
+                                                        <div className="list-group">
+                                                            <div className="list-group-item list-group-item-action active header-title-bg" >
+                                                                <div className="d-flex w-100 justify-content-between">
+                                                                    <h5 className="mb-1">Project</h5>
                                                                 </div>
-                                                                {/* <div style={{ display: "flex", justifyContent: "end", marginTop: "5px" }}>
-                                                                <button className="btn btn-primary btn-yellow" >Proceed</button>
-                                                            </div> */}
-
-                                                            </form>
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                                            <FormControl fullWidth>
-                                                                <InputLabel id="videography-label">Select type <span style={{ color: 'red' }}> *</span></InputLabel>
-                                                                <Select
-                                                                    labelId="videography-label"
-                                                                    name="videography_type"
-                                                                    value={formData.videography_type}
-                                                                    onChange={handleDropdownData}
-                                                                    label="Select videography"
-                                                                    renderValue={(selected) => {
-                                                                        const selectedVideography = formDataDetails.find((videography) => videography.id === selected);
-                                                                        return selectedVideography ? selectedVideography.name : '';
-                                                                    }}
-                                                                >
-                                                                    {formDataDetails.map((type) => (
-                                                                        <MenuItem key={type.id} value={type.id}>
-                                                                            {type.name}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                                </Select>
-
-                                                            </FormControl>
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                                            <FormControl fullWidth>
-                                                                <InputLabel id="format-types">Select format <span style={{ color: 'red' }}> *</span></InputLabel>
-                                                                <Select
-                                                                    labelId="format-types"
-                                                                    name="format_type"
-                                                                    value={formData.format_type}
-                                                                    onChange={handleDropdownData}
-                                                                    label="Select format types"
-                                                                    renderValue={(selected) => {
-                                                                        const selectedFormat = formatTypes.find((formatTypes) => formatTypes.id === selected);
-                                                                        return selectedFormat ? selectedFormat.name : '';
-                                                                    }}
-                                                                >
-                                                                    {formatTypes.map((formatTypes) => (
-                                                                        <MenuItem key={formatTypes.id} value={formatTypes.id}>
-                                                                            {formatTypes.name}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                                </Select>
-
-                                                            </FormControl>
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                                                            <FormControl fullWidth>
-                                                                <InputLabel id="stage-types">Select stage <span style={{ color: 'red' }}> *</span></InputLabel>
-                                                                <Select
-                                                                    labelId="stage-types"
-                                                                    name="stage_type"
-                                                                    value={formData.stage_type || ''}
-                                                                    onChange={handleDropdownData}
-                                                                    label="Select stage types"
-                                                                    renderValue={(selected) => {
-                                                                        const selectedStage = stageTypes.find((stagetype) => stagetype.id === selected);
-                                                                        return selectedStage ? selectedStage.name : 'Select stage types';
-                                                                    }}
-                                                                >
-                                                                    {stageTypes.map((stagetype) => (
-                                                                        <MenuItem key={stagetype.id} value={stagetype.id}>
-                                                                            {stagetype.name}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                                </Select>
-
-                                                            </FormControl>
-
-
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                                                            <div style={{ display: "flex", justifyContent: "end", marginTop: "5px" }}>
-                                                                <button className="btn btn-primary btn-yellow" onClick={handleSubmit}>Proceed</button>
                                                             </div>
-                                                        </Grid>
-                                                    </Grid>
+                                                            <div className="list-group-item form-space " >
+
+
+                                                                <div className="row border-0 mt-4 mb-4">
+
+                                                                    <Grid container spacing={2}>
+
+                                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
+                                                                            <form>
+                                                                                <div className="form-group">
+
+                                                                                    <TextField
+                                                                                        variant="outlined"
+                                                                                        fullWidth
+                                                                                        type='text'
+                                                                                       
+                                                                                        label={
+                                                                                            <span>
+                                                                                                Enter title name<span style={{ color: 'red' }}> *</span>
+                                                                                            </span>
+                                                                                        }
+                                                                                        className="form-control"
+                                                                                        name="title"
+                                                                                        value={formData.title}
+                                                                                        onChange={handleChange}
+                                                                                    />
+
+
+                                                                                </div>
+                                                                              
+
+                                                                            </form>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                                            <FormControl fullWidth>
+                                                                                <InputLabel id="videography-label">Select type <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                                <Select
+                                                                                    labelId="videography-label"
+                                                                                    name="videography_type"
+                                                                                    value={formData.videography_type}
+                                                                                    onChange={handleDropdownData}
+                                                                                    label="Select videography"
+                                                                                    renderValue={(selected) => {
+                                                                                        const selectedVideography = formDataDetails.find((videography) => videography.id === selected);
+                                                                                        return selectedVideography ? selectedVideography.name : '';
+                                                                                    }}
+                                                                                >
+                                                                                    {formDataDetails.map((type) => (
+                                                                                        <MenuItem key={type.id} value={type.id}>
+                                                                                            {type.name}
+                                                                                        </MenuItem>
+                                                                                    ))}
+                                                                                </Select>
+
+                                                                            </FormControl>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                                            <FormControl fullWidth>
+                                                                                <InputLabel id="format-types">Select format <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                                <Select
+                                                                                    labelId="format-types"
+                                                                                    name="format_type"
+                                                                                    value={formData.format_type}
+                                                                                    onChange={handleDropdownData}
+                                                                                    label="Select format types"
+                                                                                    renderValue={(selected) => {
+                                                                                        const selectedFormat = formatTypes.find((formatTypes) => formatTypes.id === selected);
+                                                                                        return selectedFormat ? selectedFormat.name : '';
+                                                                                    }}
+                                                                                >
+                                                                                    {formatTypes.map((formatTypes) => (
+                                                                                        <MenuItem key={formatTypes.id} value={formatTypes.id}>
+                                                                                            {formatTypes.name}
+                                                                                        </MenuItem>
+                                                                                    ))}
+                                                                                </Select>
+
+                                                                            </FormControl>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                                                            <FormControl fullWidth>
+                                                                                <InputLabel id="stage-types">Select stage <span style={{ color: 'red' }}> *</span></InputLabel>
+                                                                                <Select
+                                                                                    labelId="stage-types"
+                                                                                    name="stage_type"
+                                                                                    value={formData.stage_type || ''}
+                                                                                    onChange={handleDropdownData}
+                                                                                    label="Select stage types"
+                                                                                    renderValue={(selected) => {
+                                                                                        const selectedStage = stageTypes.find((stagetype) => stagetype.id === selected);
+                                                                                        return selectedStage ? selectedStage.name : 'Select stage types';
+                                                                                    }}
+                                                                                >
+                                                                                    {stageTypes.map((stagetype) => (
+                                                                                        <MenuItem key={stagetype.id} value={stagetype.id}>
+                                                                                            {stagetype.name}
+                                                                                        </MenuItem>
+                                                                                    ))}
+                                                                                </Select>
+
+                                                                            </FormControl>
+
+
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
+                                                                            <div style={{ display: "flex", justifyContent: "end", marginTop: "5px" }}>
+                                                                                <button className="btn btn-primary btn-yellow" onClick={handleSubmit}>Proceed</button>
+                                                                            </div>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
-                            <div className='row'>
+                           
+
+
+                            <div className='row mt-4'>
                                 {
 
                                     data.map((row) => {
