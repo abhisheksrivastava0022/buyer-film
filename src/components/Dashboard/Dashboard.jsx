@@ -152,7 +152,6 @@ const Dashboard = () => {
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                <h1 className="h2">Buyer</h1>
             </div>
-
             <div className="row mt-4 mb-4 topbox">
                <div className="d-flex col-xxl-3 col-sm-6">
                   <div className="flex-fill card">
@@ -161,7 +160,6 @@ const Dashboard = () => {
                            <div className="flex-grow-1">
                               <h4 className="mb-2">Film</h4>
                               <p className="mb-2 total">Total No. of </p>
-
                            </div>
                            <div className="d-inline-block ms-3">
                               <div className="stat">
@@ -304,10 +302,10 @@ const Dashboard = () => {
                                        }&nbsp;
                                        {/* <Link to={`film/${row.id}`}><i className="bi bi-eye"></i></Link> */}
                                        <Link
-                                       
-                                       // to={`film/${row.id}`}
-                                       to={`/view-film/${row.id}`}
-                                       
+
+                                          // to={`film/${row.id}`}
+                                          to={`/view-film/${row.id}`}
+
                                        ><i className="bi bi-eye"></i></Link>
 
 

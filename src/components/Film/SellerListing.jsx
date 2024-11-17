@@ -21,9 +21,9 @@ const SellerListing = () => {
         videography_type: "",
         format_type: "",
         stage_type: "",
-      });
+    });
 
-      const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -33,162 +33,162 @@ const SellerListing = () => {
     const [formDataDetails, setFormDataDetails] = useState([]);
     const [formatTypes, setFormatTypes] = useState([]);
     const [stageTypes, setStageTypes] = useState([]);
-  
-  
-  
+
+
+
     const handleDropdownData = (event) => {
-      const { name, value } = event.target;
-  
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-  
-      setErrors({
-        ...errors,
-        [name]: ''
-      });
-  
-  
-  
+        const { name, value } = event.target;
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+
+        setErrors({
+            ...errors,
+            [name]: ''
+        });
+
+
+
     };
-  
+
     useEffect(() => {
-      const fetchVideographyTypes = async () => {
-        try {
-          const response = await fetch("https://119.82.68.149:3001/film-maker/site/videography-type", {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-          });
-          const result = await response.json();
-          if (result.status) {
-            setFormDataDetails(result.data);
-          } else {
-            console.error("Error: ", result.message);
-          }
-        } catch (error) {
-          console.error("Error fetching videography types:", error);
-        }
-      };
-      fetchVideographyTypes();
+        const fetchVideographyTypes = async () => {
+            try {
+                const response = await fetch("https://119.82.68.149:3001/film-maker/site/videography-type", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.status) {
+                    setFormDataDetails(result.data);
+                } else {
+                    console.error("Error: ", result.message);
+                }
+            } catch (error) {
+                console.error("Error fetching videography types:", error);
+            }
+        };
+        fetchVideographyTypes();
     }, []);
-  
+
     useEffect(() => {
-  
-      const loadFormatTypes = async () => {
-        try {
-          const response = await fetch("https://119.82.68.149:3001/film-maker/site/format-type", {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-          });
-          const result = await response.json();
-          if (result.status) {
-            setFormatTypes(result.data);
-          } else {
-            console.error("Error: ", result.message);
-          }
-        } catch (error) {
-          console.error("Error fetching format types:", error);
-        }
-      };
-      loadFormatTypes();
+
+        const loadFormatTypes = async () => {
+            try {
+                const response = await fetch("https://119.82.68.149:3001/film-maker/site/format-type", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.status) {
+                    setFormatTypes(result.data);
+                } else {
+                    console.error("Error: ", result.message);
+                }
+            } catch (error) {
+                console.error("Error fetching format types:", error);
+            }
+        };
+        loadFormatTypes();
     }, []);
-  
+
     useEffect(() => {
-  
-      const loadStageTypes = async () => {
-        try {
-          const response = await fetch("https://119.82.68.149:3001/film-maker/site/stage-type", {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-          });
-          const result = await response.json();
-          if (result.status) {
-            setStageTypes(result.data);
-          } else {
-            console.error("Error: ", result.message);
-          }
-        } catch (error) {
-          console.error("Error fetching stage types:", error);
-        }
-      };
-      loadStageTypes();
+
+        const loadStageTypes = async () => {
+            try {
+                const response = await fetch("https://119.82.68.149:3001/film-maker/site/stage-type", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.status) {
+                    setStageTypes(result.data);
+                } else {
+                    console.error("Error: ", result.message);
+                }
+            } catch (error) {
+                console.error("Error fetching stage types:", error);
+            }
+        };
+        loadStageTypes();
     }, []);
-  
-  
-  
+
+
+
     const validateForm = () => {
-      const errors = {};
-      if (!formData.title) errors.title = "Title is required";
-      if (!formData.videography_type) errors.videography_type = "Type is required";
-      if (!formData.format_type) errors.format_type = "Format is required";
-      if (!formData.stage_type) errors.stage_type = "Stage is required";
-  
-      setErrors(errors);
-      return Object.keys(errors).length === 0;
+        const errors = {};
+        if (!formData.title) errors.title = "Title is required";
+        if (!formData.videography_type) errors.videography_type = "Type is required";
+        if (!formData.format_type) errors.format_type = "Format is required";
+        if (!formData.stage_type) errors.stage_type = "Stage is required";
+
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
     };
-  
-  
+
+
     const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value
-      }));
-  
-      setErrors({
-        ...errors,
-        [name]: ''
-      });
-  
-  
-  
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+
+        setErrors({
+            ...errors,
+            [name]: ''
+        });
+
+
+
     };
-  
+
     const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      if (validateForm()) {
-        try {
-          const response = await fetch(`https://119.82.68.149:3001/film-maker/film/`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-            credentials: 'include'
-          });
-  
-          const data = await response.json();
-  
-          if (response.ok) {
-            setAlertSeverity('success');
-            setAlertMessage('Form submitted successfully!');
-            setAlertOpen(true);
-  
-            // navigate(`/project/${data.data}`);
-          } else {
-            setAlertSeverity('error');
-            setAlertMessage(data.message || 'Failed to submit form. Please try again!');
-            setAlertOpen(true);
-          }
-        } catch (error) {
-          setAlertSeverity('error');
-          setAlertMessage('An error occurred. Please try again!');
-          setAlertOpen(true);
-          console.error('Error:', error);
+        e.preventDefault();
+
+        if (validateForm()) {
+            try {
+                const response = await fetch(`https://119.82.68.149:3001/film-maker/film/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    setAlertSeverity('success');
+                    setAlertMessage('Form submitted successfully!');
+                    setAlertOpen(true);
+
+                    // navigate(`/project/${data.data}`);
+                } else {
+                    setAlertSeverity('error');
+                    setAlertMessage(data.message || 'Failed to submit form. Please try again!');
+                    setAlertOpen(true);
+                }
+            } catch (error) {
+                setAlertSeverity('error');
+                setAlertMessage('An error occurred. Please try again!');
+                setAlertOpen(true);
+                console.error('Error:', error);
+            }
         }
-      }
-  
+
     };
 
 
@@ -355,60 +355,7 @@ const SellerListing = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                            {/* <h3>Filter</h3>
-                            <form onSubmit={handleSearchform}>
-                                <div className="form-group">
-                                    <label>Title of film</label>
-                                    <div className="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                            aria-describedby="basic-addon1"
-                                            name="title"
-                                            value={searchForm.title}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <button type="submit" className="btn btn-primary btn-yellow">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form> */}
-                            {/* <ul className="list-unstyled ps-0 sidebar-navigation">
-                                <li><a href="#" > <i className="bi bi-speedometer"></i> Dashboard</a></li>
-                                <li>
-                                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                                        <i className="bi bi-grid"></i> Project
-                                    </button>
-                                    <div className="collapse" id="dashboard-collapse">
-                                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">In Progress</a></li>
-                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">Submitted</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                                        Orders
-                                    </button>
-                                    <div className="collapse" id="orders-collapse">
-                                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a></li>
-                                            <li><a href="#" className="link-body-emphasis d-inline-flex text-decoration-none rounded">Processed</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a href="#"><i className="bi bi-person"></i> Profile</a></li>
-                                <li><a href="#"> <i className="bi bi-gear"></i>Settings</a></li>
-                                <li><a href="#" > <i className="bi bi-box-arrow-left"></i> Sign out</a></li>
-                            </ul> */}
-
-                            <Sidebar/>
+                            <Sidebar />
                         </div>
                     </div>
                 </div>
@@ -419,24 +366,9 @@ const SellerListing = () => {
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                            <div className="row border-bottom mb-4 mt-4">
-                                <div className="col-md-12">
-                                    <h2 className="d-flex filter-text">
-                                        <i className="bi bi-funnel"></i> Sort By
-                                        <select className="form-select w-70" >
-                                            <option selected="">Select </option>
-                                            <option value="1">Original Title</option>
-                                            <option value="2">English Title</option>
-                                            <option value="3">Language</option>
-                                            <option value="3">Log Line</option>
-                                            <option value="3">Synopsys</option>
-                                        </select>
-                                    </h2>
-                                </div>
 
-                            </div>
 
-                            <div className="tab-content1  mt-4" >
+                            <div className="tab-content1  " >
                                 <div>
                                     <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
                                         <div className="list-group">
@@ -455,7 +387,7 @@ const SellerListing = () => {
                                                         <Grid item xs={12} sm={12} md={12} lg={12}>
                                                             <form>
                                                                 <div className="form-group">
-                                                                    
+
                                                                     <TextField
                                                                         variant="outlined"
                                                                         fullWidth
@@ -463,15 +395,15 @@ const SellerListing = () => {
                                                                         // placeholder='Enter title name'
                                                                         label={
                                                                             <span>
-                                                                              Enter title name<span style={{ color: 'red' }}> *</span>
+                                                                                Enter title name<span style={{ color: 'red' }}> *</span>
                                                                             </span>
-                                                                          }
+                                                                        }
                                                                         className="form-control"
                                                                         name="title"
                                                                         value={formData.title}
                                                                         onChange={handleChange}
                                                                     />
-                                                                   
+
 
                                                                 </div>
                                                                 {/* <div style={{ display: "flex", justifyContent: "end", marginTop: "5px" }}>
@@ -523,7 +455,7 @@ const SellerListing = () => {
                                                                         </MenuItem>
                                                                     ))}
                                                                 </Select>
-                                                               
+
                                                             </FormControl>
                                                         </Grid>
                                                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -546,7 +478,7 @@ const SellerListing = () => {
                                                                         </MenuItem>
                                                                     ))}
                                                                 </Select>
-                                                                
+
                                                             </FormControl>
 
 
