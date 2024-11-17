@@ -156,38 +156,38 @@ const SellerListing = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        loadPreLoadData();
+        // if (validateForm()) {
+        //     try {
+        //         const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/`, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify(formData),
+        //             credentials: 'include'
+        //         });
 
-        if (validateForm()) {
-            try {
-                const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                    credentials: 'include'
-                });
+        //         const data = await response.json();
 
-                const data = await response.json();
+        //         if (response.ok) {
+        //             setAlertSeverity('success');
+        //             setAlertMessage('Form submitted successfully!');
+        //             setAlertOpen(true);
 
-                if (response.ok) {
-                    setAlertSeverity('success');
-                    setAlertMessage('Form submitted successfully!');
-                    setAlertOpen(true);
-
-                    // navigate(`/project/${data.data}`);
-                } else {
-                    setAlertSeverity('error');
-                    setAlertMessage(data.message || 'Failed to submit form. Please try again!');
-                    setAlertOpen(true);
-                }
-            } catch (error) {
-                setAlertSeverity('error');
-                setAlertMessage('An error occurred. Please try again!');
-                setAlertOpen(true);
-                console.error('Error:', error);
-            }
-        }
+        //             // navigate(`/project/${data.data}`);
+        //         } else {
+        //             setAlertSeverity('error');
+        //             setAlertMessage(data.message || 'Failed to submit form. Please try again!');
+        //             setAlertOpen(true);
+        //         }
+        //     } catch (error) {
+        //         setAlertSeverity('error');
+        //         setAlertMessage('An error occurred. Please try again!');
+        //         setAlertOpen(true);
+        //         console.error('Error:', error);
+        //     }
+        // }
 
     };
 
@@ -240,6 +240,7 @@ const SellerListing = () => {
             limit: pagination.limit,
             page: page,
             ...searchForm,
+            ...formData,
         });
 
         try {
@@ -398,11 +399,7 @@ const SellerListing = () => {
                                                 <div>
                                                     <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
                                                         <div className="list-group">
-                                                            <div className="list-group-item list-group-item-action active header-title-bg" >
-                                                                <div className="d-flex w-100 justify-content-between">
-                                                                    <h5 className="mb-1">Project</h5>
-                                                                </div>
-                                                            </div>
+
                                                             <div className="list-group-item form-space " >
 
 
@@ -418,7 +415,7 @@ const SellerListing = () => {
                                                                                         variant="outlined"
                                                                                         fullWidth
                                                                                         type='text'
-                                                                                       
+
                                                                                         label={
                                                                                             <span>
                                                                                                 Enter title name<span style={{ color: 'red' }}> *</span>
@@ -432,7 +429,7 @@ const SellerListing = () => {
 
 
                                                                                 </div>
-                                                                              
+
 
                                                                             </form>
                                                                         </Grid>
@@ -509,7 +506,7 @@ const SellerListing = () => {
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={12} md={12} lg={12}>
                                                                             <div style={{ display: "flex", justifyContent: "end", marginTop: "5px" }}>
-                                                                                <button className="btn btn-primary btn-yellow" onClick={handleSubmit}>Proceed</button>
+                                                                                <button className="btn btn-primary btn-yellow" onClick={handleSubmit}>Search</button>
                                                                             </div>
                                                                         </Grid>
                                                                     </Grid>
@@ -525,7 +522,7 @@ const SellerListing = () => {
 
                             </div>
 
-                           
+
 
 
                             <div className='row mt-4'>
