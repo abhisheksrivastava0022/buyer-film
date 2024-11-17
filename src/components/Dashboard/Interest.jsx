@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Interest = () => {
     const [data, setData] = useState([])
@@ -177,7 +178,7 @@ const Interest = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                            <h3>Filter</h3>
+                            {/* <h3>Filter</h3>
                             <form onSubmit={handleSearchform}>
                                 <div className="form-group">
                                     <label>Title of film</label>
@@ -200,7 +201,8 @@ const Interest = () => {
                                         Submit
                                     </button>
                                 </div>
-                            </form>
+                            </form> */}
+                            <Sidebar/>
                         </div>
                     </div>
                 </div>
