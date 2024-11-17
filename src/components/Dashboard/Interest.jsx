@@ -175,31 +175,7 @@ const Interest = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                            {/* <h3>Filter</h3>
-                            <form onSubmit={handleSearchform}>
-                                <div className="form-group">
-                                    <label>Title of film</label>
-                                    <div className="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                            aria-describedby="basic-addon1"
-                                            name="title"
-                                            value={searchForm.title}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <button type="submit" className="btn btn-primary btn-yellow">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form> */}
-                            <Sidebar/>
+                            <Sidebar />
                         </div>
                     </div>
                 </div>
@@ -210,7 +186,7 @@ const Interest = () => {
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                            <div className="row border-bottom mb-4 mt-4">
+                            {/* <div className="row border-bottom mb-4 mt-4">
                                 <div className="col-md-12">
                                     <h2 className="d-flex filter-text">
                                         <i className="bi bi-funnel"></i> Sort By
@@ -225,9 +201,276 @@ const Interest = () => {
                                     </h2>
                                 </div>
 
+                            </div> */}
+
+                            <div className="accordion accordion-flush" id="accordionFlushExample1">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="true"  data-bs-target="#flush-collapseOne" aria-controls="flush-collapseOne">
+                                        Pending
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample1">
+                                        <div class="accordion-body">
+
+                                            <div className="tab-content1  " >
+                                                <div>
+                                                    <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
+                                                        <div className="list-group">
+
+                                                            <div className="list-group-item form-space " >
+
+
+                                                                <div className="row border-0 mt-4 mb-4">
+                                                                    {
+
+                                                                        data.map((row) => {
+                                                                            const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                                                            console.log(type2Document, "data");
+                                                                            const dataurl = process.env.REACT_APP_BASE_URL;
+                                                                            console.log({ dataurl });
+                                                                            return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+
+                                                                                <div className="col-auto  d-lg-block">
+                                                                                    {type2Document ?
+                                                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                                                        :
+                                                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                                                    }
+                                                                                </div>
+                                                                                <div className="col p-4 d-flex flex-column position-static">
+                                                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
+                                                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
+                                                                                    <div className="mb-1 text-body-secondary">
+                                                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
+
+                                                                                    </div>
+                                                                                    <p className="card-text mb-auto">
+                                                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
+                                                                                    </p>
+                                                                                    {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+            </Link> */}
+                                                                                </div>
+
+                                                                                <div className='star'>
+
+                                                                                    <button className='btn btn-primary'>
+                                                                                        <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                                                            View Details
+                                                                                        </Link>
+                                                                                    </button> &nbsp;
+
+
+                                                                                    <button className='btn btn-yellow make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Pending</button>   &nbsp;
+                                                                                    <button className='btn btn-danger make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Pending</button>   &nbsp;
+                                                                                    <button className='btn btn-success make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Connection Build</button> &nbsp;
+                                                                                </div>
+                                                                            </div>
+
+                                                                        })
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-                            {
+                            <div className="accordion accordion-flush mt-4" id="accordionFlushExample2">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            Decline
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample2">
+                                        <div class="accordion-body">
+
+                                            <div className="tab-content1  " >
+                                                <div>
+                                                    <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
+                                                        <div className="list-group">
+
+                                                            <div className="list-group-item form-space " >
+
+
+                                                                <div className="row border-0 mt-4 mb-4">
+                                                                    {
+
+                                                                        data.map((row) => {
+                                                                            const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                                                            console.log(type2Document, "data");
+                                                                            const dataurl = process.env.REACT_APP_BASE_URL;
+                                                                            console.log({ dataurl });
+                                                                            return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+
+                                                                                <div className="col-auto  d-lg-block">
+                                                                                    {type2Document ?
+                                                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                                                        :
+                                                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                                                    }
+                                                                                </div>
+                                                                                <div className="col p-4 d-flex flex-column position-static">
+                                                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
+                                                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
+                                                                                    <div className="mb-1 text-body-secondary">
+                                                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
+
+                                                                                    </div>
+                                                                                    <p className="card-text mb-auto">
+                                                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
+                                                                                    </p>
+                                                                                    {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+            </Link> */}
+                                                                                </div>
+
+                                                                                <div className='star'>
+
+                                                                                    <button className='btn btn-primary'>
+                                                                                        <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                                                            View Details
+                                                                                        </Link>
+                                                                                    </button> &nbsp;
+
+
+                                                                                    <button className='btn btn-yellow make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Pending</button>   &nbsp;
+                                                                                    <button className='btn btn-danger make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Pending</button>   &nbsp;
+                                                                                    <button className='btn btn-success make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Connection Build</button> &nbsp;
+                                                                                </div>
+                                                                            </div>
+
+                                                                        })
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="accordion accordion-flush mt-4" id="accordionFlushExample3">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                            Connection Build
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample3">
+                                        <div class="accordion-body">
+
+                                            <div className="tab-content1  " >
+                                                <div>
+                                                    <div className='col-sm-12 col-md-12 col-lg-12 mx-auto' >
+                                                        <div className="list-group">
+
+                                                            <div className="list-group-item form-space " >
+
+
+                                                                <div className="row border-0 mt-4 mb-4">
+                                                                    {
+
+                                                                        data.map((row) => {
+                                                                            const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
+                                                                            console.log(type2Document, "data");
+                                                                            const dataurl = process.env.REACT_APP_BASE_URL;
+                                                                            console.log({ dataurl });
+                                                                            return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+
+                                                                                <div className="col-auto  d-lg-block">
+                                                                                    {type2Document ?
+                                                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                                                        :
+                                                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                                                    }
+                                                                                </div>
+                                                                                <div className="col p-4 d-flex flex-column position-static">
+                                                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
+                                                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
+                                                                                    <div className="mb-1 text-body-secondary">
+                                                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
+
+                                                                                    </div>
+                                                                                    <p className="card-text mb-auto">
+                                                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
+                                                                                    </p>
+                                                                                    {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+            </Link> */}
+                                                                                </div>
+
+                                                                                <div className='star'>
+
+                                                                                    <button className='btn btn-primary'>
+                                                                                        <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
+                                                                                            View Details
+                                                                                        </Link>
+                                                                                    </button> &nbsp;
+
+
+                                                                                    <button className='btn btn-yellow make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Pending</button>   &nbsp;
+                                                                                    <button className='btn btn-danger make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Pending</button>   &nbsp;
+                                                                                    <button className='btn btn-success make-above-link' style={{
+                                                                                        cursor: 'default',
+
+                                                                                    }}>Connection Build</button> &nbsp;
+                                                                                </div>
+                                                                            </div>
+
+                                                                        })
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* {
 
                                 data.map((row) => {
                                     const type2Document = row.FilmDocuments.find(doc => doc.type === 3);
@@ -253,9 +496,9 @@ const Interest = () => {
                                             <p className="card-text mb-auto">
                                                 Is film Complete: {row.is_film_complete ? "yes" : "No"}
                                             </p>
-                                            {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
+                                            <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
                                                 Continue reading
-                                            </Link> */}
+                                            </Link>
                                         </div>
 
                                         <div className='star'>
@@ -283,7 +526,7 @@ const Interest = () => {
                                     </div>
 
                                 })
-                            }
+                            } */}
 
 
 
@@ -291,7 +534,7 @@ const Interest = () => {
 
                         </div>
                     </div>
-                    <nav aria-label="...">
+                    {/* <nav aria-label="...">
                         <div class="col-md-12 mt-4">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
@@ -336,7 +579,7 @@ const Interest = () => {
                                 </ul>
                             </nav>
                         </div>
-                    </nav>
+                    </nav> */}
                 </div>
             </main>
 
