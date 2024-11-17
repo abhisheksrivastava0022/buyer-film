@@ -5,6 +5,7 @@ import Header from '../Header';
 import Footer from '../Footer/Footer';
 import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
+import Sidebar from '../Sidebar/Sidebar';
 
 const InterestSend = () => {
    const [data, setData] = useState([])
@@ -100,30 +101,7 @@ const InterestSend = () => {
                <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                   <div className="col-md-12 px-3 search-sidebar">
                      <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                     <h3>Filter</h3>
-                     <form onSubmit={handleSearchform}>
-                        <div className="form-group">
-                           <label>Title of film</label>
-                           <div className="input-group mb-3">
-                              <input
-                                 type="text"
-                                 className="form-control"
-                                 placeholder="Search"
-                                 aria-label="Search"
-                                 aria-describedby="basic-addon1"
-                                 name="title"
-                                 value={searchForm.title}
-                                 onChange={handleInputChange}
-                              />
-                           </div>
-                        </div>
-
-                        <div className="form-group">
-                           <button type="submit" className="btn btn-primary btn-yellow">
-                              Submit
-                           </button>
-                        </div>
-                     </form>
+                    <Sidebar/>
                   </div>
                </div>
             </div>

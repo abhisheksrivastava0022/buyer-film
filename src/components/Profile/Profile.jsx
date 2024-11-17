@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CheckBox } from '@mui/icons-material';
+import Sidebar from '../Sidebar/Sidebar';
 
 
 
@@ -402,14 +403,15 @@ const Profile = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
 
-                            <ul className="address">
+                            {/* <ul className="address">
                                 <li> <i className="bi bi-geo-alt"></i> San Francisco, USA</li>
                                 <li><i className="bi bi-envelope"></i> email@example.com</li>
                                 <li> <i className="bi bi-globe"></i> www.jquery2dotnet.com</li>
                                 <li> <i className="bi bi-calendar3"></i> June 02, 1988</li>
                                 <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
 
-                            </ul>
+                            </ul> */}
+                            <Sidebar/>
                         </div>
                     </div>
                 </div>

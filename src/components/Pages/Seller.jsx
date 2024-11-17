@@ -8,6 +8,7 @@ import Footer from '../Footer/Footer';
 import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Seller = () => {
     const [data, setData] = useState([])
@@ -114,7 +115,7 @@ const Seller = () => {
 
     const NotInterestedApply = async (id) => {
         try {
-            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/not-interested`, {
+            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/not-interested`, {   
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -179,30 +180,7 @@ const Seller = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                            <h3>Filter</h3>
-                            <form onSubmit={handleSearchform}>
-                                <div className="form-group">
-                                    <label>Name</label>
-                                    <div className="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                            aria-describedby="basic-addon1"
-                                            name="title"
-                                            value={searchForm.title}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <button type="submit" className="btn btn-primary btn-yellow">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form>
+                           <Sidebar/>
                         </div>
                     </div>
                 </div>
