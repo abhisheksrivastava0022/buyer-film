@@ -37,7 +37,7 @@ const Sidebar = () => {
             <ul className="list-unstyled ps-0 sidebar-navigation">
                 <li>
                     {/* <a href="#" > <i className="bi bi-speedometer"></i> Dashboard</a> */}
-                    <Link to="/"><i className="bi bi-speedometer"></i> Dashboard</Link> 
+                    <Link to="/"><i className="bi bi-speedometer"></i> Dashboard</Link>
                 </li>
                 {/* <li>
                     <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
@@ -50,7 +50,7 @@ const Sidebar = () => {
                         </ul>
                     </div>
                 </li> */}
-                
+
                 <li>
                     <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                         <i className="bi bi-grid"></i> Project
@@ -58,25 +58,8 @@ const Sidebar = () => {
                     <div className="collapse" id="dashboard-collapse">
                         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><Link to="" className="link-body-emphasis d-inline-flex text-decoration-none rounded">List</Link></li>
-                            <li>
-                                <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#interest-collapse" aria-expanded="false">
-                                 Interest
+                            <li><Link to="/interest" className="link-body-emphasis d-inline-flex text-decoration-none rounded">Interest</Link></li>
 
-                                </button>
-                                <div className="collapse" id="interest-collapse">
-                                    <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li>
-                                            <Link className="link-body-emphasis d-inline-flex text-decoration-none rounded" to="/interest-send">Pending</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="link-body-emphasis d-inline-flex text-decoration-none rounded" to="/interest-decline">Decline</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="link-body-emphasis d-inline-flex text-decoration-none rounded" to="/interest-approved">Connection Build</Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </li>
