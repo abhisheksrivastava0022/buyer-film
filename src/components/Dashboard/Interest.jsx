@@ -13,9 +13,6 @@ const Interest = () => {
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
-
-
-
     const { getRequestApi } = ApiClient();
     const [pagination, setPagination] = useState({
         totalPosts: 0,

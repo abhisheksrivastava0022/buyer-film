@@ -56,7 +56,7 @@ const SellerListing = () => {
     useEffect(() => {
         const fetchVideographyTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/videography-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/videography-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ const SellerListing = () => {
 
         const loadFormatTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/format-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/format-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -104,7 +104,7 @@ const SellerListing = () => {
 
         const loadStageTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-maker/site/stage-type", {
+                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/stage-type", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -159,7 +159,7 @@ const SellerListing = () => {
 
         if (validateForm()) {
             try {
-                const response = await fetch(`https://119.82.68.149:3001/film-maker/film/`, {
+                const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -341,7 +341,24 @@ const SellerListing = () => {
     }, [])
 
 
+    const getVideography = (videoIds) => {
+        if (!videoIds) return "";
 
+        const Videography = formDataDetails?.find((c) => c.id === videoIds);
+        return Videography ? Videography.name : "";
+    };
+    const getformattype = (formatIds) => {
+        if (!formatIds) return "";
+
+        const getformattypedetails = formatTypes?.find((c) => c.id === formatIds);
+        return getformattypedetails ? getformattypedetails.name : "";
+    };
+    const getformatstagetype = (stageIds) => {
+        if (!stageIds) return "";
+
+        const stagetype = stageTypes?.find((c) => c.id === stageIds);
+        return stagetype ? stagetype.name : "";
+    };
 
 
     return (
@@ -529,15 +546,11 @@ const SellerListing = () => {
                                                     }
                                                 </div>
                                                 <div className="col p-4 d-flex flex-column position-static">
-                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
-                                                    <h3 className="mb-0 title-heading" >Title of the Film: {row.title}</h3>
-                                                    <div className="mb-1 text-body-secondary">
-                                                        Upload Date: {`${String(new Date(row.createdAt).getDate()).padStart(2, '0')}.${String(new Date(row.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(row.createdAt).getFullYear()}`}
-
-                                                    </div>
-                                                    <p className="card-text mb-auto">
-                                                        Is film Complete: {row.is_film_complete ? "yes" : "No"}
-                                                    </p>
+                                                    <h3 className="mb-0 title-heading" > {row.title}</h3>
+                                                    {getVideography(row.videography_type)} | {getVideography(row.videography_type)}  | {getformatstagetype(row.stage_type)}
+                                                    <br />
+                                                    <br />
+                                                    <br />
                                                     <div className='btn-link-card'>
                                                         <button className='btn btn-primary  w-auto'>
                                                             <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>
@@ -648,8 +661,8 @@ const SellerListing = () => {
                             </nav>
                         </div>
                     </nav>
-                </div>
-            </main>
+                </div >
+            </main >
         </>
     )
 }
