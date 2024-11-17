@@ -96,24 +96,6 @@ const Profile = () => {
 
     const [errors, setErrors] = useState({});
 
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-
-    //     setFormData((prevFormData) => ({
-    //         ...prevFormData,
-    //         [name]: value,
-    //     }));
-
-    //     setErrors((prevErrors) => {
-    //         if (value === "") {
-    //             return { ...prevErrors, [name]: `${name.replace('_', ' ')} is required` };
-    //         } else {
-    //             const { [name]: removedError, ...restErrors } = prevErrors;
-    //             return restErrors;
-    //         }
-    //     });
-    // };
-
     const handleChange = (event) => {
         const { name, value } = event.target;
 
@@ -246,111 +228,7 @@ const Profile = () => {
                 element.focus();
             }
         }
-        //  if (!formData.gstin) errors.gstin = "GST is required";
-        // if (!formData.published_in_market_guide) errors.published_in_market_guide = "Selectr any option";
 
-
-
-
-
-
-
-        // if (!values?.first_name) {
-        //     errors.first_name = 'First name is required ';
-        // }
-
-        // if (!values?.last_name) {
-        //     errors.last_name = 'Last name is required ';
-        // }
-
-        // if (!values?.email.trim) {
-        //     errors.email = 'Email is required'
-        // }
-
-        // if (!values.company) {
-        //     errors.company = 'Company name is required'
-        // }
-
-        // if (!values.job_title) {
-        //     errors.job_title = 'Job title is required'
-        // }
-
-        // if (!values.address) {
-        //     errors.address = 'Address is required'
-        // }
-
-        // if (!values.city) {
-        //     errors.city = 'City is required'
-        // }
-
-        // if (!values.zip) {
-        //     errors.zip = 'Zip is required'
-        // }
-
-        // if (!values.state) {
-        //     errors.state = 'State is required'
-        // }
-
-        // if (!values?.country_id) {
-        //     errors.country_id = 'Country is required'
-        // }
-
-
-        // if (!values.phone) {
-        //     errors.phone = 'Phone is required'
-        // }
-
-
-        // if (!values.mobile) {
-        //     errors.mobile = 'Mobile is required'
-        // }
-
-
-        // if (!values.website) {
-        //     errors.website = 'Website is required'
-        // }
-
-
-        // if (!values.gstin) {
-        //     errors.gstin = 'GST is required'
-        // }
-
-        // if (!values.published_in_market_guide) {
-        //     errors.published_in_market_guide = 'Select one option'
-        // }
-
-        // if (!values.activity) {
-        //     errors.activity = 'Select any activity'
-        // }
-
-        // if (!values.company) {
-        //     errors.company = 'Company name is required ';
-        // }
-
-        // if (!values.job_title) {
-        //     errors.job_title = 'Job title is required ';
-        // }
-
-        // if (!values.address) {
-        //     errors.address = 'Address is required ';
-        // }
-
-        // if (!values.city) {
-        //     errors.city = 'City is required ';
-        // }
-
-        // if (!values.zip) {
-        //     errors.zip = 'Zip code is required ';
-        // }
-
-        // if (!values.state) {
-        //     errors.state = 'State is required ';
-        // }
-
-
-        // if (!values.email) {
-        //     errors.email = 'Email ID is required ';
-        // }
         setErrors(errors);
 
 
@@ -362,12 +240,6 @@ const Profile = () => {
         // return errors;
     };
 
-
-    // // Handler for checkbox change
-    // const handleCheckboxChange = (event) => {
-    //   const { name, checked } = event.target;
-    //   handleChange({ target: { name, value: checked } });
-    // };
 
     const [photoUrl, setPhotoUrl] = useState(nophoto);
     const [open, setOpen] = useState(false);

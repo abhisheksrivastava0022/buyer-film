@@ -21,6 +21,7 @@ import SellerDetails from '../components/Pages/SellerDetails';
 import Buyer from '../components/Pages/Buyer';
 import BuyerDetails from '../components/Pages/BuyerDetails';
 import MainView from '../components/FormDetails/MainView';
+import Interest from '../components/Dashboard/Interest';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -37,6 +38,14 @@ export const routes = [
                 element: (
                     <SellerListing />
 
+                ),
+
+            },
+            {
+                path: '/interest',
+                // element: <HomePage />,
+                element: (
+                    <Interest />
                 ),
 
             },
