@@ -7,6 +7,7 @@ import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import Sidebar from '../Sidebar/Sidebar';
 
 const SellerListing = () => {
     const [data, setData] = useState([])
@@ -378,7 +379,7 @@ const SellerListing = () => {
                                     </button>
                                 </div>
                             </form> */}
-                            <ul className="list-unstyled ps-0 sidebar-navigation">
+                            {/* <ul className="list-unstyled ps-0 sidebar-navigation">
                                 <li><a href="#" > <i className="bi bi-speedometer"></i> Dashboard</a></li>
                                 <li>
                                     <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
@@ -405,7 +406,9 @@ const SellerListing = () => {
                                 <li><a href="#"><i className="bi bi-person"></i> Profile</a></li>
                                 <li><a href="#"> <i className="bi bi-gear"></i>Settings</a></li>
                                 <li><a href="#" > <i className="bi bi-box-arrow-left"></i> Sign out</a></li>
-                            </ul>
+                            </ul> */}
+
+                            <Sidebar/>
                         </div>
                     </div>
                 </div>
