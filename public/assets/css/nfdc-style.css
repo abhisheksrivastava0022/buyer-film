@@ -133,7 +133,8 @@ h1,
 }
 
 .main-content-space {
-  margin-top: -127px
+  /* margin-top: -127px */
+  margin-top: -177px;
 }
 
 @media screen and (min-width:320px) and (max-width:600px) {
