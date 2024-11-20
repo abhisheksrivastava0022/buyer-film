@@ -13,7 +13,7 @@ const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-      
+
 
     });
     const [emailError, setEmailError] = useState('');
@@ -91,7 +91,7 @@ const Login = () => {
         });
 
         if (name === 'email') {
-            await handleEmailVerify(value);
+            //  await handleEmailVerify(value);
         }
 
         setErrors({
@@ -100,17 +100,17 @@ const Login = () => {
         });
     };
     const navigate = useNavigate();
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (validate()) {
             setIsSubmitting(true);
-            const emailErrorMsg = await handleEmailVerify(formData.email);
-            // console.log({ emailErrorMsg });
-            if (!emailErrorMsg) {
-                return;
-            }
+            // const emailErrorMsg = await handleEmailVerify(formData.email);
+            // // console.log({ emailErrorMsg });
+            // if (!emailErrorMsg) {
+            //     return;
+            // }
             const response = await postRequestApi(`auth/login`, formData);
             if (response?.status) {
                 // alert("login successfully.");
@@ -118,7 +118,7 @@ const Login = () => {
                 setAlertMessage('Login successfully!.');
                 setAlertOpen(true);
                 setFormData({ email: '', password: '' });
-                navigate("/");
+                navigate("/explore-project");
             } else {
                 setAlertSeverity('error');
                 setAlertMessage(response.message);
@@ -170,7 +170,7 @@ const Login = () => {
                                                     value={formData.email}
                                                     onChange={handleChange}
                                                 /> */}
-                                                 <TextField
+                                                <TextField
                                                     variant="outlined"
                                                     fullWidth
                                                     type='email'
@@ -224,7 +224,7 @@ const Login = () => {
 
 
                                                 {errors.password && <p className="text-danger">{errors.password}</p>}
-                                                
+
                                             </div>
 
                                             <div className="form-group">

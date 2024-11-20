@@ -22,6 +22,8 @@ import Buyer from '../components/Pages/Buyer';
 import BuyerDetails from '../components/Pages/BuyerDetails';
 import MainView from '../components/FormDetails/MainView';
 import Interest from '../components/Dashboard/Interest';
+import InterestReceived from '../components/InterestReceived';
+import ConnectionBuild from '../components/ConnectionBuild';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -42,36 +44,23 @@ export const routes = [
 
             },
             {
-                path: '/interest',
+                path: '/explore-project',
+                // element: <HomePage />,
+                element: (
+                    <SellerListing />
+                ),
+
+            },
+
+            {
+                path: '/my-liked-project',
                 // element: <HomePage />,
                 element: (
                     <Interest />
                 ),
 
             },
-            {
-                path: '/interest-send',
-                // element: <HomePage />,
-                element: (
-                    <InterestSend />
-                ),
 
-            },
-            {
-                path: '/interest-Decline',
-                // element: <HomePage />,
-                element: (
-                    <InterestDecline />
-                ),
-
-            },
-            {
-                path: '/interest-approved',
-                // element: <HomePage />,
-                element: (
-                    <InterestApproved />
-                ),
-            },
             {
                 path: '/profile',
                 // element: <HomePage />,
@@ -112,8 +101,15 @@ export const routes = [
                 path: '/buyer/:id',
                 element: <BuyerDetails />,
             },
+            {
+                path: '/interest-received',
+                element: <InterestReceived />,
+            },
+            {
+                path: '/connection-build',
+                element: <ConnectionBuild />,
+            },
         ],
-
         loader: async () => {
 
             return false;

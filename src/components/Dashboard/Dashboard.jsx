@@ -71,7 +71,7 @@ const Dashboard = () => {
 
    const InterestedApply = async (id) => {
       try {
-         const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/interested`, {
+         const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/interested`, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ const Dashboard = () => {
 
    const NotInterestedApply = async (id) => {
       try {
-         const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/not-interested`, {
+         const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/not-interested`, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const Dashboard = () => {
 
    const PageOnLoad = async () => {
       try {
-         const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+         const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/buyer`, {
             method: 'GET',
             headers: {
                'Content-Type': 'application/json',

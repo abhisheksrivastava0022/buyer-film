@@ -12,13 +12,21 @@ import Sidebar from '../Sidebar/Sidebar';
 
 const Buyer = () => {
     const [data, setData] = useState([])
+    const [datatocheck, setDatatocheck] = useState([]);
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
 
     const dataurl = process.env.REACT_APP_BASE_URL;
 
-    const { getRequestApi } = ApiClient();
+    const { getRequestApi, postRequestApi } = ApiClient();
+    const requestConnection = async (data) => {
+        const response = await postRequestApi("film/connection-requested", data);
+        if (response.status) {
+            // alert("connected requested")
+            loadPreLoadData();
+        }
+    }
     const [pagination, setPagination] = useState({
         totalPosts: 0,
         totalPages: 0,
@@ -71,6 +79,7 @@ const Buyer = () => {
             const data = await getRequestApi('film/buyer-list', queryParams);
             if (data.status) {
 
+                setDatatocheck(data.datatocheck);
                 setData(data.data);
                 setPagination({
                     ...pagination,
@@ -91,7 +100,7 @@ const Buyer = () => {
 
     const InterestedApply = async (id) => {
         try {
-            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/interested`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/interested`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -115,7 +124,7 @@ const Buyer = () => {
 
     const NotInterestedApply = async (id) => {
         try {
-            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/not-interested`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/not-interested`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -139,7 +148,7 @@ const Buyer = () => {
 
     const PageOnLoad = async () => {
         try {
-            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/buyer`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -180,7 +189,7 @@ const Buyer = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
                             <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                            <Sidebar /> 
+                            <Sidebar />
 
                         </div>
                     </div>
@@ -188,90 +197,95 @@ const Buyer = () => {
             </div>
             <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
                 <div className=" main-content-space ">
-
+                    <div className='pagetitle-name'><h1>Buyer </h1></div>
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                            <div className="row border-bottom mb-4 mt-4">
-                                <div className="col-md-12">
-                                    <h2 className="d-flex filter-text">
-                                        <i className="bi bi-funnel"></i> Sort By
-                                        <select className="form-select w-70" >
-                                            <option selected="">Select </option>
-                                            <option value="1">Original Title</option>
-                                            <option value="2">English Title</option>
-                                            <option value="3">Language</option>
-                                            <option value="3">Log Line</option>
-                                            <option value="3">Synopsys</option>
-                                        </select>
-                                    </h2>
-                                </div>
+                            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                            </div>
+                                <div className='row mt-4'>
 
-                            {
+                                    {
 
-                                data.map((row) => {
+                                        data.map((row) => {
 
-                                    return <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                            return <div className="col-md-6">
+                                                <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
+                                                    <div className="col-auto  d-lg-block">
+                                                        <img
+                                                            src={row?.passport?.url ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${row.passport.url}` : defaultimg}
 
-                                        <div className="col-auto  d-lg-block">
-                                            <img
-                                                src={row?.passport?.url ? `${dataurl}/film-buyer/file/${row.passport.url}` : defaultimg}
+                                                            alt={row?.passport?.name ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${row.passport.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
 
-                                                alt={row?.passport?.name ? `${dataurl}/film-buyer/file/${row.passport.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
+                                                    </div>
+                                                    <div className="col p-4 d-flex flex-column position-static pt-3 pb-0">
 
-                                        </div>
-                                        <div className="col p-4 d-flex flex-column position-static">
+                                                        <h3 className="mb-0 title-heading" >
 
-                                            <div className='row'>
-                                                <div className='col-md-4'>
-                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">{row?.FilmType?.name}</strong>
-                                                    <h3 className="mb-0 title-heading" >Name: {row.first_name} {row.last_name}</h3>
-                                                    <div className="mb-1 text-body-secondary">
-                                                        <b className='bold-500'> Email:</b> {row.email}
+                                                            {row.first_name} {row.last_name}
+                                                        </h3>
+                                                        <div className='row dashboard-profile'>
+                                                            <ul className='col-md-12 col-sm-12'>
+
+                                                                <li><i className="bi bi-envelope"></i>  {row.email}</li>
+                                                                <li><i className="bi bi-telephone"></i>{row.phone} </li>
+
+
+                                                                <li><i className="bi bi-building"></i>{row.company} </li>
+                                                                <li><i className="bi bi-briefcase"></i>   {row.job_title}</li>
+                                                            </ul>
+                                                            <ul className='col-md-12 col-sm-12' style={{ textAlign: "right" }}>
+                                                                <li>  <button className="btn btn-info btn-yellow" type="submit"> Details</button>
+                                                                </li>
+                                                                {
+                                                                    (datatocheck[row.id] && datatocheck[row.id] >= 1) ? (
+                                                                        datatocheck[row.id] === 1 ? (
+                                                                            <li>
+                                                                                <button
+                                                                                    className="btn btn-warning"
+                                                                                    type="submit"
+                                                                                    onClick={() => requestConnection({ id: row.id, status: 0, type: 1 })}
+                                                                                >
+                                                                                    Pending Request
+                                                                                </button>
+                                                                            </li>
+                                                                        ) : datatocheck[row.id] === 2 ? (
+                                                                            <li className="">
+                                                                                Connected  Declined
+                                                                            </li>
+                                                                        ) : datatocheck[row.id] === 3 ? (
+                                                                            <li className="">
+                                                                                Connection Build
+                                                                            </li>
+                                                                        ) : null
+                                                                    ) : (
+                                                                        <li>
+                                                                            <button
+                                                                                className="btn  btn-warning"
+                                                                                type="submit"
+                                                                                onClick={() => requestConnection({ id: row.id, status: 1, type: 4 })}
+                                                                            >
+                                                                                Request Connection
+                                                                            </button>
+                                                                        </li>
+                                                                    )
+                                                                }
+
+                                                            </ul>
+
+                                                        </div>
 
                                                     </div>
 
-                                                    <p className="mb-1 text-body-secondary">
-                                                        <b className='bold-500'> Company: </b>{row.company}
-                                                    </p>
-                                                    <p className="mb-1 text-body-secondary">
-                                                        <b className='bold-500'>  Occupation: </b>{row.job_title}
-                                                    </p>
-                                                    <p className="mb-1 text-body-secondary">
-                                                        <b className='bold-500'> Phone:</b> {row.phone}
-                                                    </p>
-                                                </div>
-                                                <div className='col-md-4'>
-                                                    <strong className="d-inline-block mb-2 text-primary-emphasis">&nbsp;</strong>
-                                                    <h3 className="mb-0 title-heading" >&nbsp;</h3>
 
-                                                    <p className="mb-1 text-body-secondary">
-                                                        <b className='bold-500'>  mobile:</b> {row.mobile}
-                                                    </p>
-                                                    <p className="mb-1 text-body-secondary">
-                                                        <b className='bold-500'>website:</b> {row.website}
-                                                    </p>
                                                 </div>
                                             </div>
 
-                                            {/* <Link to={`/film/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link">
-                                                Continue reading
-                                            </Link> */}
-                                        </div>
+                                        })
+                                    }
 
-                                        <div className='star'>
-                                        </div>
-                                    </div>
-
-                                })
-                            }
-
-
-
-
-
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <nav aria-label="...">

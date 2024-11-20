@@ -8,7 +8,7 @@ import FilmNotCompletedView from "./FilmNotCompletedView";
 import logo from '../../assets/img/filmbazaar.png';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
-const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
+const BASE_URL = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_BASE_PREFIX;
 const MainView = () => {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
@@ -122,7 +122,7 @@ const MainView = () => {
                                 <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li> */}
 
                             </ul>
-                            <Sidebar/>
+                            <Sidebar />
 
                         </div>
                     </div>

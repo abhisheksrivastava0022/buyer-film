@@ -303,7 +303,7 @@ const Profile = () => {
             formData.append('file', selectedFile);
 
             try {
-                const response = await fetch('https://119.82.68.149:3001/film-buyer/file/upload', {
+                const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/file/upload`, {
                     method: 'POST',
                     body: formData,
                     credentials: 'include'
@@ -371,7 +371,7 @@ const Profile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-       
+
         if (validateForm(formData)) {
             // setOpenDialog(true)
             // alert("pass")
@@ -403,15 +403,8 @@ const Profile = () => {
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <div className="col-md-12 px-3 search-sidebar">
 
-                            {/* <ul className="address">
-                                <li> <i className="bi bi-geo-alt"></i> San Francisco, USA</li>
-                                <li><i className="bi bi-envelope"></i> email@example.com</li>
-                                <li> <i className="bi bi-globe"></i> www.jquery2dotnet.com</li>
-                                <li> <i className="bi bi-calendar3"></i> June 02, 1988</li>
-                                <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
 
-                            </ul> */}
-                            <Sidebar/>
+                            <Sidebar />
                         </div>
                     </div>
                 </div>
@@ -419,6 +412,8 @@ const Profile = () => {
             <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
                 <div className=" main-content-space ">
+                    <div className='pagetitle-name'><h1>Profile </h1>
+                    </div>
                     <div class="update-profile-form card ">
                         <Grid container>
                             <Grid item xs={2} sm={2} md={2} lg={2}>
@@ -856,7 +851,7 @@ const Profile = () => {
                                                                         <img
                                                                             width="200px"
                                                                             id="imgPhoto"
-                                                                            src={formData?.passport?.url ? `${REACT_APP_BASE_URL}/film-buyer/file/${formData.passport.url}` : photoUrl}
+                                                                            src={formData?.passport?.url ? `${REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/file/${formData.passport.url}` : photoUrl}
                                                                             style={{ cursor: "pointer" }}
                                                                             onError={() => {
                                                                                 setPhotoUrl('/images/nophoto.gif');

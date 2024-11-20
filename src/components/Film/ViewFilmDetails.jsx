@@ -24,13 +24,13 @@ const ViewFilmDetails = () => {
 
       if (type2) {
         console.log({
-          backgroundImage: `url(${process.env.REACT_APP_BASE_URL}/film-buyer/file/read/${type2})`,
+          backgroundImage: `url(${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center top",
           backgroundSize: "cover",
         });
         setBannerStyle({
-          backgroundImage: `url(${process.env.REACT_APP_BASE_URL}/film-buyer/file/read/${type2.url})`,
+          backgroundImage: `url(${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2.url})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center center",
           backgroundSize: "cover",
@@ -49,7 +49,7 @@ const ViewFilmDetails = () => {
 
   const InterestedApply = async (id) => {
     try {
-      const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/interested`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/interested`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const ViewFilmDetails = () => {
 
   const NotInterestedApply = async (id) => {
     try {
-      const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}/not-interested`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/not-interested`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const ViewFilmDetails = () => {
 
   const PageOnLoad = async () => {
     try {
-      const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/buyer`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ const ViewFilmDetails = () => {
                 <li><a href=""><i className="bi bi-facebook"></i></a> <a href=""><i className="bi bi-twitter"></i></a> <a href=""><i className="bi bi-linkedin"></i></a></li>
 
               </ul> */}
-              <Sidebar/>
+              <Sidebar />
 
             </div>
           </div>
@@ -169,7 +169,7 @@ const ViewFilmDetails = () => {
 
               <div className="col-auto  d-lg-block">
                 {type2Document ?
-                  <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                  <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
                   :
                   <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
                 }
@@ -190,9 +190,9 @@ const ViewFilmDetails = () => {
 
               <div className='star'>
                 {loadingData?.film_interest?.[data.id] ?
-                    <button className='btn btn-danger' onClick={() => NotInterestedApply(data.id)}>Not Interested</button>
+                  <button className='btn btn-danger' onClick={() => NotInterestedApply(data.id)}>Not Interested</button>
                   :
-                    <button className='btn btn-yellow' onClick={() => InterestedApply(data.id)}>Show interest</button>
+                  <button className='btn btn-yellow' onClick={() => InterestedApply(data.id)}>Show interest</button>
                 }
               </div>
             </div>
@@ -276,13 +276,13 @@ const ViewFilmDetails = () => {
                       {data.writer ? <tr>
                         <th scope="row">Writer :</th>
 
-                        <td>{data.writer ? data.writer  : ""}</td>
+                        <td>{data.writer ? data.writer : ""}</td>
                       </tr> : ""}
 
                       {data.editor ? <tr>
                         <th scope="row">  Editor : </th>
 
-                        <td>{data.editor ? data.editor: ""}</td>
+                        <td>{data.editor ? data.editor : ""}</td>
                       </tr> : ""}
 
 
@@ -302,7 +302,7 @@ const ViewFilmDetails = () => {
                       {data.music ? <tr>
                         <th scope="row">  Music : </th>
 
-                        <td> {data.music ? data.music: ""}</td>
+                        <td> {data.music ? data.music : ""}</td>
                       </tr> : ""}
 
                       {data.production_design ? <tr>

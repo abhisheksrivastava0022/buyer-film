@@ -101,7 +101,7 @@ const InterestSend = () => {
                <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                   <div className="col-md-12 px-3 search-sidebar">
                      <p className="logo d-none-mobile"><img src={filmbazaar} alt="logo" /></p>
-                    <Sidebar/>
+                     <Sidebar />
                   </div>
                </div>
             </div>
@@ -141,7 +141,7 @@ const InterestSend = () => {
 
                               <div className="col-auto  d-lg-block">
                                  {type2Document ?
-                                    <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                    <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
                                     :
                                     <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
                                  }

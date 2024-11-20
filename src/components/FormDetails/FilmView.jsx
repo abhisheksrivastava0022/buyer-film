@@ -8,9 +8,30 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import defaultimg from '../../assets/img/default.jpg';
 import ApiClient from '../API/ApiClient';
 
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, Select } from '@mui/material';
 
 
 const FilmView = ({ loadFormatTypes }) => {
+
+    const toRoman = (num) => {
+        const romanNumerals = [
+            ["XL", 40],
+            ["X", 10],
+            ["IX", 9],
+            ["V", 5],
+            ["IV", 4],
+            ["I", 1]
+        ];
+
+        let roman = "";
+        for (let [letter, value] of romanNumerals) {
+            while (num >= value) {
+                roman += letter;
+                num -= value;
+            }
+        }
+        return roman;
+    };
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -19,7 +40,7 @@ const FilmView = ({ loadFormatTypes }) => {
     const [error, setError] = useState(null);
     const [countries, setcountries] = useState([]);
     const [languages, setlanguage] = useState([]);
-    const BASE_URL = process.env.REACT_APP_BASE_URL + "/film-buyer";
+    const BASE_URL = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_BASE_PREFIX;
     const [types, setTypes] = useState([]);
     const { getRequestApi } = ApiClient();
     const loadPreDefaultdata = async () => {
@@ -91,7 +112,7 @@ const FilmView = ({ loadFormatTypes }) => {
     useEffect(() => {
         const fetchVideographyTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/videography-type", {
+                const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/site/videography-type`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -115,7 +136,7 @@ const FilmView = ({ loadFormatTypes }) => {
 
         const loadFormatTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/format-type", {
+                const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/site/format-type`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -139,7 +160,7 @@ const FilmView = ({ loadFormatTypes }) => {
 
         const loadStageTypes = async () => {
             try {
-                const response = await fetch("https://119.82.68.149:3001/film-buyer/site/stage-type", {
+                const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/site/stage-type`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -270,7 +291,7 @@ const FilmView = ({ loadFormatTypes }) => {
     return (
         <>
             <div className="mt-4">
-                <h3 className="mb-2">Film Details</h3>
+
                 <div className='card'>
                     <div className='card-body'>
                         {loading ? (
@@ -486,84 +507,64 @@ const FilmView = ({ loadFormatTypes }) => {
                                     <p>No contact information available.</p>
                                 ) : (
                                     <div className="table-responsive">
-                                        <table className="table table-striped table-list-view">
-                                            <thead>
-                                                <tr>
-                                                    <th>Field</th>
-                                                    <th>Details</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                        <Table sx={{ minWidth: 650 }} aria-label="caption table" className='table table-bordered'>
+                                            <TableHead className='form-space'>
+                                                <TableRow>
+                                                    <TableCell align='center'>Sr No.</TableCell>
+                                                    <TableCell align='center'>Designation</TableCell>
+                                                    <TableCell align='center'>Name</TableCell>
+                                                    <TableCell align="center">E-mail</TableCell>
+                                                    <TableCell align="center">Phone</TableCell>
+                                                    <TableCell align="center">Company</TableCell>
+                                                    <TableCell align="center">City</TableCell>
+                                                    <TableCell align="center">State</TableCell>
+                                                    <TableCell align="center">Country</TableCell>
+                                                    <TableCell align="center">Photo</TableCell>
+
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
                                                 {film.film_contact.map((contact, index) => (
                                                     <React.Fragment key={contact.id || index}>
-                                                        <tr>
-                                                            <th scope="row">Designation :</th>
-                                                            <td>
-                                                                {designationOptions.find(option => option.id === contact.type)?.name || 'Not Defined'}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Name :</th>
-                                                            <td>{`${contact.first_name} ${contact.last_name}`}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Email :</th>
-                                                            <td>{contact.email || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Company :</th>
-                                                            <td>{contact.company || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Phone :</th>
-                                                            <td>{contact.phone || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Address :</th>
-                                                            <td>{contact.address || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">City :</th>
-                                                            <td>{contact.city || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">State :</th>
-                                                            <td>{contact.state || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Country :</th>
-                                                            <td>{getCountryNames(contact.country) || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Website :</th>
-                                                            <td>{contact.website || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Facebook :</th>
-                                                            <td>{contact.facebook || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Twitter :</th>
-                                                            <td>{contact.twitter || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Instagram :</th>
-                                                            <td>{contact.instagram || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Biography :</th>
-                                                            <td>{contact.biography || 'Not Provided'}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Filmography :</th>
-                                                            <td>{contact.filmography || 'Not Provided'}</td>
-                                                        </tr>
+                                                        <TableRow key={contact.name}>
+                                                            <TableCell align="center">({toRoman(index + 1)})</TableCell>
+                                                            <TableCell align="center">  {
+                                                                designationOptions.find(option => option.id === contact.type)?.name || 'Not Defined'
+                                                            }</TableCell>
+                                                            <TableCell align="center">{`${contact.first_name} ${contact.last_name}`}</TableCell>
+                                                            <TableCell align="center">{contact.email}</TableCell>
+                                                            <TableCell align="center">{contact.phone}</TableCell>
+                                                            <TableCell align="center">{contact.company}</TableCell>
+                                                            <TableCell align="center">{contact.city}</TableCell>
+                                                            <TableCell align="center">{contact.state}</TableCell>
+                                                            <TableCell align="center">{getCountryNames(contact.country)}</TableCell>
+                                                            <TableCell align="center">
+                                                                {contact.image_temp && contact.image_temp.url ? (
+                                                                    <img
+                                                                        src={`${BASE_URL}/file/read/${contact.image_temp.url}`}
+                                                                        alt={contact.image_temp.name || "Uploaded"}
+                                                                        style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                                                                    />
+                                                                ) : (
+                                                                    <img
+                                                                        src={defaultimg}
+                                                                        alt="Default"
+                                                                        style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                                                                    />
+                                                                )}
+                                                            </TableCell>
+                                                            {/* <TableCell align="center">{contact.address}</TableCell>
+                            <TableCell align="center">{contact.website}</TableCell>
+                            <TableCell align="center">{(contact.indian_nationality) ? 'Indian' : 'Non Indian'}</TableCell> */}
+
+                                                        </TableRow>
                                                     </React.Fragment>
                                                 ))}
-                                            </tbody>
-                                        </table>
+                                            </TableBody>
+                                        </Table>
                                     </div>
                                 )}
+
 
                                 <Grid item xs={12} sm={12} md={12} lg={12} className='mt-4'>
                                     {/* <h6>Script Completed</h6> */}
@@ -653,31 +654,99 @@ const FilmView = ({ loadFormatTypes }) => {
                                         </div>
                                     </div>
                                 </Grid>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
+                                    <div className="table-responsive">
+                                        <table className="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">S.No</th>
+                                                    <th scope="col">Required Documents</th>
+                                                    {/* <th scope="col">Document Specifications</th> */}
+                                                    <th scope="col">View</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {/* {film?.film_document?.map((doc, index) => (
+      <tr key={doc.id}>
+        <td>{index + 1}</td>
+        <td>
+          <p>{typeMapping[doc.type] || "Unknown Document"}</p> 
+        </td>
+ 
+        <td>
+          <span className="inputoffield">
+            <div className="Attach_Photo_ID">
+              <p>
+                <a
+                  href={`${BASE_URL}/file/read/${doc.url}`}
+                  download={doc.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>
+                    <FileDownloadIcon /> {doc.name}
+                  </span>
+                </a>
+              </p>
+            </div>
+          </span>
+        </td>
+      </tr>
+    ))} */}
 
-                                <p>
-                                    <span className="inputoffield">
-                                        {!film?.film_document || film.film_document.length === 0 ? (
-                                            <></>
-                                        ) : (
-                                            <div className="Attach_Photo_ID">
-                                                {film.film_document.map((doc) => (
-                                                    <p key={doc.id}>
-                                                        <a
-                                                            href={`${BASE_URL}/file/read/${doc.url}`}
-                                                            download={doc.name} // Allows the file to download with the specified name
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            <span>
-                                                                <FileDownloadIcon /> {doc.name}
-                                                            </span>
-                                                        </a>
-                                                    </p>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </span>
-                                </p>
+                                                {[
+                                                    { srNo: 1, name: "Film Stills", type: 1 },
+                                                    { srNo: 2, name: "Poster of the Film", type: 2 },
+                                                    { srNo: 3, name: "Director Photo", type: 3 },
+                                                    { srNo: 4, name: "Project Image", type: 8 },
+                                                ].map((requiredDoc) => {
+                                                    // Find the matching document from uploaded data
+                                                    const uploadedDoc = film?.film_document?.find(
+                                                        (doc) => doc.type === requiredDoc.type
+                                                    );
+
+                                                    return (
+                                                        <tr key={requiredDoc.srNo}>
+                                                            {/* Static Sr No */}
+                                                            <td>{requiredDoc.srNo}</td>
+
+                                                            {/* Static Required Document Name */}
+                                                            <td>
+                                                                <p>{requiredDoc.name}</p>
+                                                            </td>
+
+                                                            {/* Dynamic Uploaded Document or Blank */}
+                                                            <td>
+                                                                {uploadedDoc ? (
+                                                                    <span className="inputoffield">
+                                                                        <div className="Attach_Photo_ID">
+                                                                            <p>
+                                                                                <a
+                                                                                    href={`${BASE_URL}/file/read/${uploadedDoc.url}`}
+                                                                                    download={uploadedDoc.name}
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
+                                                                                >
+                                                                                    <span>
+                                                                                        <FileDownloadIcon /> {uploadedDoc.name}
+                                                                                    </span>
+                                                                                </a>
+                                                                            </p>
+                                                                        </div>
+                                                                    </span>
+                                                                ) : (
+                                                                    // Blank cell if no document is uploaded
+                                                                    <p>No document uploaded</p>
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </Grid>
+
 
                                 <Grid item xs={12} sm={12} md={12} lg={12} className='mt-4'>
                                     {/* <h6>Script Completed</h6> */}
@@ -728,28 +797,28 @@ const FilmView = ({ loadFormatTypes }) => {
 
 
                                 {/* <Grid item xs={12} sm={12} md={12} lg={12} className='mt-4'>
-                                  
-                                    <div className="list-group-item active header-title-bg mb-4">
-                                        <div className="d-flex align-items-center justify-content-start w-100">
-                                            <h6>At Film Bazaar You are Looking For</h6>
-                                        </div>
+                              
+                                <div className="list-group-item active header-title-bg mb-4">
+                                    <div className="d-flex align-items-center justify-content-start w-100">
+                                        <h6>At Film Bazaar You are Looking For</h6>
                                     </div>
-                                </Grid>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-list-view">
+                                </div>
+                            </Grid>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-list-view">
 
-                                        <tbody>
-                                            <tr>
-                                               
-                                                <td>
-                                                    {film.looking_for
-                                                        ? film.looking_for.map(id => lookingForOptions[id] || 'Unknown').join(', ')
-                                                        : 'No options selected'}
-                                                </td>                                            </tr>
+                                    <tbody>
+                                        <tr>
+                                           
+                                            <td>
+                                                {film.looking_for
+                                                    ? film.looking_for.map(id => lookingForOptions[id] || 'Unknown').join(', ')
+                                                    : 'No options selected'}
+                                            </td>                                            </tr>
 
-                                        </tbody>
-                                    </table>
-                                </div> */}
+                                    </tbody>
+                                </table>
+                            </div> */}
                             </>
                         ) : (
                             <p>No film data available.</p>

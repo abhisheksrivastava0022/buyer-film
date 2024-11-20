@@ -31,7 +31,7 @@ const SellerDetails = () => {
 
     const PageOnLoad = async () => {
         try {
-            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/buyer`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/buyer`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const SellerDetails = () => {
                                 <li><i className="bi bi-envelope"></i>{data?.email}</li>
 
                             </ul> */}
-                            <Sidebar/> 
+                            <Sidebar />
 
                         </div>
                     </div>
@@ -98,9 +98,9 @@ const SellerDetails = () => {
                             <div className="col-auto  d-lg-block">
 
                                 <img
-                                    src={data?.profile_img?.url ? `${dataurl}/film-buyer/file/${data.profile_img.url}` : defaultimg}
+                                    src={data?.profile_img?.url ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${data.profile_img.url}` : defaultimg}
 
-                                    alt={data?.profile_img?.name ? `${dataurl}/film-buyer/file/${data.profile_img.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
+                                    alt={data?.profile_img?.name ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${data.profile_img.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
 
                             </div>
                             <div className="col p-4 d-flex flex-column position-static">
@@ -124,7 +124,7 @@ const SellerDetails = () => {
                                             <div class="row card g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                                                 <div class="col-auto d-none d-lg-block p-3 pt-3 ">
                                                     {type2Document ?
-                                                        <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                        <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
                                                         :
                                                         <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
                                                     }

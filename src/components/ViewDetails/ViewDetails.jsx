@@ -6,12 +6,12 @@ import { Card, CardContent, Grid } from '@mui/material';
 
 const ViewDetails = () => {
     const { id } = useParams();
-    
+
     const [film, setFilms] = useState({})
 
     const ViewFilmDetails = async () => {
         try {
-            const response = await fetch(`https://119.82.68.149:3001/film-buyer/film/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

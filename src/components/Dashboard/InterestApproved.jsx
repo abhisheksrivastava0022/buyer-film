@@ -125,7 +125,7 @@ const InterestApproved = () => {
                            </button>
                         </div>
                      </form> */}
-                     <Sidebar/>
+                     <Sidebar />
                   </div>
                </div>
             </div>
@@ -164,7 +164,7 @@ const InterestApproved = () => {
 
                               <div className="col-auto  d-lg-block">
                                  {type2Document ?
-                                    <img src={`${dataurl}/film-buyer/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                    <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
                                     :
                                     <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
                                  }
