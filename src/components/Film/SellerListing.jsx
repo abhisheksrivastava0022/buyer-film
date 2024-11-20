@@ -14,6 +14,7 @@ const SellerListing = () => {
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
+    const [film_status, setFilm_status] = useState({});
 
 
     const [formData, setFormData] = useState({
@@ -218,6 +219,7 @@ const SellerListing = () => {
             if (data.status) {
 
                 setData(data.data);
+                setFilm_status(data.film_status);
                 setPagination({
                     ...pagination,
                     ...data.pagination,
@@ -506,23 +508,42 @@ const SellerListing = () => {
                                                         </button>
 
 
-                                                        {loadingData?.film_interest?.[row.id] ?
-                                                            <>
-                                                                <button className='btn btn-danger make-above-link w-auto' onClick={() => NotInterestedApply(row.id)} style={{
-                                                                    cursor: 'pointer',
+                                                        {film_status?.[row.id] ? (
+                                                            film_status[row.id] === 1 ? (
+                                                                <button
+                                                                    className="btn btn-warning make-above-link w-auto"
+                                                                    onClick={() => NotInterestedApply(row.id)}
+                                                                    style={{ cursor: 'pointer' }}
+                                                                >
+                                                                    Pending
+                                                                </button>
+                                                            ) : film_status[row.id] === 2 ? (
+                                                                <span
+                                                                    className="seller-decline"
+                                                                    //    onClick={() => NotInterestedApply(row.id)}
+                                                                    style={{ color: 'red' }}
+                                                                >
+                                                                    Decline
+                                                                </span>
+                                                            ) : film_status[row.id] === 3 ? (
+                                                                <span
 
-                                                                }}>Not Interested</button>
-
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <button className='btn btn-yellow make-above-link  w-auto' onClick={() => InterestedApply(row.id)} style={{
-                                                                    cursor: 'pointer',
-
-                                                                }}>Show interest</button>
-                                                            </>
-
-                                                        }
+                                                                    className="seller-approved"
+                                                                    //    onClick={() => NotInterestedApply(row.id)}
+                                                                    style={{ color: 'green' }}
+                                                                >
+                                                                    Approved
+                                                                </span>
+                                                            ) : null
+                                                        ) : (
+                                                            <button
+                                                                className="btn btn-info make-above-link w-auto"
+                                                                onClick={() => InterestedApply(row.id)}
+                                                                style={{ cursor: 'pointer' }}
+                                                            >
+                                                                Show Interest
+                                                            </button>
+                                                        )}
                                                     </div>
 
                                                 </div>

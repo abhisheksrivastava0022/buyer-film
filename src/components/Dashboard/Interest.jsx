@@ -343,7 +343,7 @@ const Interest = () => {
                                                         {film_status?.[row.id] ? (
                                                             film_status[row.id] === 1 ? (
                                                                 <button
-                                                                    className="btn btn-danger make-above-link w-auto"
+                                                                    className="btn btn-warning make-above-link w-auto"
                                                                     onClick={() => NotInterestedApply(row.id)}
                                                                     style={{ cursor: 'pointer' }}
                                                                 >
