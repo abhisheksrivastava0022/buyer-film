@@ -24,6 +24,8 @@ import MainView from '../components/FormDetails/MainView';
 import Interest from '../components/Dashboard/Interest';
 import InterestReceived from '../components/InterestReceived';
 import ConnectionBuild from '../components/ConnectionBuild';
+import BuyerView from '../components/Pages/BuyerView';
+import SellerView from '../components/Pages/SellerView';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -100,6 +102,14 @@ export const routes = [
             {
                 path: '/buyer/:id',
                 element: <BuyerDetails />,
+            },
+            {
+                path: '/buyer/view/:id',
+                element: <BuyerView />,
+            },
+            {
+                path: '/seller/view/:id',
+                element: <SellerView />,
             },
             {
                 path: '/interest-received',
