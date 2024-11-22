@@ -219,7 +219,7 @@ const SellerListing = () => {
             if (data.status) {
 
                 setData(data.data);
-                setFilm_status(data.film_status);
+                setFilm_status(data.datatocheck);
                 setPagination({
                     ...pagination,
                     ...data.pagination,

@@ -79,6 +79,7 @@ const Seller = () => {
             if (data.status) {
 
                 setData(data.data);
+                setDatatocheck(data.datatocheck)
                 setPagination({
                     ...pagination,
                     ...data.pagination,
@@ -96,53 +97,7 @@ const Seller = () => {
 
     const [loadingData, setLoadingData] = useState({})
 
-    const InterestedApply = async (id) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/interested`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: "include"
-            });
 
-
-            if (response.ok) {
-                const data = await response.json();
-                PageOnLoad()
-                console.log('Response Data:', data);
-
-            } else {
-                console.error('Failed to  interest.');
-            }
-        } catch (error) {
-            console.error('Error occurred:', error);
-        }
-    };
-
-    const NotInterestedApply = async (id) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/film/${id}/not-interested`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: "include"
-            });
-
-
-            if (response.ok) {
-                const data = await response.json();
-                PageOnLoad()
-                console.log('Response Data:', data);
-
-            } else {
-                console.error('Failed to  interest.');
-            }
-        } catch (error) {
-            console.error('Error occurred:', error);
-        }
-    };
 
     const PageOnLoad = async () => {
         try {
@@ -232,7 +187,7 @@ const Seller = () => {
                                                                     datatocheck[row.id] === 1 ? (
                                                                         <li>
                                                                             <button
-                                                                                className="btn btn-warning"
+                                                                                className="btn btn-warning pending"
                                                                                 type="submit"
                                                                                 onClick={() => requestConnection({ id: row.id, status: 0, type: 2 })}
                                                                             >
