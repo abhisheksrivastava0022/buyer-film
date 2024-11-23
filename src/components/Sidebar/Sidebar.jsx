@@ -19,13 +19,13 @@ const Sidebar = () => {
     }
     const preloading = async () => {
         const data = await userInfo('film/buyer', {});
-        if (data.status) {
+        if (data?.status) {
             setData(data.data);
         }
         if (location.pathname === '/profile') {
             //alert("profile")
         } else {
-            if (data.data.status == 1) {
+            if (data?.data.status == 1) {
                 navigate("/profile");
             }
         }

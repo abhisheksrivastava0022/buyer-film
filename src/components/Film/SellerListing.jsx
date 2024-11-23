@@ -189,15 +189,15 @@ const SellerListing = () => {
     const preloading = async () => {
 
         let data1 = await getRequestApi('site/film-type', {});
-        if (data1.status) {
+        if (data1?.status) {
             setFilmtype(data1.data);
         }
         data1 = await getRequestApi('site/language', {});
-        if (data1.status) {
+        if (data1?.status) {
             setlanguage(data1.data);
         }
         data1 = await getRequestApi('site/country', {});
-        if (data1.status) {
+        if (data1?.status) {
             setCountry(data1.data);
         }
     }
@@ -216,10 +216,10 @@ const SellerListing = () => {
 
         try {
             const data = await getRequestApi('film', queryParams);
-            if (data.status) {
+            if (data?.status) {
 
                 setData(data.data);
-                setFilm_status(data.datatocheck);
+                setFilm_status(data.film_status);
                 setPagination({
                     ...pagination,
                     ...data.pagination,
@@ -250,7 +250,8 @@ const SellerListing = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                PageOnLoad()
+                PageOnLoad();
+                loadPreLoadData();
                 console.log('Response Data:', data);
 
             } else {
