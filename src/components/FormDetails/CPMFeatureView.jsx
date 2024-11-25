@@ -299,7 +299,7 @@ const CPMFeatureView = ({ loadFormatTypes }) => {
                                         {film.film_document && film.film_document.url ? (
                                             <img src={`${BASE_URL}/file/read/${film.film_document.url}`} alt={film.film_document.name} style={{ width: '200px', height: '200px' }} />
                                         ) : (
-                                            <img src={defaultimg} alt="user" style={{ width: '200px', height: '200px' }} />
+                                            <img src={defaultimg} alt="user" style={{ width: '200px', height: '200px' }}  />
                                         )}
                                     </div>
                                     <div className="col p-4 d-flex flex-column position-static pt-0">

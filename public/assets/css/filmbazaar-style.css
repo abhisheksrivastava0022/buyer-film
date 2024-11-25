@@ -413,12 +413,13 @@ h1,
 
 .header-title-bg {
   background-color: #343896 !important;
+  color: #fff;
 }
 
 .header-title-bg h6 {
   margin: 0;
 }
-
+.buyer-heading{ padding: 6px 15px; color: #fff;}
 .w-auto {
   width: auto !important;
   max-width: fit-content;
@@ -427,6 +428,9 @@ h1,
 .btn-link-card {
   display: flex;
   column-gap: 10px;
+  margin-top: 15px;
+  height: 100%;
+  align-items: flex-end;
 }
 
 
@@ -544,4 +548,15 @@ h1,
 .dashboard-profile ul li {
   list-style: none;
   padding: 2px 5px;
+}
+.user-img{  width: 70px; height: 70px; border-radius: 100%; margin:15px} 
+
+.btn-info{
+  color: #fff !important
+}
+.dashboard-profile i{  margin-right: 10px;}
+.btn-link-card-buyer ul{ display: flex; padding-left: 0; margin-top: 15px;}
+
+.tab-content-data{
+  background-color: #fff;
 }
