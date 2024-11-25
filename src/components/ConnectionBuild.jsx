@@ -178,9 +178,7 @@ const ConnectionBuild = () => {
                                                                     </ul>
                                                                     <ul className="col-md-12 col-sm-12" style={{ textAlign: "right" }}>
                                                                         <li>
-                                                                            <button className="btn btn-info btn-yellow" type="submit">
-                                                                                Details
-                                                                            </button>
+                                                                            <Link className="btn btn-info btn-yellow" to={`/buyer/view/${row.id}`}> Details</Link>
                                                                         </li>
 
                                                                     </ul>
@@ -218,26 +216,14 @@ const ConnectionBuild = () => {
                                                                 </h3>
                                                                 <div className="row dashboard-profile">
                                                                     <ul className="col-md-12 col-sm-12">
-                                                                        <li>
-                                                                            <i className="bi bi-envelope"></i> {row.email}
-                                                                        </li>
-                                                                        <li>
-                                                                            <i className="bi bi-telephone"></i>
-                                                                            {row.phone}
-                                                                        </li>
-                                                                        <li>
-                                                                            <i className="bi bi-building"></i>
-                                                                            {row.company}
-                                                                        </li>
-                                                                        <li>
-                                                                            <i className="bi bi-briefcase"></i> {row.job_title}
-                                                                        </li>
+                                                                        <li><i className="bi bi-envelope"></i>  {row.email}</li>
+                                                                        <li><i className="bi bi-telephone"></i>{row.phone_number} </li>
+                                                                        <li><i className="bi bi-briefcase"></i>   {row.company}</li>
+                                                                        <li><i className="bi bi-building"></i>{row.job_profile} </li>
                                                                     </ul>
                                                                     <ul className="col-md-12 col-sm-12" style={{ textAlign: "right" }}>
                                                                         <li>
-                                                                            <button className="btn btn-info btn-yellow" type="submit">
-                                                                                Details
-                                                                            </button>
+                                                                            <Link className="btn btn-info btn-yellow" to={`/seller/view/${row.id}`}> Details</Link>
                                                                         </li>
 
                                                                     </ul>

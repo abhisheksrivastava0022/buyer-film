@@ -11,6 +11,7 @@ import Sidebar from '../Sidebar/Sidebar';
 
 const SellerListing = () => {
     const [data, setData] = useState([])
+    const [genre, setGenre] = useState([])
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
@@ -200,6 +201,10 @@ const SellerListing = () => {
         if (data1?.status) {
             setCountry(data1.data);
         }
+        data1 = await getRequestApi('site/genre', {});
+        if (data1?.status) {
+            setGenre(data1.data);
+        }
     }
     useEffect(() => {
         preloading();
@@ -334,7 +339,24 @@ const SellerListing = () => {
         return stagetype ? stagetype.name : "";
     };
 
-
+    function getCountryNamesByIds(ids) {
+        const countryNames = country
+            .filter(country => ids.includes(country.id)) // Filter countries with matching IDs
+            .map(country => country.name); // Extract their names
+        return countryNames.join(', '); // Join the names with a comma
+    }
+    function getLanguageNamesByIds(ids) {
+        const countryNames = language
+            .filter(country => ids.includes(country.id)) // Filter countries with matching IDs
+            .map(country => country.name); // Extract their names
+        return countryNames.join(', '); // Join the names with a comma
+    }
+    function getGenre(ids) {
+        const countryNames = genre
+            .filter(country => ids.includes(country.id)) // Filter countries with matching IDs
+            .map(country => country.name); // Extract their names
+        return countryNames.join(', '); // Join the names with a comma
+    }
     return (
         <>
 
@@ -500,6 +522,8 @@ const SellerListing = () => {
                                                     {getVideography(row.videography_type)} | {getformattype(row.format_type)}  | {getformatstagetype(row.stage_type)}
                                                     <br />
                                                     <br />
+                                                    {getCountryNamesByIds(row.country)} | {getLanguageNamesByIds(row.language)}  | {getGenre(row.genre)} | {row.duration}min
+
                                                     <br />
                                                     <div className='btn-link-card'>
                                                         <button className='btn btn-primary  w-auto'>

@@ -174,13 +174,35 @@ const ApiClient = () => {
     };
 
 
+    const postRequestApiWithoutLogin = async (endpoint, options = {}) => {
+
+        const jsondata = JSON.stringify(options);
+
+        try {
+            const response = await fetch(`${BASE_URL_API}${endpoint}`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                    //   A  uthorization: 'Bearer ' + token
+                },
+                body: jsondata,
+                credentials: 'include'
+            });
+            const data = await response.json();
+
+            return data;
+        } catch (error) {
+
+            console.error('API request error:', error);
+            throw error;
+        }
+    };
 
 
 
 
 
-
-    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, patchRequestApi, };
+    return { postRequestApi, getRequestApi, userInfo, userLoginCheck, patchRequestApi, postRequestApiWithoutLogin };
 };
 
 export default ApiClient;

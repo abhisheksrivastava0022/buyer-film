@@ -20,7 +20,7 @@ const Seller = () => {
 
     const { getRequestApi, postRequestApi } = ApiClient();
     const requestConnection = async (data) => {
-        const response = await postRequestApi("film/connection-requested", data);
+        const response = await postRequestApi("film/connection-requested-seller", data);
         if (response.status) {
             // alert("connected requested")
             loadPreLoadData();
@@ -173,14 +173,13 @@ const Seller = () => {
                                                         <ul className='col-md-12 col-sm-12'>
 
                                                             <li><i className="bi bi-envelope"></i>  {row.email}</li>
-                                                            <li><i className="bi bi-telephone"></i>{row.phone} </li>
+                                                            <li><i className="bi bi-telephone"></i>{row.phone_number} </li>
+                                                            <li><i className="bi bi-briefcase"></i>   {row.company}</li>
+                                                            <li><i className="bi bi-building"></i>{row.job_profile} </li>
 
-
-                                                            <li><i className="bi bi-building"></i>{row.company} </li>
-                                                            <li><i className="bi bi-briefcase"></i>   {row.job_title}</li>
                                                         </ul>
                                                         <ul className='col-md-12 col-sm-12' style={{ textAlign: "right" }}>
-                                                            <li>  <button className="btn btn-info btn-yellow" type="submit"> Details</button>
+                                                            <li>  <Link className="btn btn-info btn-yellow" to={`/seller/view/${row.id}`}> Details</Link>
                                                             </li>
                                                             {
                                                                 (datatocheck?.[row.id] && datatocheck[row.id] >= 1) ? (
@@ -189,7 +188,7 @@ const Seller = () => {
                                                                             <button
                                                                                 className="btn btn-warning pending"
                                                                                 type="submit"
-                                                                                onClick={() => requestConnection({ id: row.id, status: 0, type: 2 })}
+                                                                                onClick={() => requestConnection({ id: row.id, status: 0, type: 3 })}
                                                                             >
                                                                                 Pending Request
                                                                             </button>

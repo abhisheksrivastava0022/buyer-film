@@ -229,13 +229,12 @@ const Buyer = () => {
 
                                                                 <li><i className="bi bi-envelope"></i>  {row.email}</li>
                                                                 <li><i className="bi bi-telephone"></i>{row.phone} </li>
-
-
                                                                 <li><i className="bi bi-building"></i>{row.company} </li>
                                                                 <li><i className="bi bi-briefcase"></i>   {row.job_title}</li>
                                                             </ul>
                                                             <ul className='col-md-12 col-sm-12' style={{ textAlign: "right" }}>
-                                                                <li>  <button className="btn btn-info btn-yellow" type="submit"> Details</button>
+                                                                <li>
+                                                                    <Link className="btn btn-info btn-yellow" to={`/buyer/view/${row.id}`}> Details</Link>
                                                                 </li>
                                                                 {
                                                                     (datatocheck[row.id] && datatocheck[row.id] >= 1) ? (
@@ -244,7 +243,7 @@ const Buyer = () => {
                                                                                 <button
                                                                                     className="btn btn-warning"
                                                                                     type="submit"
-                                                                                    onClick={() => requestConnection({ id: row.id, status: 0, type: 1 })}
+                                                                                    onClick={() => requestConnection({ id: row.id, status: 0, type: 4 })}
                                                                                 >
                                                                                     Pending Request
                                                                                 </button>

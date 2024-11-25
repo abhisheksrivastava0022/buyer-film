@@ -26,6 +26,7 @@ import InterestReceived from '../components/InterestReceived';
 import ConnectionBuild from '../components/ConnectionBuild';
 import BuyerView from '../components/Pages/BuyerView';
 import SellerView from '../components/Pages/SellerView';
+import VerifyUser from '../components/Login/VerifyUser';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -124,6 +125,11 @@ export const routes = [
 
             return false;
         },
+    },
+    {
+        path: '/verify/:token',
+        element: <VerifyUser />,
+        //     errorElement: <ErrorBoundary />,
     },
     {
         path: '/login',

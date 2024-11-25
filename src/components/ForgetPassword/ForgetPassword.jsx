@@ -28,7 +28,7 @@ const ForgetPassword = () => {
         setErrors({
             ...errors,
             [name]: ''
-          });
+        });
     };
 
     // Form validation
@@ -53,7 +53,7 @@ const ForgetPassword = () => {
 
         if (validateForm()) {
             const response = await postRequestApi(`auth/forget-password`, formData);
-            if (response?.status && response.data) {
+            if (response?.status) {
                 // alert(response.message);
                 setAlertSeverity('success');
                 setAlertMessage('Your password has been sent to your registered mail id!.');
@@ -86,7 +86,7 @@ const ForgetPassword = () => {
                         <div className="card-body p-0">
                             <div className="row">
                                 <div className="col-md-7 col-sm-7 bluebg">
-                                    <AuthText/>
+                                    <AuthText />
                                 </div>
                                 <div className="col-md-5 col-sm-5 form-pg">
                                     <div className="px-5 pt-4 pb-4">
@@ -104,7 +104,7 @@ const ForgetPassword = () => {
                                                     className="form-control"
                                                     placeholder="Email"
                                                 /> */}
-                                                 <TextField
+                                                <TextField
                                                     variant="outlined"
                                                     fullWidth
                                                     type='email'
@@ -144,7 +144,7 @@ const ForgetPassword = () => {
                     </div>
                 </div>
             </div> */}
-            <Footer/>
+            <Footer />
             <Snackbar
                 open={alertOpen}
                 autoHideDuration={6000}
