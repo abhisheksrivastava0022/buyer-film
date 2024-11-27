@@ -9,6 +9,7 @@ import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Sidebar from '../Sidebar/Sidebar';
+import Loader from '../Loader/Loader';
 
 const Buyer = () => {
     const [data, setData] = useState([])
@@ -16,6 +17,7 @@ const Buyer = () => {
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const dataurl = process.env.REACT_APP_BASE_URL;
 
@@ -76,6 +78,7 @@ const Buyer = () => {
         });
 
         try {
+            setLoading(true)
             const data = await getRequestApi('film/buyer-list', queryParams);
             if (data.status) {
 
@@ -88,6 +91,8 @@ const Buyer = () => {
             }
         } catch (error) {
             console.error("Error fetching data:", error);
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -180,7 +185,7 @@ const Buyer = () => {
 
     return (
         <>
-
+            {loading && <Loader />}
             <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
@@ -233,45 +238,45 @@ const Buyer = () => {
                                                                 <li><i className="bi bi-briefcase"></i>   {row.job_title}</li>
                                                             </ul>
                                                             <div className='btn-link-card-buyer'>
-                                                            <ul className='col-md-12 col-sm-12' style={{ textAlign: "right" }}>
-                                                                <li>
-                                                                    <Link className="btn btn-primary" to={`/buyer/view/${row.id}`}> Details</Link>
-                                                                </li>
-                                                                {
-                                                                    (datatocheck[row.id] && datatocheck[row.id] >= 1) ? (
-                                                                        datatocheck[row.id] === 1 ? (
+                                                                <ul className='col-md-12 col-sm-12' style={{ textAlign: "right" }}>
+                                                                    <li>
+                                                                        <Link className="btn btn-primary" to={`/buyer/view/${row.id}`}> Details</Link>
+                                                                    </li>
+                                                                    {
+                                                                        (datatocheck[row.id] && datatocheck[row.id] >= 1) ? (
+                                                                            datatocheck[row.id] === 1 ? (
+                                                                                <li>
+                                                                                    <button
+                                                                                        className="btn btn-warning"
+                                                                                        type="submit"
+                                                                                        onClick={() => requestConnection({ id: row.id, status: 0, type: 4 })}
+                                                                                    >
+                                                                                        Pending Request
+                                                                                    </button>
+                                                                                </li>
+                                                                            ) : datatocheck[row.id] === 2 ? (
+                                                                                <li className="">
+                                                                                    Connected  Declined
+                                                                                </li>
+                                                                            ) : datatocheck[row.id] === 3 ? (
+                                                                                <li className="">
+                                                                                    Connection Build
+                                                                                </li>
+                                                                            ) : null
+                                                                        ) : (
                                                                             <li>
                                                                                 <button
-                                                                                    className="btn btn-warning"
+                                                                                    className="btn  btn-warning"
                                                                                     type="submit"
-                                                                                    onClick={() => requestConnection({ id: row.id, status: 0, type: 4 })}
+                                                                                    onClick={() => requestConnection({ id: row.id, status: 1, type: 4 })}
                                                                                 >
-                                                                                    Pending Request
+                                                                                    Request Connection
                                                                                 </button>
                                                                             </li>
-                                                                        ) : datatocheck[row.id] === 2 ? (
-                                                                            <li className="">
-                                                                                Connected  Declined
-                                                                            </li>
-                                                                        ) : datatocheck[row.id] === 3 ? (
-                                                                            <li className="">
-                                                                                Connection Build
-                                                                            </li>
-                                                                        ) : null
-                                                                    ) : (
-                                                                        <li>
-                                                                            <button
-                                                                                className="btn  btn-warning"
-                                                                                type="submit"
-                                                                                onClick={() => requestConnection({ id: row.id, status: 1, type: 4 })}
-                                                                            >
-                                                                                Request Connection
-                                                                            </button>
-                                                                        </li>
-                                                                    )
-                                                                }
+                                                                        )
+                                                                    }
 
-                                                            </ul>
+                                                                </ul>
                                                             </div>
 
                                                         </div>

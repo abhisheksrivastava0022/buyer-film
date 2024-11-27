@@ -6,6 +6,7 @@ import ApiClient from '../API/ApiClient'
 import { Alert, Snackbar, TextField } from '@mui/material';
 import Footer from '../Footer/Footer';
 import AuthText from '../AuthText/AuthText';
+import Loader from '../Loader/Loader';
 
 const ForgetPassword = () => {
     const { postRequestApi } = ApiClient();
@@ -13,6 +14,7 @@ const ForgetPassword = () => {
         email: '',
     });
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -48,7 +50,7 @@ const ForgetPassword = () => {
 
     // Handle form submission
     const navigate = useNavigate();
-    const handleSubmit = async (e) => {
+    const handleSubmitOne = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
@@ -73,9 +75,41 @@ const ForgetPassword = () => {
             // Submit the form data here (e.g., API call)
         }
     };
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+            setLoading(true);
+            try {
+                const response = await postRequestApi(`auth/forget-password`, formData);
+                if (response?.status) {
+                    setAlertSeverity('success');
+                    setAlertMessage('Your password has been sent to your registered mail id!');
+                    setAlertOpen(true);
+                    setFormData({ email: '' });
+                } else {
+                    setAlertSeverity('error');
+                    setAlertMessage('Failed to send password to your registered mail id. Please try again!');
+                    setAlertOpen(true);
+                }
+            } catch (error) {
+                setAlertSeverity('error');
+                setAlertMessage('An error occurred while processing your request.');
+                setAlertOpen(true);
+            } finally {
+                setLoading(false);
+            }
+        }
+    };
+
+
+
 
     return (
         <>
+
+{loading && <Loader />}
             <div className="container">
                 <div className="form-header">
                     <div className="logo text-center"><img src={filmbazaar} alt="logo" width="100" /></div>

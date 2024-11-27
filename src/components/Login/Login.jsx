@@ -7,6 +7,7 @@ import { Alert, IconButton, InputAdornment, Snackbar, TextField } from '@mui/mat
 import Footer from '../Footer/Footer';
 import AuthText from '../AuthText/AuthText';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Loader from '../Loader/Loader';
 
 const Login = () => {
     const { postRequestApi, userLoginCheck } = ApiClient();
@@ -17,6 +18,7 @@ const Login = () => {
 
     });
     const [emailError, setEmailError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const [showPasswordOne, setShowPasswordOne] = useState(false);
 
@@ -101,7 +103,7 @@ const Login = () => {
     };
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmitOne = async (e) => {
         e.preventDefault();
 
         if (validate()) {
@@ -118,7 +120,11 @@ const Login = () => {
                 setAlertMessage('Login successfully!.');
                 setAlertOpen(true);
                 setFormData({ email: '', password: '' });
-                navigate("/explore-project");
+                // navigate("/explore-project");
+                setTimeout(() => {
+                    navigate("/explore-project");
+                }, 1000);
+
             } else {
                 setAlertSeverity('error');
                 setAlertMessage(response.message);
@@ -134,6 +140,54 @@ const Login = () => {
         }
     };
 
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (validate()) {
+            setIsSubmitting(true);
+            setLoading(true);
+
+            try {
+                const response = await postRequestApi(`auth/login`, formData);
+
+                if (response?.status) {
+                    setAlertSeverity('success');
+                    setAlertMessage('Login successfully!');
+                    setAlertOpen(true);
+                    setFormData({ email: '', password: '' });
+                    setTimeout(() => {
+                        navigate("/explore-project");
+                    }, 1000);
+                } else {
+                    setAlertSeverity('error');
+                    setAlertMessage(response.message);
+                    setAlertOpen(true);
+                }
+            } catch (error) {
+                console.error("Error during login:", error);
+                setAlertSeverity('error');
+                setAlertMessage('An error occurred. Please try again later.');
+                setAlertOpen(true);
+            } finally {
+                setLoading(false);
+                setIsSubmitting(false);
+            }
+        } else {
+            console.log('Validation failed:', errors);
+            setAlertSeverity('error');
+            setAlertMessage('Failed to login. Please try again!');
+            setAlertOpen(true);
+        }
+    };
+
+
+
+
+
+
+
+
     const preloading = async () => {
         const data = await userLoginCheck('film/buyer', {});
 
@@ -143,6 +197,8 @@ const Login = () => {
     }, []);
     return (
         <>
+
+            {loading && <Loader />}
             <div className="container">
                 <div className="form-header text-center">
                     <img src={filmbazaar} alt="Film Bazaar Logo" width="100" className="mr-2" />
@@ -264,7 +320,7 @@ const Login = () => {
             <Footer />
             <Snackbar
                 open={alertOpen}
-                autoHideDuration={6000}
+                autoHideDuration={3000}
                 onClose={() => setAlertOpen(false)}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
             >

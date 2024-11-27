@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Sidebar from '../Sidebar/Sidebar';
+import Loader from '../Loader/Loader';
+
 
 const SellerListing = () => {
     const [data, setData] = useState([])
@@ -15,7 +17,8 @@ const SellerListing = () => {
     const [filmtype, setFilmtype] = useState([]);
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
-    const [film_status, setFilm_status] = useState({}); 
+    const [film_status, setFilm_status] = useState({});
+    const [loading, setLoading] = useState(false); // State for managing loader
 
 
     const [formData, setFormData] = useState({
@@ -211,6 +214,7 @@ const SellerListing = () => {
         loadPreLoadData();
     }, []);
     const loadPreLoadData = async (page = 1) => {
+
         const queryParams = new URLSearchParams({
 
             limit: pagination.limit,
@@ -220,6 +224,7 @@ const SellerListing = () => {
         });
 
         try {
+            setLoading(true)
             const data = await getRequestApi('film', queryParams);
             if (data?.status) {
 
@@ -232,6 +237,8 @@ const SellerListing = () => {
             }
         } catch (error) {
             console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -359,7 +366,7 @@ const SellerListing = () => {
     }
     return (
         <>
-
+            {loading && <Loader />}
             <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
@@ -500,6 +507,8 @@ const SellerListing = () => {
 
 
 
+
+
                             <div className='row mt-4'>
                                 {
 
@@ -512,18 +521,18 @@ const SellerListing = () => {
                                             <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
                                                 <div className="col-auto  d-lg-block">
                                                     {type2Document ?
-                                                        <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} className='user-img'/>
+                                                        <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} className='user-img' />
                                                         :
-                                                        <img src={defaultimg} alt="user"  className='user-img' />
+                                                        <img src={defaultimg} alt="user" className='user-img' />
                                                     }
                                                 </div>
                                                 <div className="col p-4 d-flex flex-column position-static">
                                                     <h3 className="mb-0 title-heading" > {row.title}</h3>
                                                     {getVideography(row.videography_type)} | {getformattype(row.format_type)}  | {getformatstagetype(row.stage_type)}
-                                                 
+
                                                     {getCountryNamesByIds(row.country)} | {getLanguageNamesByIds(row.language)}  | {getGenre(row.genre)} | {row.duration}min
 
-                                                    
+
                                                     <div className='btn-link-card'>
                                                         <button className='btn btn-primary  w-auto'>
                                                             <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>

@@ -17,11 +17,14 @@ import {
     Grid, FormControlLabel, Checkbox, FormControl, RadioGroup,
     FormLabel, Radio, Typography, InputLabel, MenuItem,
     FormGroup,
-    Button
+    Button,
+    Snackbar,
+    Alert
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CheckBox } from '@mui/icons-material';
 import Sidebar from '../Sidebar/Sidebar';
+import Loader from '../Loader/Loader';
 
 
 
@@ -48,6 +51,7 @@ const Profile = () => {
 
     const { getRequestApi, postRequestApi } = ApiClient()
     const [countries, setCountries] = useState([]);
+    const [loading, setLoading] = useState(false);
     // const [openDialog, setOpenDialog] = useState(false);
 
     const handleChangeTitle = (event) => {
@@ -80,23 +84,56 @@ const Profile = () => {
         passport_photo: "",
 
     })
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertSeverity, setAlertSeverity] = useState("success");
+
+    // const preLoadData = async () => {
+    //     const data = await getRequestApi('film/buyer', {});
+    //     setFormData(data.data);
+    // }
+
     const preLoadData = async () => {
-        const data = await getRequestApi('film/buyer', {});
-        setFormData(data.data);
-    }
+        try {
+            const data = await getRequestApi('film/buyer', {});
+            setFormData(data.data);
+        } catch (error) {
+            console.error("Error fetching buyer data:", error);
+        }
+    };
+    
+
+    // useEffect(() => {
+    //     preLoadData();
+    //     const loadCountries = async () => {
+    //         try {
+    //             const response = await getRequestApi("site/country", {});
+    //             setCountries(response.data);
+    //         } catch (error) {
+    //             console.error("Error fetching countries:", error);
+    //         }
+    //     };
+    //     loadCountries();
+    // }, []);
 
     useEffect(() => {
-        preLoadData();
-        const loadCountries = async () => {
+        const fetchData = async () => {
+            setLoading(true);
             try {
+                await preLoadData();
                 const response = await getRequestApi("site/country", {});
                 setCountries(response.data);
             } catch (error) {
-                console.error("Error fetching countries:", error);
+                console.error("Error fetching data:", error);
+            } finally {
+                setLoading(false);
             }
         };
-        loadCountries();
+    
+        fetchData();
     }, []);
+    
 
 
     const [errors, setErrors] = useState({});
@@ -369,7 +406,7 @@ const Profile = () => {
 
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmitOne = async (e) => {
         e.preventDefault();
 
         if (validateForm(formData)) {
@@ -392,9 +429,49 @@ const Profile = () => {
     };
 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (validateForm(formData)) {
+            setLoading(true);
+            try {
+                const response = await postRequestApi(`film/buyer/update`, formData);
+
+                if (response?.status) {
+
+                    setAlertSeverity('success');
+                    setAlertMessage('Data saved successfully!');
+                    setAlertOpen(true);
+
+
+                    setTimeout(() => {
+                        navigate(0);
+                    }, 2000);
+                } else {
+                    setAlertSeverity('error');
+                    setAlertMessage(response.message || 'Failed to save data. Please try again.');
+                    setAlertOpen(true);
+                }
+            } catch (error) {
+                console.error("Error during form submission:", error);
+                setAlertSeverity('error');
+                setAlertMessage('An error occurred. Please try again.');
+                setAlertOpen(true);
+            } finally {
+                setLoading(false);
+            }
+        }
+    };
+
+
+
+
+
 
     return (
         <>
+
+{loading && <Loader />}
             <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
@@ -409,7 +486,7 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-           <main className="col-md-8 ms-sm-auto col-lg-9 px-md-4">
+            <main className="col-md-8 ms-sm-auto col-lg-9 px-md-4">
 
                 <div className=" main-content-space ">
                     <div className='pagetitle-name'><h1>Profile </h1>
@@ -1150,6 +1227,17 @@ const Profile = () => {
                                 <Button onClick={() => handleDialogClose(true)} color="primary">Proceed</Button>
                             </DialogActions>
                         </Dialog> */}
+
+                        <Snackbar
+                            open={alertOpen}
+                            autoHideDuration={3000}
+                            onClose={() => setAlertOpen(false)}
+                            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                        >
+                            <Alert severity={alertSeverity} variant="filled">
+                                {alertMessage}
+                            </Alert>
+                        </Snackbar>
 
                     </div>
                 </div>

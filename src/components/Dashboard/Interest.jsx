@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Sidebar from '../Sidebar/Sidebar';
+import Loader from '../Loader/Loader';
 
 const Interest = () => {
     const [data, setData] = useState([])
@@ -16,6 +17,7 @@ const Interest = () => {
     const [country, setCountry] = useState([]);
     const [film_status, setFilm_status] = useState({});
     const [genre, setGenre] = useState([])
+    const [loading, setLoading] = useState(false);
 
 
     const [formData, setFormData] = useState({
@@ -204,6 +206,7 @@ const Interest = () => {
     }, []);
     const loadPreLoadData = async (page = 1) => {
         try {
+            setLoading(true)
             const data = await getRequestApi('film/interested-film');
             if (data.status) {
                 setData(data.data);
@@ -211,6 +214,8 @@ const Interest = () => {
             }
         } catch (error) {
             console.error("Error fetching data:", error);
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -310,6 +315,7 @@ const Interest = () => {
 
     return (
         <>
+        {loading && <Loader />}
 
             <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">

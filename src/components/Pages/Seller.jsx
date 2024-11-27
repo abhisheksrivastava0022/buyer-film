@@ -9,6 +9,7 @@ import ApiClient from '../API/ApiClient';
 import { Link } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Sidebar from '../Sidebar/Sidebar';
+import Loader from '../Loader/Loader';
 
 const Seller = () => {
     const [data, setData] = useState([])
@@ -16,6 +17,8 @@ const Seller = () => {
     const [datatocheck, setDatatocheck] = useState({});
     const [language, setlanguage] = useState([]);
     const [country, setCountry] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const dataurl = process.env.REACT_APP_BASE_URL;
 
     const { getRequestApi, postRequestApi } = ApiClient();
@@ -75,6 +78,7 @@ const Seller = () => {
         });
 
         try {
+            setLoading(true)
             const data = await getRequestApi('film/seller-list', queryParams);
             if (data.status) {
 
@@ -87,6 +91,8 @@ const Seller = () => {
             }
         } catch (error) {
             console.error("Error fetching data:", error);
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -128,6 +134,8 @@ const Seller = () => {
     }, [])
     return (
         <>
+
+{loading && <Loader />}
 
             <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">

@@ -7,6 +7,7 @@ import { Alert, IconButton, InputAdornment, Snackbar, TextField } from '@mui/mat
 import Footer from '../Footer/Footer';
 import AuthText from '../AuthText/AuthText';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Loader from '../Loader/Loader';
 
 const Signup = () => {
     const { postRequestApi } = ApiClient();
@@ -18,6 +19,7 @@ const Signup = () => {
         confirm_password: ''
     });
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -72,7 +74,7 @@ const Signup = () => {
 
     // Handle form submission
     const navigate = useNavigate();
-    const handleSubmit = async (e) => {
+    const handleSubmitOne = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
@@ -102,8 +104,48 @@ const Signup = () => {
         }
     };
 
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+            setLoading(true);
+            try {
+                const response = await postRequestApi(`auth/register`, formData);
+                if (response?.status && response.data) {
+                    // alert("Registered successfully. Please activate your account.");
+                    setAlertSeverity('success');
+                    setAlertMessage('Registered successfully. Please activate your account.');
+                    setAlertOpen(true);
+                    setFormData({
+                        first_name: '',
+                        last_name: '',
+                        email: '',
+                        password: '',
+                        confirm_password: '',
+                    });
+                    // navigate("/login");
+                    setTimeout(() => {
+                        navigate("/login");
+                    }, 1000);
+                } else {
+                    setAlertSeverity('error');
+                    setAlertMessage('Failed to register. Please try again!');
+                    setAlertOpen(true);
+                }
+            } catch (error) {
+                setAlertSeverity('error');
+                setAlertMessage('An error occurred during registration.');
+                setAlertOpen(true);
+            } finally {
+                setLoading(false);
+            }
+        }
+    };
+
     return (
         <>
+            {loading && <Loader />}
             <div className="container">
                 <div className="form-header">
                     <div className="logo text-center"><img src={filmbazaar} alt="logo" width="100" /></div>
