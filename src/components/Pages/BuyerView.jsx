@@ -53,7 +53,7 @@ const BuyerView = () => {
         <>
 
 
-            <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+            <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
@@ -76,14 +76,98 @@ const BuyerView = () => {
                 </div>
             </div>
             {/* Main Content */}
-            <main className="main-content-space col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <main className="main-content-space col-md-8 ms-sm-auto col-lg-9 px-md-4">
                 <div className="pagetitle-name">
                     <h1>Buyer Information</h1>
                 </div>
                 <div className="tab-content1" >
 
                     <div className='col-sm-12 col-md-12 col-lg-12 mx-auto mt-5' >
-                        <div className="list-group">
+
+                    
+                    <div className='card'>
+                        <div className='card-body'>
+                        <div className="row g-0  overflow-hidden flex-md-row mb-4  h-md-250  position-relative">
+                                    <div className="col-auto d-lg-block">
+                                    {buyer?.passport && buyer.passport.url ? (
+                                                            <img src={`${BASE_URL}${process.env.REACT_APP_BASE_PREFIX}/file/read/${buyer.passport.url}`} alt={buyer.passport.name} style={{ width: '200px', height: '200px' }} />
+                                                        ) : (
+                                                            <img src={defaultimg} alt="user" style={{ width: '200px', height: '200px' }} />
+                                                        )}
+                                    </div>
+                                    <div className="col p-4 d-flex flex-column position-static pt-0">
+                                        <h3 className="d-inline-block mb-2 text-primary-emphasis">{buyer.first_name} </h3>
+                                        <div className="mb-1 text-body-secondary">  <strong>First Name :</strong> {buyer.first_name}</div>
+                                        <div className="mb-1 text-body-secondary">  <strong>Last Name :</strong> {buyer.last_name}</div>
+                                        <div className="mb-1 text-body-secondary">   <strong>Position :</strong> {buyer.job_title}</div>
+                                        <div className="mb-1 text-body-secondary">   <strong>Company :</strong> {buyer.company}</div>
+                
+                                    </div>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                    {/* <h6>Script Completed</h6> */}
+                                    <div className="list-group-item active header-title-bg mt-4 mb-4">
+                                        <div className="d-flex align-items-center justify-content-start w-100">
+                                            <h6 className='buyer-heading'>Address</h6>
+                                        </div>
+                                    </div>
+                                </Grid>
+                                <div className="table-responsive">
+                                    <table className="table table-striped table-list-view">
+
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Street :</th>
+                                                <td> {buyer.address}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"> City:</th>
+                                                <td> {buyer.city}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">  Country :</th>
+                                                <td> {getCountryNames(buyer.country_id)}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"> Email :</th>
+                                                <td>  {buyer.email}</td>
+                                            </tr>   
+                                           
+                                            <tr>
+                                                <th scope="row"> Phone :</th>
+                                                <td>{buyer.phone}</td>
+                                            </tr>  
+                                            
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
+                                    {/* <h6>Script Completed</h6> */}
+                                    <div className="list-group-item active header-title-bg mt-4 mb-4">
+                                        <div className="d-flex align-items-center justify-content-start w-100">
+                                            <h6 className='buyer-heading'>Profile</h6>
+                                        </div>
+                                    </div>
+                                </Grid>
+                                <div className="table-responsive">
+                                    <table className="table table-striped table-list-view">
+
+                                        <tbody>
+                                            <tr>
+                                                {/* <th scope="row">Profile :</th> */}
+                                                <td>{buyer.about_us}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                </div>
+                        </div>
+                    </div>
+                        {/* <div className="list-group">
+
+
                             <TableContainer component={Paper} style={{ marginTop: '10px' }}>
                                 <Table sx={{ minWidth: 650 }} aria-label="caption table" className='table table-bordered'>
                                     <TableRow className='form-white'>
@@ -221,7 +305,7 @@ const BuyerView = () => {
                                     </TableRow>
                                 </Table>
                             </TableContainer>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </main>

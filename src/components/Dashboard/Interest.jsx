@@ -311,7 +311,7 @@ const Interest = () => {
     return (
         <>
 
-            <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+            <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
@@ -325,7 +325,7 @@ const Interest = () => {
                 </div>
             </div>
 
-            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+            <main className="col-md-8 ms-sm-auto col-lg-9 px-md-4 main-content">
 
                 <div className=" main-content-space ">
                     <div className='pagetitle-name'><h1>My liked Project </h1>
@@ -343,21 +343,19 @@ const Interest = () => {
                                             <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 card position-relative">
                                                 <div className="col-auto  d-lg-block">
                                                     {type2Document ?
-                                                        <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} style={{ width: "200px", height: "200px" }} />
+                                                        <img src={`${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/read/${type2Document.url}`} alt={type2Document.name} className='user-img' />
                                                         :
-                                                        <img src={defaultimg} alt="user" style={{ width: "200px", height: "200px" }} />
+                                                        <img src={defaultimg} alt="user"   className='user-img'/>
                                                     }
                                                 </div>
                                                 <div className="col p-4 d-flex flex-column position-static">
                                                     <h3 className="mb-0 title-heading" > {row.title}</h3>
                                                     {getVideography(row.videography_type)} | {getformattype(row.format_type)}  | {getformatstagetype(row.stage_type)}
-                                                    <br />
-                                                    <br />
+                                                 
 
                                                     {getCountryNamesByIds(row.country)} | {getLanguageNamesByIds(row.language)}  | {getGenre(row.genre)} | {row.duration}min
 
-                                                    <br />
-                                                    <br />
+                                                  
                                                     <div className='btn-link-card'>
                                                         <button className='btn btn-primary  w-auto'>
                                                             <Link to={`/seller-projects/${row.id}`} className="icon-link gap-1 icon-link-hover stretched-link" style={{ color: "#fff" }}>

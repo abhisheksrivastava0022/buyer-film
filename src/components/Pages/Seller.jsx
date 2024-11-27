@@ -129,7 +129,7 @@ const Seller = () => {
     return (
         <>
 
-            <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+            <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
@@ -142,7 +142,7 @@ const Seller = () => {
                     </div>
                 </div>
             </div>
-            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+            <main className="col-md-8 ms-sm-auto col-lg-9 px-md-4 main-content">
                 <div className=" main-content-space ">
                     <div className='pagetitle-name'><h1>Seller </h1></div>
                     <div className="tab-content" id="myTabContent">
@@ -160,7 +160,7 @@ const Seller = () => {
                                                     <img
                                                         src={row?.profile_img?.url ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${row.profile_img.url}` : defaultimg}
 
-                                                        alt={row?.profile_img?.name ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${row.profile_img.name}` : "defaultimg"} style={{ width: "200px", height: "200px" }} />
+                                                        alt={row?.profile_img?.name ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${row.profile_img.name}` : "defaultimg"} className='user-img' />
 
                                                 </div>
                                                 <div className="col p-4 d-flex flex-column position-static pt-3 pb-0">
@@ -178,8 +178,9 @@ const Seller = () => {
                                                             <li><i className="bi bi-building"></i>{row.job_profile} </li>
 
                                                         </ul>
+                                                        <div className='btn-link-card-buyer'>
                                                         <ul className='col-md-12 col-sm-12' style={{ textAlign: "right" }}>
-                                                            <li>  <Link className="btn btn-info btn-yellow" to={`/seller/view/${row.id}`}> Details</Link>
+                                                            <li>  <Link className="btn btn-primary" to={`/seller/view/${row.id}`}> Details</Link>
                                                             </li>
                                                             {
                                                                 (datatocheck?.[row.id] && datatocheck[row.id] >= 1) ? (
@@ -216,6 +217,7 @@ const Seller = () => {
                                                             }
 
                                                         </ul>
+                                                        </div>
 
                                                     </div>
 

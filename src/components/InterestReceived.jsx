@@ -112,7 +112,7 @@ const InterestReceived = () => {
 
             {/* Tabs Content */}
 
-            <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+            <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
                 <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div className="offcanvas-header">
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
@@ -126,7 +126,7 @@ const InterestReceived = () => {
                 </div>
             </div>
 
-            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+            <main className="col-md-8 ms-sm-auto col-lg-9 px-md-4 main-content">
 
                 <div className=" main-content-space ">
                     <div className='pagetitle-name'><h1>Interest Received</h1>
