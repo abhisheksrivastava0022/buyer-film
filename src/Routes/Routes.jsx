@@ -27,6 +27,7 @@ import ConnectionBuild from '../components/ConnectionBuild';
 import BuyerView from '../components/Pages/BuyerView';
 import SellerView from '../components/Pages/SellerView';
 import VerifyUser from '../components/Login/VerifyUser';
+import BuyerChat from '../components/Pages/BuyerChat';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -105,6 +106,10 @@ export const routes = [
                 element: <BuyerDetails />,
             },
             {
+                path: '/buyer/chat/:id',
+                element: <BuyerChat />,
+            },
+            {
                 path: '/buyer/view/:id',
                 element: <BuyerView />,
             },
@@ -120,6 +125,7 @@ export const routes = [
                 path: '/connection-build',
                 element: <ConnectionBuild />,
             },
+
         ],
         loader: async () => {
 

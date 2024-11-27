@@ -419,7 +419,12 @@ h1,
 .header-title-bg h6 {
   margin: 0;
 }
-.buyer-heading{ padding: 6px 15px; color: #fff;}
+
+.buyer-heading {
+  padding: 6px 15px;
+  color: #fff;
+}
+
 .w-auto {
   width: auto !important;
   max-width: fit-content;
@@ -554,12 +559,118 @@ h1,
 .user-img{  width: 60px; height: 60px; border-radius: 100%; margin:15px 0px 15px 15px}
 .dashboard-profile{ font-size: 14px;}
 
-.btn-info{
+.chat {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chat li {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+ 
+}
+
+.chat li.left .chat-body {
+  margin-left: 20px;
+}
+
+.chat li.right .chat-body {
+  margin-right: 20px;
+}
+
+
+.chat li .chat-body p {
+  margin: 5px 0;
+  color: #777777;
+  m
+}
+
+.panel .slidedown .glyphicon,
+.chat .glyphicon {
+  margin-right: 5px;
+}
+
+.body-panel {
+  overflow-y: scroll;
+  height: 450px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #555;
+}
+
+li.right.clearfix {
+  text-align: right;
+}
+
+.chat-img img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.user-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  margin: 15px
+}
+
+.btn-info {
   color: #fff !important
 }
-.dashboard-profile i{  margin-right: 10px;}
-.btn-link-card-buyer ul{ display: flex; padding-left: 0; margin-top: 15px;}
 
-.tab-content-data{
+.dashboard-profile i {
+  margin-right: 10px;
+}
+
+.btn-link-card-buyer ul {
+  display: flex;
+  padding-left: 0;
+  margin-top: 15px;
+}
+
+.tab-content-data {
   background-color: #fff;
 }
+
+/* Chat Css */
+.chat{  padding: 30px; background: url(../img/bodybg.png) left top repeat-x;}
+
+  .chat .left{ display: flex;}
+  .chat .right p { background-color: #c7e1c7; padding:5px 10px; border-radius: 15px 0px 15px 15px; width: auto;  display: inline-flex
+    ; margin: 5px 0; color: #000!important;}
+    .chat .left p { background-color: #bec1c4; padding:5px 10px; border-radius: 0px 15px 15px 15px; width: auto;  display: inline-flex
+      ; margin: 5px 0; color: #000!important;}
+      .chat-send{ border: none;  background-color: #0d6efd!important; font-size: 20px; color: #fff;}
+
+      .notification{ margin-top: 10px; margin-bottom: 10px;}
+      .notification ul{ padding: 0; margin: 0; list-style: none; display: flex;column-gap: 15px; justify-content: flex-end; position: relative; }
+      .notification ul li{  list-style: none; font-size: 16px;}
+      .notification ul li sup{ background-color: red; color: #fff; font-size: 10px; width: 20px; height: 20px; text-align: center; line-height: 20px; display: inline-block; border-radius:50%;margin-top: -3px;
+        margin-left: -4px;
+        position: absolute;}
+        .notification-list{padding: 0; margin: 0;  }
+        .notification ul li a{ color: #000;}
+        .notification-list ul{ padding: 0; margin: 0; list-style: none;     flex-wrap: wrap;
+        }
+        .notification-list ul li{ list-style: none; display: flex; border-bottom: solid 1px #ddd; margin-bottom: 10px; padding: 10px 0;}
+        .user-img-notification{ width: 60px; height: 60px; border-radius:100% ;}
+        .notification-list ul li:last-child{ border-bottom: none;}
+        .text-notification{ padding-left: 15px;}
+        .text-notification p{ padding-bottom: 5px!important; margin: 0;}
+        .text-notification .date{ font-size: 13px; color: #555;}
+
+
