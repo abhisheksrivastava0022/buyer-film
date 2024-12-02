@@ -23,3 +23,12 @@ export const footerMenu = (data) => {
         payload: data,
     };
 };
+
+
+export const ChatDetails = (data) => {
+    return {
+        type: 'chat_details',
+        payload: data,
+    };
+};
+
