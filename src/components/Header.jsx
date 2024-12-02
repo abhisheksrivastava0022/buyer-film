@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ApiClient from './API/ApiClient'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import filmbazaar from "../assets/img/filmbazaar.png";
+import Notification from './Notification';
 const Header = () => {
     const location = useLocation();
 
@@ -35,21 +36,29 @@ const Header = () => {
 
     return (
         <>
+            <div class="row">
+                <div class="col-md-3">
+                    <div className="sidebar border border-right col-md-12  p-0 bg-body-tertiary">
+                        <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" aria-labelledby="sidebarMenuLabel">
+                            <div className="offcanvas-header">
+                                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+                            </div>
+                            <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+                                <div className="col-md-12 px-3 search-sidebar">
+                                    <p className="logo"><img src={filmbazaar} alt="logo" /></p>
 
-            <div className="sidebar border border-right col-md-4 col-lg-3 p-0 bg-body-tertiary">
-                <div className="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" aria-labelledby="sidebarMenuLabel">
-                    <div className="offcanvas-header">
-                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
-                    </div>
-                    <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-                        <div className="col-md-12 px-3 search-sidebar">
-                            <p className="logo"><img src={filmbazaar} alt="logo" /></p>
 
+                                </div>
 
+                            </div>
                         </div>
                     </div>
+                </div >
+                <div class="col-md-8">
+                    <Notification />
                 </div>
             </div>
+
 
 
         </>
