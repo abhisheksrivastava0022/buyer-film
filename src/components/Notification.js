@@ -49,11 +49,15 @@ const Notification = () => {
     };
 
     return (
-        <div className='notification'>
-            <ul>
+        <div className='notification1'>
+            <div className='notification-social-icon'>
+            <ul className='chat-notification'>
                 <li><span><i class="bi bi-chat-dots" data-bs-toggle="offcanvas" href="#offcanvasExample1" role="button" aria-controls="offcanvasExample1"></i><sup>{unreadMessage}</sup></span></li>
                 <li><a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><i class="bi bi-bell"></i><sup>1</sup></a></li>
             </ul>
+            </div>
+
+           
             <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasExampleLabel">Notifications</h5>
