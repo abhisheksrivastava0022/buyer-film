@@ -66,7 +66,7 @@ const BuyerChat = () => {
     };
     const handleSubmit = async (e) => {
         if (message) {
-            const response = await postRequestApi(`film/chat/${id}/4`, { message });
+            const response = await postRequestApi(`film/chat/${id}/4`, { message });    
             if (response.status) {
                 // alert("data pass")
                 fetchChatDetails();
