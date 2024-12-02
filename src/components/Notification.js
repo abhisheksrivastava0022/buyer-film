@@ -102,7 +102,7 @@ const Notification = () => {
                                         {row.type === 4 ? (
                                             <a href={`/film-buyer/buyer/chat/${row.user_chat_id}`} >click</a>
                                         ) : (
-                                            <a href={`/film-buyer/seller/chat/${row.receiver_id}`} >click</a>
+                                            <a href={`/film-buyer/seller/chat/${row.user_chat_id}`} >click</a>
                                         )}
                                     </div>
 

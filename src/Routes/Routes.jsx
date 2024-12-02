@@ -28,6 +28,7 @@ import BuyerView from '../components/Pages/BuyerView';
 import SellerView from '../components/Pages/SellerView';
 import VerifyUser from '../components/Login/VerifyUser';
 import BuyerChat from '../components/Pages/BuyerChat';
+import SellerChat from '../components/Pages/SellerChat';
 
 
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
@@ -108,6 +109,10 @@ export const routes = [
             {
                 path: '/buyer/chat/:id',
                 element: <BuyerChat />,
+            },
+            {
+                path: '/seller/chat/:id',
+                element: <SellerChat />,
             },
             {
                 path: '/buyer/view/:id',
