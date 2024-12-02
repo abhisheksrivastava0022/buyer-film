@@ -161,8 +161,8 @@ const BuyerChat = () => {
                                                 <li key={row.id} className="left clearfix">
                                                     <span className="chat-img pull-left">
                                                         <img
-                                                            src={row?.passport?.url ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${row.passport.url}` : defaultimg}
-                                                            alt={row?.passport?.name ? `${row.passport.name}` : "defaultimg"} />
+                                                            src={buyer?.passport?.url ? `${dataurl}${process.env.REACT_APP_BASE_PREFIX}/file/${buyer.passport.url}` : defaultimg}
+                                                            alt={buyer?.passport?.name ? `${buyer.passport.name}` : "defaultimg"} />
                                                     </span>
                                                     <div className="chat-body clearfix">
                                                         <p>{row.message}</p>
