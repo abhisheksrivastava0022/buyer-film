@@ -104,9 +104,9 @@ const Notification = () => {
                                         <p>{row.message}</p>
                                         <p className="date">{renderDate(row.createdAt)}</p>
                                         {row.type === 4 ? (
-                                            <Link to={`buyer/chat/${row.receiver_id}`} className="stretched-link"></Link>
+                                            <a href={`/film-buyer/buyer/chat/${row.user_chat_id}`} >click</a>
                                         ) : (
-                                            <Link to={`seller/chat/${row.receiver_id}`} className="stretched-link"></Link>
+                                            <a href={`/film-buyer/seller/chat/${row.receiver_id}`} >click</a>
                                         )}
                                     </div>
 

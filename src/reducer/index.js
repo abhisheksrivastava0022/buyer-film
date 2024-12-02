@@ -36,13 +36,23 @@ const footerMenu = (state = null, action) => {
             return state;
     }
 };
+const chatDetails = (state = null, action) => {
+    switch (action.type) {
+        case 'chat_details':
+            return action.payload;
+
+        default:
+            return state;
+    }
+};
 
 
 const rootReducer = combineReducers({
     homePage: HomePageReducer,
     innerPage: innerPageReducer,
     headerMenu,
-    footerMenu
+    footerMenu,
+    chatDetails
 });
 
 export default rootReducer;
